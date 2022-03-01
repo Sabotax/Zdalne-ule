@@ -2,3 +2,5 @@ esp8266
 Dallas DS18B20
 
 biblioteka thingspeak
+
+home assistant
