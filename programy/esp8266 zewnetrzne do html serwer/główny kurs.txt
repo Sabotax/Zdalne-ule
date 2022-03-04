@@ -1,3 +1,5 @@
 https://github.com/GeekWenWang/Arduino-control-lab/blob/master/esp8266Sample.ino
 
 https://www.instructables.com/Simple-Webserver-Using-Arduino-UNOMega-and-ESP8266/
+
+https://nettigo.pl/products/modul-wifi-esp8266-01s-podlacz-arduino-do-sieci-bezprzewodowej?gclid=CjwKCAiAjoeRBhAJEiwAYY3nDIqguwVBv-ExgQ6Nkb0k6sxj50HFYiJyj7GIhrPSQQAeRgIen0thXhoCMm4QAvD_BwE

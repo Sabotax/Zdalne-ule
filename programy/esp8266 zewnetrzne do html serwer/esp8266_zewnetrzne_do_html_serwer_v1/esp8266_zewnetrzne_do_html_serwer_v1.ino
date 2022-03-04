@@ -52,7 +52,7 @@ float sensetemp() {
 //  float celcius = mv/10;
 //  return(celcius);
 
-  return 47;
+  return (int) millis()/1000;
 }
 
 
@@ -63,6 +63,13 @@ void setup() {
 
   sendData("AT+RST\r\n",2000,DEBUG); // reset module
   sendData("AT+CWMODE=2\r\n",1000,DEBUG); // configure as access point
+  //własne start
+  String ssid = "esp8266_test";
+  String password = "12345678";
+  String RF_channel = "7";
+  String security_scheme = 3; //WPA2_PSK
+  sendData("AT+CWSAP
+  //własne end
   sendData("AT+CIFSR\r\n",1000,DEBUG); // get ip address
   sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
   sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80

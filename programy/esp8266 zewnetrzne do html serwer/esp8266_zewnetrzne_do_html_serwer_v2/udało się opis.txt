@@ -1,0 +1,20 @@
+esp serial musi być na 115200 ustawione
+
+TODO zmodyfikować kod, wydłużyć czasy oczekiwania, bo ucina odpowiedzi przy podejściu z programem całym, a przy ręcznej komunikacji nie
+zbadać jak zrobić by nie zamykało sesji po przesłaniu danych? (tylko raz tworzy .html i koniec, odświeżanie nic nie daje)
+
+(domyślne ip modułu to 192.168.4.1)
+
+spis linków użytych:
+https://www.youtube.com/watch?v=KpI9l8xa0MU   !!!
+https://www.youtube.com/watch?v=RaYZxqUTNWU
+https://www.youtube.com/watch?v=VyefiewTJoo
+https://www.instructables.com/Getting-Started-With-the-ESP8266-ESP-01/ !!!
+https://iotcircuithub.com/esp8266-programming-arduino/
+https://www.youtube.com/watch?v=Tv2RMlIxBXs
+https://www.youtube.com/watch?v=6UjEiigDcDQ TODO zobaczyć (bo jeden moduł esp nie odpowiada w ogóle)
+https://create.arduino.cc/projecthub/pratikdesai/how-to-program-esp8266-esp-01-module-with-arduino-uno-598166
+https://www.youtube.com/watch?v=fmE92c_Ju_4
+https://www.instructables.com/How-to-use-the-ESP8266-01-pins/
+http://home.agh.edu.pl/~bartus/index.php?action=efekty&subaction=arduino&item=8 - używają jako mikrokontrolera a nie tylko modułu ale i tak warte rozważenia w końcowym projekcie, że może samo esp-07 (rozbudowane w stosunku do esp-01) starczy do zarządzania całym projektem - mocno to zmniejszy rozmiar i koszt
+https://www.instructables.com/Simple-Webserver-Using-Arduino-UNOMega-and-ESP8266/
