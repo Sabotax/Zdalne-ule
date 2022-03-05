@@ -2,6 +2,7 @@ esp serial musi być na 115200 ustawione
 
 TODO zmodyfikować kod, wydłużyć czasy oczekiwania, bo ucina odpowiedzi przy podejściu z programem całym, a przy ręcznej komunikacji nie
 zbadać jak zrobić by nie zamykało sesji po przesłaniu danych? (tylko raz tworzy .html i koniec, odświeżanie nic nie daje)
+TODO biblioteka WifiEsp do zarządzania esp-01 korzysta z AT komend, nie trzeba koła od nowa robić
 
 (domyślne ip modułu to 192.168.4.1)
 

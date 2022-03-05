@@ -1,0 +1,5 @@
+https://www.allaboutcircuits.com/projects/flashing-the-ESP-01-firmware-to-SDK-v2.0.0-is-easier-now/
+https://www.allaboutcircuits.com/projects/update-the-firmware-in-your-esp8266-wi-fi-module/
+
++setup z poprzedniego poprzez arduino
++ nie wiem czy konieczne, ale zasilanie jest zewnętrzne (do 10A), a TX z arduino zbite do 3.3

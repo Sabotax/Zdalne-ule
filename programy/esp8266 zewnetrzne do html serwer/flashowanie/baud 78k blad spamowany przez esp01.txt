@@ -1,0 +1,29 @@
+--- The partition table size is larger than flash size 0x80000 ---
+please check partition type 6 addr:fd000 len:3000
+system_partition_table_regist fail
+V2
+Mo
+rf_cal[0] !=0x05,is 0x00
+
+ ets Jan  8 2013,rst cause:2, boot mode:(3,6)
+
+load 0x40100000, len 2592, room 16 
+tail 0
+chksum 0xf3
+load 0x3ffe8000, len 764, room 8 
+tail 4
+chksum 0x92
+load 0x3ffe82fc, len 676, room 4 
+tail 0
+chksum 0x22
+csum 0x22
+
+2nd boot version : 1.7(5d6f877)
+SPI Speed : 40MHz
+SPI Mode : QIO
+SPI Flash Size & Map: 4Mbit(256KB+256KB)
+jump to run user1 @ 1000
+
+correct flash map
+mismatch map 2,spi_size_map 0
+system param partition error

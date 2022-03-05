@@ -12,7 +12,7 @@
   By Joyson Chinta and Gladson Kujur
  */
 #include <SoftwareSerial.h>
-SoftwareSerial esp(2, 3); // RX TX
+SoftwareSerial esp(3,2); // RX TX
 #define DEBUG true
  
 void setup()
@@ -25,19 +25,19 @@ void setup()
  
   sendData("AT+RST\r\n",3000,DEBUG); // reset module
   //wlasne start
-  sendData("AT+GMR\r\n",1000,DEBUG);
+  sendData("AT+GMR\r\n",4000,DEBUG);
   //wlasne end
-  sendData("AT+CWMODE=2\r\n",1000,DEBUG); // configure as access point
+  sendData("AT+CWMODE=2\r\n",4000,DEBUG); // configure as access point
   //własne start
   String ssid = "esp8266_test";
   String password = "12345678";
   String RF_channel = "11";
   String security_scheme = "3"; //WPA2_PSK
-  sendData("AT+CWSAP=\""+ssid+"\",\""+password+"\","+RF_channel+","+security_scheme+"\r\n",1000,DEBUG); //AT+CWSAP="esp8266_test","12345678",11,3
+  sendData("AT+CWSAP=\""+ssid+"\",\""+password+"\","+RF_channel+","+security_scheme+"\r\n",3000,DEBUG); //AT+CWSAP="esp8266_test","12345678",11,3
   //własne end
-  sendData("AT+CIFSR\r\n",1000,DEBUG); // get ip address
-  sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
-  sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80
+  sendData("AT+CIFSR\r\n",2000,DEBUG); // get ip address
+  sendData("AT+CIPMUX=1\r\n",2000,DEBUG); // configure for multiple connections
+  sendData("AT+CIPSERVER=1,80\r\n",2000,DEBUG); // turn on server on port 80
 }
 
 
