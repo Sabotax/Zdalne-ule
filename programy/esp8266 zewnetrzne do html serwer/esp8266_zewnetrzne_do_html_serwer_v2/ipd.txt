@@ -1,0 +1,253 @@
+AT+GMR
+AT version:1.7.4.0(May 11 2020 19:13:04)
+SDK version:3.0.4(9532ceb)
+compile time:May 27 2020 10:12:17
+Bin version(Wroom 02):1.7.4
+OK
+AT+CWIFSR
+
+ERROR
+AT+CIFSR
++CIFSR:APIP,"192.168.4.1"
++CIFSR:APMAC,"42:91:51:44:a5:9a"
+
+OK
+AT+CIPMUX?
++CIPMUX:0
+
+OK
+AT+CIPMUX=1
+
+OK
+AT+CIPSERVER=1,80
+
+OK
+AT
+
+OK
+0,CONNECT
+1,CONNECT
+
++IPD,0,476:GET / HTTP/1.1
+Host: 192.168.4.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+
+1,CLOSED
+AT+CIPSEND=0,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+0,CLOSED
+0,CONNECT
+1,CONNECT
+
++IPD,0,476:GET / HTTP/1.1
+Host: 192.168.4.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+
+AT+CIPSEND=0,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+AT
+
+OK
+1,CLOSED
+AT+CIPSEND=0,5
+
+OK
+> 0,CLOSED
+0,CONNECT
+1,CONNECT
+
++IPD,0,476:GET / HTTP/1.1
+Host: 192.168.4.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+
+T+CIPSEND=0,5
+
+busy s...
+
+Recv 5 bytes
+SEND FAIL
+yo
+
+ERROR
+2,CONNECT
+
++IPD,2,21:ÿûÿû ÿûÿû'ÿýÿûÿý1,CLOSED
+
++IPD,2,3:uio
++IPD,2,2:
+
++IPD,2,2:
+
++IPD,2,6:wololo
++IPD,2,2:
+AT+CIPSEND,2,5
+
+ERROR
+AT+CIPSEND,2,5
+
+ERROR
+AT+CIPSEND,0,5
+
+ERROR
+
++IPD,2,4:test
++IPD,2,2:
+AT+CIPSEND=0,7
+
+OK
+> aa
+
+busy s...
+
+
+Recv 7 bytes
+
+SEND OK
+AT+CIPSEND=2,7
+
+OK
+> 
+
+busy s...
+
+Recv 7 bytes
+
+SEND OK
+AT+CIPSEND=0,5
+
+OK
+> 0,CLOSED
+
+
+busy s...
+
+Recv 5 bytes
+SEND FAIL
+0,CONNECT
+1,CONNECT
+
++IPD,0,476:GET / HTTP/1.1
+Host: 192.168.4.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+
+AT+CIPSEND=0,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+
+AT
+
+OK
+
++IPD,2,3:wuy
++IPD,2,2:
+1,CLOSED
+
++IPD,2,3:www
++IPD,2,2:
+CW+IPSEND=2,10
+
+ERROR
+AT+CIPSEND=2,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+0,CLOSED
+0,CONNECT
+1,CONNECT
+
++IPD,0,476:GET / HTTP/1.1
+Host: 192.168.4.1
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+
+AT+CIPSEND=0,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+3,CONNECT
+
++IPD,3,352:GET / HTTP/1.1
+Host: 192.168.4.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: pl,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+
+AT+CIPSEND=3,5
+
+OK
+> 
+
+busy s...
+
+Recv 5 bytes
+
+SEND OK
+1,CLOSED
