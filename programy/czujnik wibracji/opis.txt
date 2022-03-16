@@ -1,0 +1,5 @@
+5/3.3V na Vcc
+GND na GND
+jak nie ma wibracji to daje HIGH na DO
+jak są wibracje to daje LOW na DO
+potencjometr reguluje czułość
