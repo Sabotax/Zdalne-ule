@@ -1,0 +1,7 @@
+czerwony - biały : 2K
+biały - zielony: 1K
+zielony - czerwony: 1K
+
+mój biały to jego biały
+mój czerwony to jego czarny
+mój zielony to jego czerwony

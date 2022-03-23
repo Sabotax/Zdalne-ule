@@ -1,0 +1,7 @@
+skoro nie ma sieci, to użyje arduino nano
+1. waga
+2. temperatura
+3. rtc 1307
+4. zapisywanie co godzine (robione deepsleepem) wagi, temperatury, godziny wg rtc
+5. wakeUp on szturchnięcie i zapisanie informacji o tym i dalszy sleep
+6. opcjonalnie - (niepotrzebne póki co) - użycie zegara żeby automatycznie dostosować czas spania żeby się zgadzało że co godzinę mimo budzenia przez interrupt oraz mimo nie-precyzji wynikającej z watchdoga (zostanie to później zneutralizoane używając DS33coś tam który ma alarmy i większą odporność na temperaturę
