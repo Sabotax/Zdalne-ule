@@ -1,0 +1,6 @@
+Telnet Server Line Mode - udało się to co chciałem, żeby na telneta wysyłało
+TODO
+https://microcontrollerslab.com/esp8266-deep-sleep-wake-up-sources-arduino-ide/
+https://microcontrollerslab.com/esp32-deep-sleep-wake-up-sources-arduino-ide/
+deep sleep wyrwany przez czujnik wstrzasu
+https://randomnerdtutorials.com/esp8266-deep-sleep-with-arduino-ide/
