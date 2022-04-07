@@ -1,7 +1,9 @@
 #include "Sensor.h"
 #include "Save.h"
+#include "Timer.h"
 Sensor Sensor1;
 Save Save1;
+Timer Timer1;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
