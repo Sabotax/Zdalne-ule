@@ -1,5 +1,7 @@
 #include "Sensor.h"
+#include "Save.h"
 Sensor Sensor1;
+Save Save1;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);

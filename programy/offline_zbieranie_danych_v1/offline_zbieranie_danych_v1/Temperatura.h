@@ -3,7 +3,7 @@
  */
 #pragma once
 #include <OneWire.h>
-
+// TODO przebudować z użyciem przykadu simple może, (bilbioteka dallas temperatura)
 class Temperatura {
   public:
     boolean DEBUG = false;
