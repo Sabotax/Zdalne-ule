@@ -42,6 +42,7 @@ boolean Temperatura::init() {
       ds.select(addr);
       ds.write(0x44,1);
       delay(1000);
+      initiated_correctly = true;
       return true;
 }
 float Temperatura::measure() {

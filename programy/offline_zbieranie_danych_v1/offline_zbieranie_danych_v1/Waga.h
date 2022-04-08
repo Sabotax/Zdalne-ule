@@ -11,6 +11,8 @@ class Waga {
     boolean DEBUG = false;
     HX711 scale;
     float calibration_factor = 1;
+    boolean initiated_correctly = false;
+    float measured_waga;
 
     boolean init();
     float measure();

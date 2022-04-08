@@ -8,6 +8,7 @@ boolean Save::init() {
   }
   else {
     if (DEBUG) Serial.println("initialization done.");
+    initiated_correctly = true;
     return true;
   }
 }

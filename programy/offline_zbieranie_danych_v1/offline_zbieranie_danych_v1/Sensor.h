@@ -7,6 +7,9 @@ class Sensor {
     Temperatura Temperatura1;
     Waga Waga1;
 
+    boolean all_initiated_correctly();
+    void init();
+
     Sensor() : 
       Temperatura1(),
       Waga1()

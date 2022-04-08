@@ -4,6 +4,8 @@
  * Aby użyć klasy RTC z alarmem i budzeniem przez interrupty należy skorzystać z klasy TimerAlarm.h
  */
 
+ // TODO podlaczenie rtc za pomoca Wire.h i i2c
+
 #include "RTClib.h"
 #include <LowPower.h>
 
@@ -20,6 +22,7 @@ class Timer {
     boolean spie = false;
     const int pin_wstrzas = 0;
     boolean idle_wakeup = true; // sam sie obudzilem, nie obudzil mnie interrupt
+    boolean initiated_correctly = false;
 
     boolean init();
     boolean is_date_set();
@@ -32,5 +35,3 @@ class Timer {
     void reakcja_na_wstrzas();
     static void reakcja_na_wstrzas_static();
 };
-
-void reakcja_na_wstrzas_public();

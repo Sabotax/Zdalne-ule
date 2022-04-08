@@ -49,7 +49,9 @@ void Timer::spij_godzine_synchronizowane() {
   // pojdzie spac na godzine - minuta wiec o 02:14 dorowna
 
   //milliseconds
-  ile_mam_spac = (60*60*1000) - (roznica.totalseconds()*1000);
+  //ile_mam_spac = (60*60*1000) - (roznica.totalseconds()*1000); godzina - docelowo to ma byc
+  //debug:
+  ile_mam_spac = ( 60 -roznica.totalseconds()  )*1000;
   while ( spij_czas() );
   return;
 }

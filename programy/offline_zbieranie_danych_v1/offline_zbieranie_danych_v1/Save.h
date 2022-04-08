@@ -58,6 +58,7 @@ class Save {
     boolean DEBUG = false;
     File myFile;
     const int pin_CS = 10; //pin chipselect (jedyny ustawiany), 10 dla arduino, 15 dla esp (zwany takze D8)
+    boolean initiated_correctly = false;
 
     boolean init();
     boolean save(String nazwa,String text);

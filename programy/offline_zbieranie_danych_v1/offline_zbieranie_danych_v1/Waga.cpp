@@ -5,6 +5,7 @@ boolean Waga::init() {
   scale.tare();
   long zero_factor = scale.read_average(); // po co?
   if (DEBUG) Serial.println("Waga zainicjalizowana");
+  initiated_correctly = true;
   return true;
   // TODO sprawdzic jakos czy sie powiodlo i w zaleznosci zmienic return
 }
