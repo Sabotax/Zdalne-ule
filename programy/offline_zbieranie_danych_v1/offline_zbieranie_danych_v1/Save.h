@@ -55,7 +55,7 @@ https://docs.arduino.cc/learn/programming/sd-guide
 
 class Save {
   public:
-    boolean DEBUG = false;
+    boolean DEBUG = true;
     File myFile;
     const int pin_CS = 10; //pin chipselect (jedyny ustawiany), 10 dla arduino, 15 dla esp (zwany takze D8)
     boolean initiated_correctly = false;

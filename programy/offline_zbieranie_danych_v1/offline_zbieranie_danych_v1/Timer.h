@@ -11,7 +11,7 @@
 
 class Timer {
   public:
-    boolean DEBUG = false;
+    boolean DEBUG = true;
     RTC_DS1307 rtc;
     DateTime now;
     DateTime kiedy_poszedlem_spac;
@@ -20,12 +20,11 @@ class Timer {
     int reszta_podzialki;
     int ile_mam_spac;
     boolean spie = false;
-    const int pin_wstrzas = 0;
+    const int pin_wstrzas = 2;
     boolean idle_wakeup = true; // sam sie obudzilem, nie obudzil mnie interrupt
     boolean initiated_correctly = false;
 
     boolean init();
-    boolean is_date_set();
     boolean set_time(int rok, int miesiac, int dzien, int godzina, int minuta, int sekunda);
 
     String print_DateTime(DateTime czas);

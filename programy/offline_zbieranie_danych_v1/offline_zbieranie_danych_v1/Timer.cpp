@@ -11,16 +11,17 @@ boolean Timer::init() {
     return false;
   }
   else {
-    return true;
+    if (! rtc.isrunning()) {
+    if (DEBUG) Serial.println("RTC is NOT running, let's set the time!");
+    // When time needs to be set on a new device, or after a power loss, the
+    // following line sets the RTC to the date & time this sketch was compiled
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    // This line sets the RTC with an explicit date & time, for example to set
+    // January 21, 2014 at 3am you would call:
+    // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
   }
-}
-
-boolean Timer::is_date_set() {
-  if (! rtc.isrunning()) {
-    if (DEBUG) Serial.println("RTC is NOT running");
-    return false;
-  }
-  else {
+    if (DEBUG) Serial.println("RTC initialized correctly");
+    initiated_correctly = true;
     return true;
   }
 }
@@ -51,13 +52,14 @@ void Timer::spij_godzine_synchronizowane() {
   //milliseconds
   //ile_mam_spac = (60*60*1000) - (roznica.totalseconds()*1000); godzina - docelowo to ma byc
   //debug:
-  ile_mam_spac = ( 60 -roznica.totalseconds()  )*1000;
-  while ( spij_czas() );
+  ile_mam_spac = ( 10 -roznica.totalseconds()  )*1000;
+  spij_czas();
   return;
 }
 
 boolean Timer::spij_czas() {
   if(spie) {
+    if (DEBUG) Serial.println("Sen: " + String(licznik_godziny) + "/" + String(podzialka_godzin) );
     if(licznik_godziny < podzialka_godzin) {
       licznik_godziny++;
       LowPower.powerDown(SLEEP_8S,ADC_OFF, BOD_OFF);
@@ -78,6 +80,7 @@ boolean Timer::spij_czas() {
     }
   }
   else {
+    if (DEBUG) Serial.println("Sen: ide spac");
     podzialka_godzin = ile_mam_spac / 8; 
     reszta_podzialki = ile_mam_spac % 8;
     spie = true;

@@ -5,14 +5,17 @@
  * 
  * DC 9 - OneWire Dallas temperatura
  * 
- * DC 2 - HX711 data
- * DC 3 - HX711 clk
+ * DC 4 - HX711 data
+ * DC 5 - HX711 clk
  * 
  * Karta pamięci
  * MISO 12
  * MOSI 11
  * SCK 13
  * CS 10
+ * 
+ * Czujnik wstrząsu
+ * 2
  */
 
 #include "Sensor.h"
@@ -23,27 +26,37 @@ Save Save1;
 Timer Timer1;
 void setup() {
   // put your setup code here, to run once:
-  delay(5000);
+  delay(3000);
   Serial.begin(115200);
   Serial.println("Start programu");
 
-  while( Sensor1.all_initiated_correctly() && Save1.initiated_correctly && Timer1.initiated_correctly) {
+  while(  ! (Sensor1.Waga1.initiated_correctly && Sensor1.Temperatura1.initiated_correctly && Save1.initiated_correctly && Timer1.initiated_correctly) ) {
     if(!Timer1.initiated_correctly) {
       Timer1.init();
     }
     if(!Save1.initiated_correctly) {
       Save1.init();
     }
-    if(!Sensor1.all_initiated_correctly()) {
-      Sensor1.init();
+    if(!Sensor1.Temperatura1.initiated_correctly) {
+      Sensor1.Temperatura1.init();
+    }
+    if(!Sensor1.Waga1.initiated_correctly) {
+      Sensor1.Waga1.init();
     }
   }
 }
 
 void loop() {
-  Sensor1.Temperatura1.measured_temperature = Sensor1.Temperatura1.measure();
-  Sensor1.Waga1.measured_waga = Sensor1.Waga1.measure();
-  Timer1.now = Timer1.rtc.now();
-  Save1.save("data.txt", Timer1.print_DateTime(Timer1.now) + "," + Sensor1.Temperatura1.measured_temperature + "," + Sensor1.Waga1.measured_waga);
-  Timer1.spij_godzine_synchronizowane();
+
+  if(Timer1.spie) {
+    Timer1.spij_czas();
+  }
+  else {
+    Sensor1.Temperatura1.measured_temperature = Sensor1.Temperatura1.measure();
+    Sensor1.Waga1.measured_waga = Sensor1.Waga1.measure();
+    Timer1.now = Timer1.rtc.now();
+    Save1.save("data.txt", Timer1.print_DateTime(Timer1.now) + "," + Sensor1.Temperatura1.measured_temperature + "," + Sensor1.Waga1.measured_waga);
+    Timer1.spij_godzine_synchronizowane();
+  }
+  
 }
