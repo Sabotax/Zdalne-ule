@@ -53,7 +53,7 @@ String godzina = "";
 #define pin_CS 10
 File myFile;
 //--zmienne
-String nazwa = "data6.txt";
+String nazwa = "data7.txt";
 String text = "";
 
 // LowPower
@@ -121,7 +121,8 @@ void setup() {
     if( true) {
       if (DEBUG) Serial.println("RTC is NOT running, let's set the time!");
       now = DateTime(F(__DATE__), F(__TIME__));
-      if (DEBUG) Serial.println("Ustawiam czas na " + toString(&now));
+      //now = DateTime(2022,4,10,19,2,0);
+      if (DEBUG) Serial.println("Ustawiam czas na " + toString(now));
       rtc.adjust(now);
     }
     if (DEBUG) Serial.println("RTC initialized correctly");
@@ -166,14 +167,14 @@ void loop() {
 
   // RTC POMIAR
   now = rtc.now();
-  if (DEBUG) Serial.println("Teraz jest czas: " + toString(&now));
+  if (DEBUG) Serial.println("Teraz jest czas: " + toString(now));
 
   // KARTA SD ZAPIS
   myFile = SD.open(nazwa, FILE_WRITE);
 
   if (myFile) {
     if (DEBUG) Serial.print("Writing to " + nazwa);
-    text = toString(&now) + "," + String(tempC) + "," + String(pomiar_waga);
+    text = toString(now) + "," + String(tempC) + "," + String(pomiar_waga);
     myFile.println(text);
     myFile.close();
     if (DEBUG) Serial.println("done.");
