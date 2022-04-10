@@ -98,22 +98,22 @@ String Timer::print_DateTime(DateTime ob) {
   for( int i = 0; i < 6 ; i++) {
     switch(i) {
       case 0:
-        re+=ob.year();
+        re+=String(ob.year(),DEC);
         break;
       case 1:
-        re+=ob.month();
+        re+=String(ob.month(),DEC);
         break;
       case 2:
-        re+=ob.day();
+        re+=String(ob.day(),DEC);
         break;
       case 3:
-        re+=ob.hour();
+        re+=String(ob.hour(),DEC);
         break;
       case 4:
-        re+=ob.minute();
+        re+=String(ob.minute(),DEC);
         break;
       case 5:
-        re+=ob.second();
+        re+=String(ob.second(),DEC);
         break;
     }
     re+=":";

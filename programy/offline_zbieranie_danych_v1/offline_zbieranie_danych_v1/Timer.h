@@ -11,7 +11,7 @@
 
 class Timer {
   public:
-    boolean DEBUG = true;
+    boolean DEBUG = false;
     RTC_DS1307 rtc;
     DateTime now;
     DateTime kiedy_poszedlem_spac;
@@ -26,7 +26,7 @@ class Timer {
     boolean init();
     boolean set_time(int rok, int miesiac, int dzien, int godzina, int minuta, int sekunda);
 
-    String print_DateTime(DateTime czas);
+    String print_DateTime(DateTime ob);
 
     void spij_start(int godziny, int minuty, int sekundy);
     void spij_czas(int czas);
