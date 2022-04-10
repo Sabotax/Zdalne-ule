@@ -8,7 +8,7 @@ class Waga {
   public:
     const int pin_data = 4;
     const int pin_clk = 5;
-    boolean DEBUG = true;
+    boolean DEBUG = false;
     HX711 scale;
     float calibration_factor = 1;
     boolean initiated_correctly = false;
