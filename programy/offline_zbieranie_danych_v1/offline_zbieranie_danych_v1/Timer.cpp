@@ -15,7 +15,9 @@ boolean Timer::init() {
     if (DEBUG) Serial.println("RTC is NOT running, let's set the time!");
     // When time needs to be set on a new device, or after a power loss, the
     // following line sets the RTC to the date & time this sketch was compiled
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    now = DateTime(F(__DATE__), F(__TIME__));
+    if (DEBUG) Serial.println("Ustawiam czas na " + print_DateTime(now));
+    rtc.adjust(now);
     // This line sets the RTC with an explicit date & time, for example to set
     // January 21, 2014 at 3am you would call:
     // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
@@ -33,10 +35,19 @@ boolean Timer::set_time(int rok, int miesiac, int dzien, int godzina, int minuta
   return true;
 }
 
-void Timer::spij_godzine_synchronizowane() {
+void Timer::spij_start(int godziny, int minuty, int sekundy) {
   now = rtc.now();
-  DateTime czas_ktory_powinien_byc (kiedy_poszedlem_spac + TimeSpan(0,1,0,0));
+  if (DEBUG) Serial.println("Jest " + print_DateTime(now));
+  DateTime czas_ktory_powinien_byc (kiedy_poszedlem_spac + TimeSpan(0,godziny,minuty,sekundy));
+  if (DEBUG) Serial.println("Powinno byc " + print_DateTime(czas_ktory_powinien_byc));
   TimeSpan roznica = now - czas_ktory_powinien_byc;
+    if (!sen_przerwany) {
+    // sen nie został przerwany
+    kiedy_poszedlem_spac = now;
+  }
+  else {
+    sen_przerwany = false;
+  }
 
   //np
   // teraz to 13
@@ -52,45 +63,36 @@ void Timer::spij_godzine_synchronizowane() {
   //milliseconds
   //ile_mam_spac = (60*60*1000) - (roznica.totalseconds()*1000); godzina - docelowo to ma byc
   //debug:
-  ile_mam_spac = ( 10 -roznica.totalseconds()  )*1000;
-  spij_czas();
+  ile_mam_spac = TimeSpan(0,godziny,minuty,sekundy) - roznica ;
+  //if (DEBUG) Serial.println("Ide spac do " + ile_mam_spac);
+  if (DEBUG) Serial.println("Ide spac na " + String(ile_mam_spac.totalseconds()) );
+  if (DEBUG) delay(20);
+  spij_czas(ile_mam_spac.totalseconds());
   return;
 }
 
-boolean Timer::spij_czas() {
-  if(spie) {
-    if (DEBUG) Serial.println("Sen: " + String(licznik_godziny) + "/" + String(podzialka_godzin) );
-    if(licznik_godziny < podzialka_godzin) {
-      licznik_godziny++;
-      LowPower.powerDown(SLEEP_8S,ADC_OFF, BOD_OFF);
-    } else {
-      if(reszta_podzialki >= 4) {
-        reszta_podzialki -= 4;
-        LowPower.powerDown(SLEEP_4S,ADC_OFF, BOD_OFF);
-      } else if(reszta_podzialki >= 2) {
-        reszta_podzialki -= 2;
-        LowPower.powerDown(SLEEP_2S,ADC_OFF, BOD_OFF);
-      } else if(reszta_podzialki >= 1) {
-        reszta_podzialki -= 1;
-        LowPower.powerDown(SLEEP_1S,ADC_OFF, BOD_OFF);
-      } else {
-        spie = false;
-        idle_wakeup = true;
-      }
-    }
-  }
-  else {
-    if (DEBUG) Serial.println("Sen: ide spac");
-    podzialka_godzin = ile_mam_spac / 8; 
-    reszta_podzialki = ile_mam_spac % 8;
-    spie = true;
-    if (idle_wakeup) kiedy_poszedlem_spac = rtc.now();
-    licznik_godziny = 1;
+void Timer::spij_czas(int czas) {
+  int n = czas / 8;
+  int reszta = czas % 8;
+
+  for (int i = 0 ; i < n ; i++) {
     LowPower.powerDown(SLEEP_8S,ADC_OFF, BOD_OFF);
   }
-  return spie;
+  if (reszta >= 4) {
+    reszta -= 4;
+    LowPower.powerDown(SLEEP_4S,ADC_OFF, BOD_OFF);
+  } 
+  else if (reszta >= 2) {
+    reszta -= 2;
+    LowPower.powerDown(SLEEP_2S,ADC_OFF, BOD_OFF);
+  }
+  else if (reszta >= 1) {
+    reszta -= 1;
+    LowPower.powerDown(SLEEP_1S,ADC_OFF, BOD_OFF);
+  }
+  
+  return;
 }
-
 String Timer::print_DateTime(DateTime ob) {
   String re = "";
   for( int i = 0; i < 6 ; i++) {
@@ -120,12 +122,11 @@ String Timer::print_DateTime(DateTime ob) {
 }
 
 void Timer::reakcja_na_wstrzas() {
-  spie = false;
-  idle_wakeup = false;
+  sen_przerwany = true;
   if (DEBUG) Serial.println("Alarm, ktos mnie szturchnal");
   Save1.save("alarmy.txt",Timer::print_DateTime(rtc.now()) + "- interrupt z czujnika wstrzasow");
   // gps itp powiadomienie
-  Timer::spij_godzine_synchronizowane();
+  Timer::spij_start(0,0,10);
 }
 
 void Timer::reakcja_na_wstrzas_static() {

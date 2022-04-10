@@ -6,7 +6,7 @@
 // TODO przebudować z użyciem przykadu simple może, (bilbioteka dallas temperatura)
 class Temperatura {
   public:
-    boolean DEBUG = true;
+    boolean DEBUG = false;
     const int pin_temperatura = 9;
     OneWire ds;
     byte data[12];
