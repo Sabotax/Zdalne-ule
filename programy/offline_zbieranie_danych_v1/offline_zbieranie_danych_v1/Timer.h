@@ -18,10 +18,9 @@ class Timer {
     int licznik_godziny = 0;
     int podzialka_godzin;
     int reszta_podzialki;
-    int ile_mam_spac;
-    boolean spie = false;
+    TimeSpan ile_mam_spac;
     const int pin_wstrzas = 2;
-    boolean idle_wakeup = true; // sam sie obudzilem, nie obudzil mnie interrupt
+    boolean sen_przerwany = false; // sam sie obudzilem, nie obudzil mnie interrupt
     boolean initiated_correctly = false;
 
     boolean init();
@@ -29,8 +28,8 @@ class Timer {
 
     String print_DateTime(DateTime czas);
 
-    void spij_godzine_synchronizowane();
-    boolean spij_czas();
+    void spij_start(int godziny, int minuty, int sekundy);
+    void spij_czas(int czas);
     void reakcja_na_wstrzas();
     static void reakcja_na_wstrzas_static();
 };

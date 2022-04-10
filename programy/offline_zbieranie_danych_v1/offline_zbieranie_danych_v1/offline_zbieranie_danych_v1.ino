@@ -46,17 +46,15 @@ void setup() {
   }
 }
 
+String krotka = "";
 void loop() {
 
-  if(Timer1.spie) {
-    Timer1.spij_czas();
-  }
-  else {
-    Sensor1.Temperatura1.measured_temperature = Sensor1.Temperatura1.measure();
-    Sensor1.Waga1.measured_waga = Sensor1.Waga1.measure();
-    Timer1.now = Timer1.rtc.now();
-    Save1.save("data.txt", Timer1.print_DateTime(Timer1.now) + "," + Sensor1.Temperatura1.measured_temperature + "," + Sensor1.Waga1.measured_waga);
-    Timer1.spij_godzine_synchronizowane();
-  }
-  
+  Sensor1.Temperatura1.measured_temperature = Sensor1.Temperatura1.measure();
+  Sensor1.Waga1.measured_waga = Sensor1.Waga1.measure();
+  Timer1.now = Timer1.rtc.now();
+  krotka = Timer1.print_DateTime(Timer1.now) + "," + Sensor1.Temperatura1.measured_temperature + "," + Sensor1.Waga1.measured_waga;
+  Serial.println(krotka);
+  Save1.save("data2.txt", krotka);
+  delay(15);
+  Timer1.spij_start(0,0,10);
 }
