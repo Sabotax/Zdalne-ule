@@ -14,8 +14,6 @@
  * SCK 13
  * CS 10
  * 
- * Czujnik wstrząsu
- * 2
  */
 
 // TEMPERATURA
@@ -53,23 +51,21 @@ String godzina = "";
 #define pin_CS 10
 File myFile;
 //--zmienne
-String nazwa = "data7.txt";
+String nazwa = "dataT.txt";
 String text = "";
 
 // LowPower
 #include <LowPower.h>
-int czas_snu = 16;
+int czas_snu = 64;
+long teraz;
 
 
 // INNE ZMIENNE
-boolean DEBUG = true;
+boolean DEBUG = false;
+boolean setup_error = false;
+boolean loop_error = false;
 
 // POZOSTALE FUNKCJE
-
-void reakcja_na_wstrzas() {
-  if (DEBUG) Serial.println("Szturchnieto mnie");
-  return;
-}
 
 String toString(const DateTime& ob) {
   String re = "";
@@ -115,6 +111,7 @@ void setup() {
   // RTC
   if ( !rtc.begin() ) {
     if(DEBUG) Serial.println("Couldn't find RTC");
+    setup_error = true;
   }
   else {
     //if (! rtc.isrunning()) {
@@ -128,25 +125,32 @@ void setup() {
     if (DEBUG) Serial.println("RTC initialized correctly");
   }
 
-  // WSTRZAS
-  pinMode(pin_wstrzas,INPUT);
-  attachInterrupt(pin_wstrzas, reakcja_na_wstrzas, LOW);
-
   // KARTA SD
   if (DEBUG) Serial.print("Initializing SD card...");
   if( !SD.begin(pin_CS) ) {
     if (DEBUG) Serial.println("initialization failed!");
+    setup_error = true;
   }
   else {
     if (DEBUG) Serial.println("initialization done.");
   }
-  
+  delay(1000);
+
+  pinMode(LED_BUILTIN,OUTPUT);
+  while(setup_error) {
+    digitalWrite(LED_BUILTIN,HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(500);
+  }
 }
 
 void loop() {
   for(int i = 0; i < czas_snu/8;i++) {
     LowPower.powerDown(SLEEP_8S,ADC_OFF, BOD_OFF);
   }
+
+  loop_error = false;
 
   // TEMPERAUTRA - POMIAR
   sensors.requestTemperatures();
@@ -159,6 +163,7 @@ void loop() {
   else
   {
     if (DEBUG) Serial.println("Error: Could not read temperature data");
+    loop_error = true;
   }
 
   // WAGA POMIAR
@@ -174,13 +179,33 @@ void loop() {
 
   if (myFile) {
     if (DEBUG) Serial.print("Writing to " + nazwa);
-    text = toString(now) + "," + String(tempC) + "," + String(pomiar_waga);
-    myFile.println(text);
+    //text = toString(now) + "," + String(tempC) + "," + String(pomiar_waga);
+    myFile.print(toString(now)+",");
+    myFile.flush();
+    myFile.print(String(tempC) + ",");
+    myFile.flush();
+    myFile.println(String(pomiar_waga));
+    myFile.flush();
     myFile.close();
     if (DEBUG) Serial.println("done.");
   } else {
     if (DEBUG) Serial.println("error opening " + nazwa);
+    loop_error = true;
   }
 
   if (DEBUG) Serial.println();
+  if (DEBUG) Serial.flush();
+  // WAIT FOR ALL TASKS DONE (SAVING)
+  //teraz = millis();
+  delay(100);
+  //while teraz 
+  // ERROR LOOP
+  int i = 0;
+  while(loop_error && i < 100) {
+    digitalWrite(LED_BUILTIN,HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(500);
+    i++;
+  }
 }
