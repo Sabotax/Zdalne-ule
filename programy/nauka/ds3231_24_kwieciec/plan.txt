@@ -1,0 +1,12 @@
+co jesli kazdy ul by miał tylko proste esp, a tylko główne by miało zegar i by rozdawało czas po wifi co godzinę
+w takim razie faza 1 projektu to tylko podpiecie ula pod esp8266
+a głowna jednostka by musiala miec esp32 bo ono ogarnia budzenie z deep sleep z gpio na LOW
+
+
+czyli podsumowując:
+pojedyncze ule będą początkowo na esp8266 (dopóki ich nie zastąpie esp32)
+będą używać tylko deepSleep(X) a czas będą synchronizowały przez wifi z główną jednostką chodzącą na esp32 i posiadająca własny rtc(do tego ds3231 ma temperaturę więc nie trzeba porównywać z każdym ulem, a tylko z główną jednostką)
+jeśli esp32 będzie później na każdym ulu to będzie łatwiej zrobić czujnik wstrząsu itp
+
+póki co:
+esp8266 - karta SD - dallasowa sonda - hx711 - koszyk na baterię 3x1.2 do vin
