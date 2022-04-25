@@ -1,0 +1,11 @@
+-od dołu esp8266 z nodemcu
+-też od dołu pomiędzy pinami na esp: hx7111
+
+od góry:
+-duże sd prosto w płytę
+-piny na sondę dallas
+-piny na czujnik temperatury (ale lokalny)
+-rtc (jeśli się da to też pod esp schować)
+-czujnik wstrzasow
+
+pamiętać o baterii i miejscu na nią itp ( wybrać czy opcja z 3 czy 1)
