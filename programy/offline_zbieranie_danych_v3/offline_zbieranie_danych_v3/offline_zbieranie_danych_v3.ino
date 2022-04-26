@@ -13,6 +13,7 @@
  * CS D8
  * 
  */
+ // https://everythingesp.com/make-your-state-variables-survive-unexpected-reboots/
 
 // TEMPERATURA
 #include <OneWire.h>
@@ -41,10 +42,17 @@ File myFile;
 String nazwa = "dataK.txt";
 String text = "";
 
+// built-in RTC memory
+#include <RTCVars.h>
+RTCVars state;
+long est_seconds;
+long reset_counter;
+
 // INNE ZMIENNE
 boolean DEBUG = true;
 boolean setup_error = false;
 boolean loop_error = false;
+unsigned int sleep_time = 20;
 
 // POZOSTALE FUNKCJE
 
@@ -60,6 +68,19 @@ void setup() {
   scale.set_scale(calibration_factor);
   scale.tare();
   long zero_factor = scale.read_average();
+
+  // RTC memory
+  state.registerVar( &est_seconds );
+  state.registerVar( &reset_counter);
+  if (state.loadFromRTC()) {            // we load the values from rtc memory back into the registered variables
+    reset_counter++;
+    if (DEBUG) Serial.println("This is reset no. " + (String)reset_counter);
+    state.saveToRTC();                  // since we changed a state relevant variable, we store the new values
+  } else {
+    reset_counter = 0;                  // cold boot part
+    if (DEBUG) Serial.println("This seems to be a cold boot. We don't have a valid state on RTC memory");
+    est_seconds = 0;
+  }
 
   // KARTA SD
   if (DEBUG) Serial.print("Initializing SD card...");
@@ -98,6 +119,8 @@ void setup() {
     if (DEBUG) Serial.print("Writing to " + nazwa);
     myFile.print(String(tempC) + ",");
     myFile.flush();
+    myFile.print(String(est_seconds) + ",");
+    myFile.flush();
     myFile.println(String(pomiar_waga));
     myFile.flush();
     myFile.close();
@@ -110,9 +133,12 @@ void setup() {
   if (DEBUG) Serial.println();
   if (DEBUG) Serial.flush();
 
+  // RTC memory
+  est_seconds += sleep_time + millis() / 1e3;
+  state.saveToRTC();
+  
   // SLEEP
-  //ESP.deepSleep(60e6);
-  delay(10e3);
+  ESP.deepSleep(sleep_time * 1e6 - millis() * 1e3);
 }
 
 void loop() {
