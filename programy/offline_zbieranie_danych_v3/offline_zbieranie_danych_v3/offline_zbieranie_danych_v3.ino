@@ -17,20 +17,20 @@
 // TEMPERATURA
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#define ONE_WIRE_BUS 11
+#define ONE_WIRE_BUS D4
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 //--zmienne
 float tempC;
 
-// WAGA
-#define pin_waga_data 7
-#define pin_waga_clk 6
-#include "HX711.h"
-HX711 scale(pin_waga_data,pin_waga_clk);
-float calibration_factor = 1;
-//-- zmienne
-float pomiar_waga;
+//// WAGA
+//#define pin_waga_data 10
+//#define pin_waga_clk 9
+//#include "HX711.h"
+//HX711 scale(pin_waga_data,pin_waga_clk);
+//float calibration_factor = 1;
+////-- zmienne
+//float pomiar_waga;
 
 // KARTA SD
 #include <SPI.h>
@@ -44,6 +44,7 @@ String text = "";
 // INNE ZMIENNE
 boolean DEBUG = true;
 boolean setup_error = false;
+boolean loop_error = false;
 
 // POZOSTALE FUNKCJE
 
@@ -55,10 +56,10 @@ void setup() {
   sensors.begin();
   if(DEBUG) Serial.println("Temperatura zainicjalizowana pomyslnie");
 
-  // WAGA
-  scale.set_scale(calibration_factor);
-  scale.tare();
-  long zero_factor = scale.read_average();
+//  // WAGA
+//  scale.set_scale(calibration_factor);
+//  scale.tare();
+//  long zero_factor = scale.read_average();
 
   // KARTA SD
   if (DEBUG) Serial.print("Initializing SD card...");
@@ -70,14 +71,6 @@ void setup() {
     if (DEBUG) Serial.println("initialization done.");
   }
   delay(1000);
-
-  pinMode(LED_BUILTIN,OUTPUT);
-  while(setup_error) {
-    digitalWrite(LED_BUILTIN,HIGH);
-    delay(500);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(500);
-  }
 
   // --------POMIARY
   // TEMPERAUTRA - POMIAR
@@ -93,10 +86,10 @@ void setup() {
     if (DEBUG) Serial.println("Error: Could not read temperature data");
     loop_error = true;
   }
-
-  // WAGA POMIAR
-  pomiar_waga = scale.get_units();
-  if (DEBUG) Serial.println("Odczyt wagi: " + String(pomiar_waga));
+//
+//  // WAGA POMIAR
+//  pomiar_waga = scale.get_units();
+//  if (DEBUG) Serial.println("Odczyt wagi: " + String(pomiar_waga));
 
   // KARTA SD ZAPIS
   myFile = SD.open(nazwa, FILE_WRITE);
@@ -104,9 +97,10 @@ void setup() {
   if (myFile) {
     if (DEBUG) Serial.print("Writing to " + nazwa);
     //text = toString(now) + "," + String(tempC) + "," + String(pomiar_waga);
-    myFile.print(String(tempC) + ",");
-    myFile.flush();
-    myFile.println(String(pomiar_waga));
+//    myFile.print(String(tempC) + ",");
+//    myFile.flush();
+//    myFile.println(String(pomiar_waga));
+    myFile.println("a");
     myFile.flush();
     myFile.close();
     if (DEBUG) Serial.println("done.");
