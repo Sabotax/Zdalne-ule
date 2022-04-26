@@ -8,4 +8,4 @@ Główna jednostka będzie posiadać RTC (DS3231), który ponadto może mierzyć
 Główna jednostka będzie posiadała rtc, moduł gsm, panel oraz układ ładowania akumulatora (prawdopodobnie tp4056).  
 
 Zdjęcie pojedynczej jednostki (dodatkowo z SD):
-![offline_zbieranie_v3](/programy\offline_zbieranie_danych_v3/showcase_v3.jpg "Zestaw")
+![offline_zbieranie_v3](/programy/offline_zbieranie_danych_v3/showcase_v3.jpg "Zestaw")
