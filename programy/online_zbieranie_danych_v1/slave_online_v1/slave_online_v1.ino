@@ -63,7 +63,7 @@ IPAddress server(192, 168, 0, 44);
 boolean DEBUG = true;
 boolean setup_error = false;
 boolean loop_error = false;
-unsigned int sleep_time = 20;
+unsigned int sleep_time = 40;
 
 
 // POZOSTALE FUNKCJE
@@ -151,24 +151,24 @@ void setup() {
     if (DEBUG) Serial.println("error opening " + nazwa);
     loop_error = true;
   }
-
-  if (DEBUG) Serial.println();
   if (DEBUG) Serial.flush();
 
   // WIFI
+  if (DEBUG) Serial.println("Proba polaczenia z serwerem");
   if (master.connect(server, 80)) { // Connection to the server
-    master.println(nom + ": " + String(tempC) + "," + String(est_seconds) + "," + String(pomiar_waga));
+    master.println(nom + ": " + String(tempC) + "," + String(est_seconds) + "," + String(pomiar_waga)+'\r');
     //answer
     if (DEBUG) Serial.println("Wyslano wiadomosc na serwer");
     if (DEBUG) Serial.flush();
     master.flush();
   }
-
+  else {
+    if (DEBUG) Serial.println("Nie udalo sie polaczyc z serwerem");
+  }
 
   // RTC memory
   est_seconds += sleep_time + millis() / 1e3;
   state.saveToRTC();
-  
   // SLEEP
   ESP.deepSleep(sleep_time * 1e6 - millis() * 1e3);
 }
