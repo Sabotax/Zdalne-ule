@@ -2,7 +2,7 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 
-const char* ssid = "Esp-master";
+const char* ssid = "TcpToSerialServer";
 //const char* password = "";
 
 ESP8266WebServer server(80);
@@ -33,6 +33,15 @@ void handleNotFound() {
   Serial.println(message);
 }
 
+void handleCommDownloadAll() {
+  String odpowiedz = "MSG:Pozdrawiam z esp, moj czas od wlaczenia: " + String(millis());
+  char odpowiedz_downgrade[odpowiedz.length()];
+  odpowiedz.toCharArray(odpowiedz_downgrade,odpowiedz.length());
+
+  server.send(200, "text/plain" ,odpowiedz_downgrade);
+  Serial.println("odpowiadam");
+}
+
 void handleOdbiorDanych() {
   // https://techtutorialsx.com/2016/10/22/esp8266-webserver-getting-query-parameters/
 
@@ -43,8 +52,6 @@ void handleOdbiorDanych() {
   String temperatura = server.arg("temp");
 
   zajmijSieDanymi(slaveID, godzina, waga, temperatura);
-  
-  Serial.println("odpowiadam");
 }
 
 void handleRoot() {

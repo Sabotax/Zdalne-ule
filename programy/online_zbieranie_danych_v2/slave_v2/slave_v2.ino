@@ -52,12 +52,12 @@ long reset_counter;
 #include <ESP8266WiFi.h>
 #define UPDATE_TIME 500
 String nom = "Slave0";
-const char* ssid = "Esp-master";
+const char* ssid = "TcpToSerialServer";
 const char* password = "";
 String command;
 unsigned long previousRequest = 0;
 WiFiClient master;
-IPAddress server(192, 168, 0, 44);
+IPAddress server(192, 168, 0, 1);
 
 // INNE ZMIENNE
 boolean DEBUG = true;
@@ -73,6 +73,10 @@ void setup() {
   if (DEBUG) Serial.println("Start programu");
 
   // WIFI
+  IPAddress localIp(192,168,0,10);
+  IPAddress gateway(192,168,0,1);
+  IPAddress subnet(255,255,255,0);
+  WiFi.config(localIp,gateway,subnet);
   WiFi.begin(ssid);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -105,15 +109,15 @@ void setup() {
   }
 
   // KARTA SD
-  if (DEBUG) Serial.print("Initializing SD card...");
-  if( !SD.begin(pin_CS) ) {
-    if (DEBUG) Serial.println("initialization failed!");
-    setup_error = true;
-  }
-  else {
-    if (DEBUG) Serial.println("initialization done.");
-  }
-  delay(1000);
+  //if (DEBUG) Serial.print("Initializing SD card...");
+  //if( !SD.begin(pin_CS) ) {
+  //  if (DEBUG) Serial.println("initialization failed!");
+  //  setup_error = true;
+  //}
+  //else {
+  //  if (DEBUG) Serial.println("initialization done.");
+  //}
+  //delay(1000);
 
   // --------POMIARY
   // TEMPERAUTRA - POMIAR
@@ -135,23 +139,23 @@ void setup() {
   if (DEBUG) Serial.println("Odczyt wagi: " + String(pomiar_waga));
 
   // KARTA SD ZAPIS
-  myFile = SD.open(nazwa, FILE_WRITE);
+  //myFile = SD.open(nazwa, FILE_WRITE);
 
-  if (myFile) {
-    if (DEBUG) Serial.print("Writing to " + nazwa);
-    myFile.print(String(tempC) + ",");
-    myFile.flush();
-    myFile.print(String(est_seconds) + ",");
-    myFile.flush();
-    myFile.println(String(pomiar_waga));
-    myFile.flush();
-    myFile.close();
-    if (DEBUG) Serial.println("done.");
-  } else {
-    if (DEBUG) Serial.println("error opening " + nazwa);
-    loop_error = true;
-  }
-  if (DEBUG) Serial.flush();
+//  if (myFile) {
+//    if (DEBUG) Serial.print("Writing to " + nazwa);
+//    myFile.print(String(tempC) + ",");
+//    myFile.flush();
+//    myFile.print(String(est_seconds) + ",");
+//    myFile.flush();
+//    myFile.println(String(pomiar_waga));
+//    myFile.flush();
+//    myFile.close();
+//    if (DEBUG) Serial.println("done.");
+//  } else {
+//    if (DEBUG) Serial.println("error opening " + nazwa);
+//    loop_error = true;
+//  }
+//  if (DEBUG) Serial.flush();
 
   // WIFI
   if (DEBUG) Serial.println("Proba polaczenia z serwerem");
@@ -170,6 +174,8 @@ void setup() {
   est_seconds += sleep_time + millis() / 1e3;
   state.saveToRTC();
   // SLEEP
+  if (DEBUG) Serial.println("Ide spac");
+  if (DEBUG) Serial.flush();
   ESP.deepSleep(sleep_time * 1e6 - millis() * 1e3);
 }
 
