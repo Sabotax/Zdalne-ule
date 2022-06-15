@@ -87,6 +87,7 @@ void setup() {
 
   server.on("/", handleRoot);
   server.on("/OdbiorDanych",handleOdbiorDanych);
+  server.on("/CommDownloadAll",handleCommDownloadAll);
   server.onNotFound(handleNotFound);
   
   server.begin();
