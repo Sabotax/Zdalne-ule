@@ -1,0 +1,2 @@
+z uwagi że korzystanie z modułu gsm jest bardzo podobne do podłączenia się do wifi (domowego) to debugowanie/tworzenie komunikacji tym sposobem jest łatwiejsze, więc póki co wprowadzam
+dwie oddzielne części (bo nie może być esp jednocześnie access pointem i clientem, jeśli do obu mam używać tcp ( a nie np bluetooth))

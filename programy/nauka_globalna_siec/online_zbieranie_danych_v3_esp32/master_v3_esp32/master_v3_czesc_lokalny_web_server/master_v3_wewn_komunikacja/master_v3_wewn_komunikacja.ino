@@ -1,9 +1,13 @@
-// esp8266 wersja
+// esp32 wersja
 
-#include <ESP8266WiFi.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <WebServer.h>
+
 #include "Pomiar.h"
+#include "funkcje_helper.h"
+
+// todo zobaczyć "ESPAsyncWebServer.h"
 
 
 // --- DANE DOSTEPOWE ITP
@@ -11,7 +15,7 @@ const char* ssid = "TcpToSerialServer";
 //const char* password = "";
 
 // --- WIFI i SIEC INIT
-ESP8266WebServer server(80);
+WebServer server(80);
 
 // --- ZMIENNE
 //  -- przechowywanie pomiarow
@@ -30,7 +34,7 @@ void zajmijSieDanymi(String slaveID_str, String sekundy_str, String waga_str, St
     Serial.println( current_pomiar.toString() );
   #endif
 
-  // TODO odpowiedz ze wszystko jest ok lub odpowiedz ze powinienes sobie ogarnac czas o +- tyle i tyle
+  // TODO odpowiedź ze wszystko jest ok lub odpowiedz ze powinienes sobie ogarnac czas o +- tyle i tyle
 }
 
 void handleNotFound() {
@@ -49,14 +53,14 @@ void handleNotFound() {
   Serial.println(message);
 }
 
-void handleCommDownloadAll() {
-  String odpowiedz = "MSG:Pozdrawiam z esp, moj czas od wlaczenia: " + String(millis());
-  char odpowiedz_downgrade[odpowiedz.length()];
-  odpowiedz.toCharArray(odpowiedz_downgrade,odpowiedz.length());
-
-  server.send(200, "text/plain" ,odpowiedz_downgrade);
-  Serial.println("odpowiadam");
-}
+//void handleCommDownloadAll() {
+//  String odpowiedz = "MSG:Pozdrawiam z esp, moj czas od wlaczenia: " + String(millis());
+//  char odpowiedz_downgrade[odpowiedz.length()];
+//  odpowiedz.toCharArray(odpowiedz_downgrade,odpowiedz.length());
+//
+//  server.send(200, "text/plain" ,odpowiedz_downgrade);
+//  Serial.println("odpowiadam");
+//}
 
 void handleOdbiorDanych() {
   // https://techtutorialsx.com/2016/10/22/esp8266-webserver-getting-query-parameters/
@@ -71,7 +75,7 @@ void handleOdbiorDanych() {
 }
 
 void handleRoot() {
-  server.send(200, "text/html", "oops root responsem, method: "+server.method() );
+  server.send(200, "text/html", "oops root response, method: "+server.method() );
 }
 
 void setup() {
@@ -103,7 +107,7 @@ void setup() {
 
   server.on("/", handleRoot);
   server.on("/OdbiorDanych",handleOdbiorDanych);
-  server.on("/CommDownloadAll",handleCommDownloadAll);
+  //server.on("/CommDownloadAll",handleCommDownloadAll);
   server.onNotFound(handleNotFound);
   
   server.begin();
