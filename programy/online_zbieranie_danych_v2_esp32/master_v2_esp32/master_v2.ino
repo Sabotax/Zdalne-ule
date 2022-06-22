@@ -1,20 +1,36 @@
+// esp8266 wersja
+
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include "Pomiar.h"
 
+
+// --- DANE DOSTEPOWE ITP
 const char* ssid = "TcpToSerialServer";
 //const char* password = "";
 
+// --- WIFI i SIEC INIT
 ESP8266WebServer server(80);
 
-void zajmijSieDanymi(String slaveID_str, String godzina_str, String waga_str, String temperatura_str) {
-  Serial.println("Otrzymałem dane:");
-  Serial.println("slaveID = " + slaveID_str);
-  Serial.println("godzina = " + godzina_str);
-  Serial.println("waga = " + waga_str);
-  Serial.println("temperatura = " + temperatura_str);
+// --- ZMIENNE
+//  -- przechowywanie pomiarow
+#define max_wielkosc_pasieki 20
+Pomiar zbior_pomiarow[max_wielkosc_pasieki]; //zbiera pomiary z danego okresu (np co pol godziny), zeby na koniec okresu je wszystkie razem wyslac
+short i_zbior_pomiarow = 0; // w ktore miejce ma zapisac pomiar
+//  -- czy ma debugowac info dla preprocesora
+#define DEBUG true
 
-  // zapis na SD TODO
+void zajmijSieDanymi(String slaveID_str, String sekundy_str, String waga_str, String temperatura_str) {
+  Pomiar current_pomiar(slaveID_str, waga_str, temperatura_str,sekundy_str);
+  zbior_pomiarow[i_zbior_pomiarow] = current_pomiar;
+  i_zbior_pomiarow++;
+
+  #if DEBUG
+    Serial.println( current_pomiar.toString() );
+  #endif
+
+  // TODO odpowiedz ze wszystko jest ok lub odpowiedz ze powinienes sobie ogarnac czas o +- tyle i tyle
 }
 
 void handleNotFound() {
