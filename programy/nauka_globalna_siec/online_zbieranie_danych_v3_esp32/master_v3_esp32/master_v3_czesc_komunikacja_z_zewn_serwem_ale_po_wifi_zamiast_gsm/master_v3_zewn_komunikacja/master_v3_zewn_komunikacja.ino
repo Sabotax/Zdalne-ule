@@ -2,26 +2,22 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #define UPDATE_TIME 500
-String nom = "Slave0";
+
+String nom = "ESP-MASTER-01";
 const char* ssid = "CGA2121_Tu7GnYu";
 const char* password = "mtyRdz7KZcEc9k2Ezw";
-String command;
-unsigned long previousRequest = 0;
-WiFiClient master;
-IPAddress server(192, 168, 0, 1);
 
 // INNE ZMIENNE
-boolean DEBUG = true;
-boolean setup_error = false;
-boolean loop_error = false;
-unsigned int sleep_time = 40;
+#define DEBUG true
 
 
 // POZOSTALE FUNKCJE
 
 void setup() {
-  Serial.begin(115200);
-  if (DEBUG) Serial.println("Start programu");
+  #if DEBUG
+    Serial.begin(115200);
+    Serial.println("Start programu");
+  #endif
 
   // WIFI
   IPAddress localIp(192,168,0,150);
@@ -31,55 +27,55 @@ void setup() {
   WiFi.begin(ssid);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    if (DEBUG) Serial.print(F("."));
+    #if DEBUG 
+      Serial.print(F(".")); 
+    #endif
   }
-  if (DEBUG) Serial.print(nom);
-  if (DEBUG) Serial.print(F(" connected to Wifi! IP address : ")); 
-  if (DEBUG) Serial.println(WiFi.localIP());
-
-//  // SEND
-//  if (DEBUG) Serial.println("Proba polaczenia z serwerem");
-//  if (master.connect(server, 80)) { // Connection to the server
-//    master.println("GET /OdbiorDanych?ID=0&waga="+String(pomiar_waga)+"&godzina="+String(est_seconds)+"&temp="+String(tempC)+" /HTTP/1.1");
-//    //answer
-//    if (DEBUG) Serial.println("Wyslano wiadomosc na serwer");
-//    if (DEBUG) Serial.flush();
-//    master.flush();
-//  }
-//  else {
-//    if (DEBUG) Serial.println("Nie udalo sie polaczyc z serwerem");
-//  }
+  #if DEBUG
+    Serial.print(nom);
+    Serial.print(F(" connected to Wifi! IP address : ")); 
+    Serial.println(WiFi.localIP());
+  #endif
 
   // new edit
   HTTPClient http;
   // configure traged server and url
-  Serial.print("[HTTP] begin...\n");
+  #if DEBUG
+    Serial.print("[HTTP] begin...\n");
+  #endif
   http.begin("http://example.com/index.html");
   
   // start connection and send HTTP header
-  Serial.print("[HTTP] GET...\n");
+  #if DEBUG
+    Serial.print("[HTTP] GET...\n");
+  #endif
   // start connection and send HTTP header
   int httpCode = http.GET();
 
   if(httpCode > 0) {
-            // HTTP header has been send and Server response header has been handled
-            Serial.printf("[HTTP] GET... code: %d\n", httpCode);
-
-            // file found at server
-            if(httpCode == HTTP_CODE_OK) {
-                String payload = http.getString();
-                Serial.println(payload);
-            }
-        } else {
-            Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-        }
-
-        http.end();
+    // HTTP header has been send and Server response header has been handled
+    #if DEBUG
+      Serial.printf("[HTTP] GET... code: %d\n", httpCode);
+    #endif
+    
+    // file found at server
+    if(httpCode == HTTP_CODE_OK) {
+      String payload = http.getString();
+      #if DEBUG
+        Serial.println(payload);
+      #endif
     }
-
-    delay(5000);
-
+    
+    } 
+  else {
+    #if DEBUG
+      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    #endif
+  }
+    
+  http.end();
 }
+
 
 void loop() {
 }
