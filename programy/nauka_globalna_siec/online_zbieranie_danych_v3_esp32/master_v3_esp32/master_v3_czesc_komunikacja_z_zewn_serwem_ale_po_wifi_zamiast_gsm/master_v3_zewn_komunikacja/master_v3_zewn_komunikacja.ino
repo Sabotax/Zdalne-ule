@@ -4,12 +4,17 @@
 #define UPDATE_TIME 500
 
 String nom = "ESP-MASTER-01";
-const char* ssid = "CGA2121_Tu7GnYu";
-const char* password = "mtyRdz7KZcEc9k2Ezw";
+#define dom true
+#if dom
+  const char* ssid = "NETIASPOT-C0D740";
+  const char* password = "9533f5tdu5av";
+#else
+  const char* ssid = "CGA2121_Tu7GnYu";
+  const char* password = "mtyRdz7KZcEc9k2Ezw";
+#endif
 
 // INNE ZMIENNE
 #define DEBUG true
-
 
 // POZOSTALE FUNKCJE
 
@@ -43,35 +48,36 @@ void setup() {
   #if DEBUG
     Serial.print("[HTTP] begin...\n");
   #endif
-  http.begin("http://example.com/index.html");
+  // todo ogarnac zeby wyslalo postem jakies dane tam (jesli sie da, jak nie to get)
+  http.begin("http://daniel.rozycki.student.put.poznan.pl/upload");
   
   // start connection and send HTTP header
   #if DEBUG
     Serial.print("[HTTP] GET...\n");
   #endif
   // start connection and send HTTP header
-  int httpCode = http.GET();
+  //int httpCode = http.GET();
 
-  if(httpCode > 0) {
-    // HTTP header has been send and Server response header has been handled
-    #if DEBUG
-      Serial.printf("[HTTP] GET... code: %d\n", httpCode);
-    #endif
-    
-    // file found at server
-    if(httpCode == HTTP_CODE_OK) {
-      String payload = http.getString();
-      #if DEBUG
-        Serial.println(payload);
-      #endif
-    }
-    
-    } 
-  else {
-    #if DEBUG
-      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-    #endif
-  }
+//  if(httpCode > 0) {
+//    // HTTP header has been send and Server response header has been handled
+//    #if DEBUG
+//      Serial.printf("[HTTP] GET... code: %d\n", httpCode);
+//    #endif
+//    
+//    // file found at server
+//    if(httpCode == HTTP_CODE_OK) {
+//      String payload = http.getString();
+//      #if DEBUG
+//        Serial.println(payload);
+//      #endif
+//    }
+//    
+//  } 
+//  else {
+//    #if DEBUG
+//      Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+//    #endif
+//  }
     
   http.end();
 }
