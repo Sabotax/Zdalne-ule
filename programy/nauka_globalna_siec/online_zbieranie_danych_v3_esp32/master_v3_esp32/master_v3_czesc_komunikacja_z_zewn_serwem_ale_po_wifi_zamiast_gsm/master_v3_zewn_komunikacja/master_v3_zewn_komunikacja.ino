@@ -13,7 +13,7 @@ String nom = "ESP-MASTER-01";
   const char* password = "mtyRdz7KZcEc9k2Ezw";
 #endif
 // JSON
-//#include <Arduino_JSON.h>
+#include <Arduino_JSON.h>
 
 // INNE ZMIENNE
 #define DEBUG true
@@ -94,6 +94,12 @@ unsigned long timerDelay = 10000;
 
 const char* serverName = "http://192.168.1.5:80/SERWER_PHP/";
 
+struct test_object_struct {
+  int id = 0;
+  int waga = 5;
+  int temp = 20;
+} test_object;
+
 void loop() {
   //Send an HTTP POST request every 10 minutes
   if ((millis() - lastTime) > timerDelay) {
@@ -114,7 +120,8 @@ void loop() {
       
       // If you need an HTTP request with a content type: application/json, use the following:
       http.addHeader("Content-Type", "application/json");
-      int httpResponseCode = http.POST("{\"api_key\":\"tPmAT5Ab3j7F9\",\"sensor\":\"BME280\",\"value1\":\"24.25\",\"value2\":\"49.54\",\"value3\":\"1005.14\"}");
+      String data_to_send = "[{\"id\":\"0\",\"waga\":\"10\"},{\"id\":\"1\",\"waga\":\"15\"},{\"id\":\"3\",\"waga\":\"25\"}]";
+      int httpResponseCode = http.POST(data_to_send);
 
       // If you need an HTTP request with a content type: text/plain
       //http.addHeader("Content-Type", "text/plain");
