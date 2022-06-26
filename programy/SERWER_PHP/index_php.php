@@ -1,75 +1,30 @@
 <?php
-    //$action = $id = $name = $gpio = $state = "";
+    /* input structure
+    object
+        client_api_key = xxx
+        data = np. 26.06.2022
+        tab = Array
+            object[0]
+                id
+                waga
+                temperatura
+            object[1]
+            itp, wielkość nieznana, dynamiczna
+    -----
+    do pól obiektu odwołanie: ob->pole
+    */
+    define("server_api_key","xxx");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // $action = test_input($_POST["action"]);
-        // if ($action == "output_create") {
-        //     $name = test_input($_POST["name"]);
-        //     $board = test_input($_POST["board"]);
-        //     $gpio = test_input($_POST["gpio"]);
-        //     $state = test_input($_POST["state"]);
-        //     $result = createOutput($name, $board, $gpio, $state);
-
-        //     $result2 = getBoard($board);
-        //     if(!$result2->fetch_assoc()) {
-        //         createBoard($board);
-        //     }
-        //     echo $result;
-
         $json = file_get_contents('php://input');
-        $data = json_decode($json);
-        //print_r($data->api_key);
-        print_r($data);
-        //udalo sie
-    }
-    else {
-        echo "No data posted with HTTP POST.";
-    }
+        $input_data = json_decode($json);
+        //print_r($data);
 
-    // if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    //     $action = test_input($_GET["action"]);
-    //     if ($action == "outputs_state") {
-    //         $board = test_input($_GET["board"]);
-    //         $result = getAllOutputStates($board);
-    //         if ($result) {
-    //             while ($row = $result->fetch_assoc()) {
-    //                 $rows[$row["gpio"]] = $row["state"];
-    //             }
-    //         }
-    //         echo json_encode($rows);
-    //         $result = getBoard($board);
-    //         if($result->fetch_assoc()) {
-    //             updateLastBoardTime($board);
-    //         }
-    //     }
-    //     else if ($action == "output_update") {
-    //         $id = test_input($_GET["id"]);
-    //         $state = test_input($_GET["state"]);
-    //         $result = updateOutput($id, $state);
-    //         echo $result;
-    //     }
-    //     else if ($action == "output_delete") {
-    //         $id = test_input($_GET["id"]);
-    //         $board = getOutputBoardById($id);
-    //         if ($row = $board->fetch_assoc()) {
-    //             $board_id = $row["board"];
-    //         }
-    //         $result = deleteOutput($id);
-    //         $result2 = getAllOutputStates($board_id);
-    //         if(!$result2->fetch_assoc()) {
-    //             deleteBoard($board_id);
-    //         }
-    //         echo $result;
-    //     }
-    //     else {
-    //         echo "Invalid HTTP request.";
-    //     }
-    // }
-
-    // function test_input($data) {
-    //     $data = trim($data);
-    //     $data = stripslashes($data);
-    //     $data = htmlspecialchars($data);
-    //     return $data;
-    // }
+        if( $input_data->client_api_key == server_api_key) {
+            // jest przekaz od poprawnego naszego esp
+            foreach( $input_data->tab as $ob ) {
+                echo $ob->id," ",$ob->waga," ",$ob->temperatura,"\r\n" ;
+            }
+        }
+    }
 ?>

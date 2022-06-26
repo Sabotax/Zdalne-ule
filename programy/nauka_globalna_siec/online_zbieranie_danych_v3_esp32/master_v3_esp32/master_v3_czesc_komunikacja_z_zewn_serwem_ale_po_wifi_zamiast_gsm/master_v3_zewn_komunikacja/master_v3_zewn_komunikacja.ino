@@ -120,7 +120,7 @@ void loop() {
       
       // If you need an HTTP request with a content type: application/json, use the following:
       http.addHeader("Content-Type", "application/json");
-      String data_to_send = "[{\"id\":\"0\",\"waga\":\"10\"},{\"id\":\"1\",\"waga\":\"15\"},{\"id\":\"3\",\"waga\":\"25\"}]";
+      String data_to_send = "{\"client_api_key\":\"xxx\",\"tab\":[{\"id\":\"0\",\"waga\":\"10\",\"temperatura\":\"5.3\"},{\"id\":\"0\",\"waga\":\"0\",\"temperatura\":\"5.7\"},{\"id\":\"0\",\"waga\":\"20\",\"temperatura\":\"10.3\"}]}";
       int httpResponseCode = http.POST(data_to_send);
 
       // If you need an HTTP request with a content type: text/plain
