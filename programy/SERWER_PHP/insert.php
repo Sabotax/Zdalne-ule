@@ -9,8 +9,6 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <?php include 'index_program.php'; ?>
-        
-        <!-- <script src="" async defer></script> -->
+        <?php include 'index_php.php'; ?>
     </body>
 </html>

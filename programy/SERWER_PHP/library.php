@@ -1,6 +1,6 @@
 <?php
 //polaczenie i koniec polaczenia a takze errory jesli nie uda sie polaczyc poza tym!!
-function getQueryResponse($switch,$query,$polaczenie) {
+function getSelectResponse($switch,$query,$polaczenie) {
     //switch
     // true - 2D
     // false - 3D

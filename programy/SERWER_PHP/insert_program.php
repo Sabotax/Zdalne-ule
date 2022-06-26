@@ -2,14 +2,15 @@
     /* input structure
     object
         client_api_key = xxx
-        data = np. 26.06.2022
+        data = "2022.26.06 08:16:36" <- taka musi być do sql
         tab = Array
             object[0]
-                id
+                id (nr ula)
+                pasieka
                 waga
                 temperatura
             object[1]
-            itp, wielkość nieznana, dynamiczna
+            ...itp, wielkość nieznana, dynamiczna
     -----
     do pól obiektu odwołanie: ob->pole
     */
