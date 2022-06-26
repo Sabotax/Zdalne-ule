@@ -20,10 +20,26 @@
         $input_data = json_decode($json);
         //print_r($data);
 
+        require_once("connect.php");
+        require_once("library.php");
+
+        // IF jest przekaz od poprawnego naszego esp
         if( $input_data->client_api_key == server_api_key) {
-            // jest przekaz od poprawnego naszego esp
+            $polaczenie = @new mysqli($host , $db_user, $db_password, $db_name);
+
+            /* unikatowe insert
+            INSERT INTO `pomiary`(`nr_ula`,`pasieka`,`data`,`waga`,`temperatura`)
+                SELECT 15,"u roberta",'2022-06-27 22:00:36',5.6,27.3
+            WHERE NOT EXISTS ( 
+                SELECT `nr_ula`,`pasieka`,`data`,`waga`,`temperatura` FROM `pomiary` 
+                WHERE `nr_ula`=15 AND `pasieka`="u roberta" AND `data`='2022-06-27 22:00:36' AND `waga` = 5.6 AND `temperatura`=27.3
+            );
+            */
+            
             foreach( $input_data->tab as $ob ) {
-                echo $ob->id," ",$ob->waga," ",$ob->temperatura,"\r\n" ;
+                $query = "INSERT INTO `$db_name`(`nr_ula`,`pasieka`,`data`,`waga`,`temperatura`) SELECT $ob->id,$input_data->pasieka,'$input_data->data',$ob->waga,$ob->temperatura WHERE NOT EXISTS ( SELECT `nr_ula`,`pasieka`,`data`,`waga`,`temperatura` FROM `pomiary` WHERE `nr_ula`=$ob->id AND `data`='$ob->data' AND `waga` = $ob->waga AND `temperatura`=$ob->temperatura')";
+                $rezultat = @$polaczenie->query($query);
+                echo $rezultat , "<br>\r\n";
             }
         }
     }
