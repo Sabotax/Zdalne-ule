@@ -9,6 +9,6 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <?php include 'index_php.php'; ?>
+        <?php include 'insert_program.php'; ?>
     </body>
 </html>
