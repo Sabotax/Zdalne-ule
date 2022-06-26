@@ -74,5 +74,11 @@
     9. wyświetlanie wszystkich wyników z różnymi atrakcjami, wykresy dla ula, od czasu tare, od danej daty, wykres ogólny wagowy albo przyrostu wagi od czasu
         tare albo ponad tym czasem i z pionowymi kreskami w punkcie tare
     10. opcjonalnie - śledzenie przeszłości esp-master i/lub esp-slave
+    11. opcjonalnie - aplikacja na telefon a w niej
+        możliwość pobrania informacji od lokalnego esp-master i przechowania ich w celu późniejszego uploadu na serwer (specjalny 
+        insert żeby było unikatowe w tabeli i wtedy kasowanie)
+        [ale bardzo opcjonalnie bo całe to z wysyłaniem tego samego z różnych źródeł i przechowywania rekordów lokalnie z całego okresu czasu
+        żeby wysłać naraz później jak się pojawi zasięg to bardzo dużo pracy za mało zysku - łatwiej założyć że skoro to zdalne ule
+        to mają mieć zasięg i tyle]
     */
 ?>
