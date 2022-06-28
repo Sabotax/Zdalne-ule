@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <?php
+            require_once("PHP/connect_init.php");
+        ?>
         <div id="container">
             <div id="top">
                 <div id="topbar">
@@ -22,6 +25,7 @@
                         <select id="lista_pasieka">
                             <?php
                             // wszytkie esp-master z bazy
+                            load_pasieki($mysqli);
                             ?>
                         </select>
                         <button id="btn_pasieka_pokaz" disabled>Pokaż</buton>
@@ -35,6 +39,7 @@
                         <p>Wybór ula</p>
                         <select id="lista_ule" disabled>
                             <?php
+                            //include_once("connect_init.php");
                             // wszytkie esp-slave dla danego esp-master z bazy
                             ?>
                         </select>
@@ -48,9 +53,22 @@
                     
                 </div>
             </div>
-            <div id="center">
+            <div id="center">   
+                <?php
+                    // if( $mysqli -> connect_errno) {
+                    //     echo "Failed to connect to MySQL: " , $polaczanie -> connect_error;
+                    // }
+                    // else {
+                    //     $result1 = querySelect($mysqli,"SELECT * FROM `esp-master`");
+                    //     print_r($result1);
+                    // }
+                ?>
             </div>
         </div>
-        <script src="script.js" async defer></script>
+        <div id="debug"></div>
+        <?php
+            $mysqli->close();
+        ?>
+        <script type="text/javascript" src="script1.js"></script>
     </body>
 </html>
