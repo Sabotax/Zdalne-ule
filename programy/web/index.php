@@ -17,7 +17,7 @@
         <div id="container">
             <div id="top">
                 <div id="topbar">
-                    bars
+                    
                 </div>
             </div>
             <div id="left">
@@ -59,14 +59,11 @@
                 <div id="center_opcje">
                 </div>
                 <div id="center_tresc">
-                    
+                    <?php
+                    ?>
                 </div>
             </div>
         </div>
-        <div id="debug"></div>
-        <?php
-            $mysqli->close();
-        ?>
         <script type="text/javascript" src="script1.js"></script>
         <script type="text/javascript" src="script_chart.js"></script>
     </body>

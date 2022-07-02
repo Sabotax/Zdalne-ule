@@ -30,10 +30,10 @@ function load_ule() { //str jaką wartość wysyła
 
 function MyDebug(str,dopisac=false) {
     if(dopisac) {
-        document.getElementById("debug").innerHTML+="<br>"+str;
+        document.getElementById("topbar").innerHTML+="<br>"+str;
     }
     else {
-        document.getElementById("debug").innerHTML=str;
+        document.getElementById("topbar").innerHTML=str;
     }
     
 }
