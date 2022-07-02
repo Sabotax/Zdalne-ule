@@ -75,3 +75,8 @@ body {
 select {
     min-width: 120px;
 }
+#center_opcje {
+    height: 100px;
+    width: 940px;
+    background-color: chocolate;
+}

@@ -6,6 +6,8 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -53,16 +55,12 @@
                     
                 </div>
             </div>
-            <div id="center">   
-                <?php
-                    // if( $mysqli -> connect_errno) {
-                    //     echo "Failed to connect to MySQL: " , $polaczanie -> connect_error;
-                    // }
-                    // else {
-                    //     $result1 = querySelect($mysqli,"SELECT * FROM `esp-master`");
-                    //     print_r($result1);
-                    // }
-                ?>
+            <div id="center">
+                <div id="center_opcje">
+                </div>
+                <div id="center_tresc">
+                    
+                </div>
             </div>
         </div>
         <div id="debug"></div>
@@ -70,5 +68,6 @@
             $mysqli->close();
         ?>
         <script type="text/javascript" src="script1.js"></script>
+        <script type="text/javascript" src="script_chart.js"></script>
     </body>
 </html>

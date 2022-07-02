@@ -20,6 +20,15 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
             }
         }
     }
+
+    if ($selector == "chart") {
+        $typ = $_REQUEST["typ"];
+        $czas_od = $_REQUEST["czas_od"];
+        $czas_do = $_REQUEST["czas_do"];
+
+        //TODO
+        $pomiary_respond = querySelect($mysqli,"");
+    }
     
 }
 
