@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    /* background-color: #ccc; */
+    background-image: url('res/hex-pattern-1.jpg')
+}
+#container {
+    margin-left:auto;
+    margin-right:auto;
+    background-color: rgba(194, 194, 194, 0.705);
+    width: 1200px;
+    opacity: 0.97;
+}
+#top {
+    margin-top:10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 1160px;
+    background-color: orange;
+    height: 100px;
+    border-radius: 20px;
+}
+#left {
+    margin-top:20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    width: 200px;
+    background-color: orangered;
+    min-height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    float:left;
+    border-radius: 10px;
+}
+#pasieka {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 180px;
+    min-height: 100px;;
+    background-color: rgb(220, 223, 64);
+}
+#ul {
+    margin-top:10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 180px;
+    min-height: 100px;;
+    background-color: rgb(220, 223, 64);
+}
+#center {
+    margin-top:20px;
+    margin-bottom: 20px;
+    width: 940px;
+    min-height: 230px;
+    background-color: rgb(236, 231, 231);
+    float:left;
+    border-radius: 5px;
+}
+#pasieka_select {
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    min-height: 30px;
+    margin: 0px;
+}
+#ul_select {
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    min-height: 30px;
+    margin: 0px;
+}
+select {
+    min-width: 120px;
+}
+#center_opcje {
+    height: 100px;
+    width: 940px;
+    /* background-color: chocolate; */
+    border-bottom: 1px;
+    border-style: dashed;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: white;
+}
+#center_tresc {
+    min-height: 600px;
+}
+#stopka {
+    width: 1150px;
+    border-radius: 10px;
+    background-color: beige;
+    height: 40px;
+    float: left;
+    margin-left: 20px;
+    padding: 5px;
+}
