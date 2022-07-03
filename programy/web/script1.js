@@ -60,7 +60,7 @@ function load_opcje_chart() {
     Typ: 
     <select id="chart_typ">
         <option value="chart_typ_ogolny">Ogólna waga</option>
-        <option value="chart_typ_roznicowy">Różnicowa waga</option>
+        <!-- <option value="chart_typ_roznicowy">Różnicowa waga</option> -->
     </select>
     <input id="chart_btn" type="button" value="Pokaż">
     </P>

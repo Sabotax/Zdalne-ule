@@ -4,16 +4,45 @@ async function load_chart() {
     let ctx = document.getElementById('myChart').getContext('2d');
     //TODO temperatura i kolory, tło, oś y do temperatury po prawej
     let my_array = await get_data_for_chart()
-    console.log(my_array)
+
+    // dostosowanie do chart
+    let waga_array = Array();
+    let temperatura_array = Array();
+    let temperatura_zewn_array = Array();
+
+    my_array.forEach(element => {
+        waga_array.push(
+            {x: element[2],y: element[0]}
+        )
+        temperatura_array.push(
+            {x: element[2],y: element[1]}
+        )
+        temperatura_zewn_array.push(
+            {x: element[2],y: element[3]}
+        )
+    });
 
     let wykresChart = new Chart(ctx, {
         type:'line', // bar, horizontalBar,pie,line,doughnut,radar,polarArena
         data: {
             //labels:[ ],
-            datasets:[{
-                label: 'Waga',
-                data: [ {x:'2016-10-26 20:00', y:'3000'} , {x:'2016-12-27', y:'4000'},{x:'2016-12-28', y:'2500'}]
-            }]
+            datasets:[
+                {
+                    label: 'Waga',
+                    data: waga_array,
+                    borderColor: '#0000ff'
+                },
+                {
+                    label: 'Temperatura w ulu',
+                    data: temperatura_array,
+                    borderColor: '#ff3333'
+                },
+                {
+                    label: 'Temperatura zewnętrzna',
+                    data: temperatura_zewn_array,
+                    borderColor: '#ff8000'
+                }
+            ]
         },
         options: {
             scales: {
@@ -28,12 +57,12 @@ async function load_chart() {
 }
 
 function get_data_for_chart() {
-    return new Promise(resolve => {
+    return new Promise(output => {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 let my_array2 = JSON.parse(this.responseText)
-                resolve(my_array2)
+                output(my_array2)
             }
         };
         let selector = "chart"
@@ -48,31 +77,3 @@ function get_data_for_chart() {
     });
 }
 
-// function get_data_for_chart() {
-//     let selector = "chart"
-//     let typ = document.getElementById("chart_typ").value
-//     let czas_od = document.getElementById("okres_czasu_input_od").value + " 23:59:59";
-//     let czas_do = document.getElementById("okres_czasu_input_do").value + " 00:00:00";
-//     let ul = document.getElementById("lista_ule").value;
-
-//     return new Promise(function(resolve, reject) {
-//       $.ajax({
-//         url: 'PHP/ajax.php',
-//         data: {selector: selector, typ: typ, czas_od: czas_od, czas_do: czas_do, ul: ul},
-//         success: function(data) {
-//           resolve(data) // Resolve promise and go to then()
-//         },
-//         error: function(err) {
-//           reject(err) // Reject the promise and go to catch()
-//         }
-//       });
-//     });
-//   }
-
-//   get_data_for_chart().then(function(data) {
-//     // Run this when your request was successful
-//     console.log(data)
-//   }).catch(function(err) {
-//     // Run this when promise was rejected via reject()
-//     console.log(err)
-//   })
