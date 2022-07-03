@@ -45,9 +45,10 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
             )
         */
 
-        foreach($pomiary_respond as $row) {
-            echo "$row[0]" . "," . "$row[1]" . "$row[2]" . "$row[3]" . ";";
-        }
+        // foreach($pomiary_respond as $row) {
+        //     echo "$row[0]" . "," . "$row[1]" . "$row[2]" . "$row[3]" . ";";
+        // }
+        echo json_encode($pomiary_respond);
     }
     
 }
