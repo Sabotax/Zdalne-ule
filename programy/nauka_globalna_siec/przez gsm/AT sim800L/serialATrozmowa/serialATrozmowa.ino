@@ -17,7 +17,7 @@ void loop() {
   }
   delay(5);
   if (Serial.available()) {
-    Serial.print("Wysyłam");
+    //Serial.print("Wysyłam");
     Serial2.write(Serial.read());
   }
   delay(5);
