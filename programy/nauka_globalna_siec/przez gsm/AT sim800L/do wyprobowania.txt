@@ -1,0 +1,1 @@
+https://forum.arduino.cc/t/sim800l-reboot-and-stability-issues-including-a-solution-review/630612
