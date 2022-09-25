@@ -1,0 +1,6 @@
+1. slave się budzi, podłącza pod serwisy i daje swoje dane z sensorów do charakterystyki X, następnie oczekuje na notify
+2. server wykrywa, że charakterystyka danych się zmieniła -> zapisuje na kartę, oblicza z RTC ile czasu powinien spać slave i w charakterystyce Y wystawia tą informację, po czym robi notify
+3. slave jest notify-owany o tym i idzie spać na tą ilość czasu
+
+charakterystyka X -> write
+charakterystyka Y -> read,notify (lub indicate)
