@@ -1,4 +1,16 @@
 <?php
+$http_origin = $_SERVER['HTTP_ORIGIN'];
+
+$allowed_domains = array(
+  'http://daniel.rozycki.student.put.poznan.pl',
+  'http://localhost'
+);
+
+if (in_array($http_origin, $allowed_domains))
+{  
+    header("Access-Control-Allow-Origin: $http_origin");
+}
+
 require_once("connect_init.php");
 require_once("library.php");
 

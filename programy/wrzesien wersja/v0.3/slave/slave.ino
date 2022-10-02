@@ -68,8 +68,11 @@ static void notifyCallback(
   size_t length,
   bool isNotify) {
     Serial.println("callback detected" + String(pBLERemoteCharacteristic->toString().c_str()) );
-    uint32_t i32 = pData[0] | (pData[1] << 8) | (pData[2] << 16) | (pData[3] << 24);
-    handle_sleep(i32);
+    uint8_t minutes = pData[0];
+    uint8_t seconds = pData[1];
+    Serial.println("Ide spac na " + String(pData[0]) + " minut i " + String(pData[1]) + " sekund");
+    Serial.flush();
+    handle_sleep(minutes,seconds);
 }
 
 class MyClientCallback : public BLEClientCallbacks {
@@ -153,10 +156,11 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
   } // onResult
 }; // MyAdvertisedDeviceCallbacks
 
-void handle_sleep(uint32_t x) {
-  Serial.println("x czas spania:" + String(x) );
+void handle_sleep(uint8_t minutes, uint8_t seconds) {
+  Serial.println("czas spania: " + String(minutes) + " minut i " + String(seconds) + " sekund" );
   Serial.flush();
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+  //esp_sleep_enable_timer_wakeup( (minutes*60+seconds) * uS_TO_S_FACTOR);
   esp_deep_sleep_start();
 }
 
@@ -179,7 +183,7 @@ void setup() {
 long timer = 0;
 
 void loop() {
-  if (doConnect == true) {
+  if (doConnect) {
     if (connectToServer()) {
       Serial.println("We are now connected to the BLE Server.");
     } else {
@@ -188,7 +192,6 @@ void loop() {
     doConnect = false;
   }
   
-  //Serial.println(String(timer + 10000) + "\t" + String(millis() ));
     
   if (connected)  {
     if(timer + 10000 < millis() ) {
