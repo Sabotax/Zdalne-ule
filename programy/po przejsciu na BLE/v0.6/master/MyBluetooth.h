@@ -36,9 +36,9 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       std::string value = pCharacteristic->getValue();
       #ifdef DEBUG
       Serial.println("BLE callback on " + String(pCharacteristic->toString().c_str()));
-      Serial.println("Received:");
+      Serial.println(F("Received:"));
       if (value.length() > 0) {
-        for (int i = 0; i < value.length(); i++)
+        for (byte i = 0; i < value.length(); i++)
           Serial.print(value[i]);
       }
       #endif
@@ -47,7 +47,9 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       pCharacteristic_spanie->notify();
 
       // todo get data from value
-      sendDataToServer(SlaveDataShot( "espSlave01", 69.11, 25.3, getTimestamp() ));
+      //sendDataToServer(SlaveDataShot( "espSlave01", 69.11, 25.3, getTimestamp() ));
+      //sendDataToServer("espSlave01", 69.11, 25.3, "tu_miala_byc_Twoja_godzina" );
+      sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
     }
 };
 
@@ -92,5 +94,5 @@ void initBluetooth() {
   pAdvertising->setScanResponse(false);
   pAdvertising->setMinPreferred(0x0);  // set value to 0x00 to not advertise this parameter
   BLEDevice::startAdvertising();
-  Serial.println("Waiting a client connection to notify...");
+  Serial.println(F("Waiting a client connection to notify..."));
 }
