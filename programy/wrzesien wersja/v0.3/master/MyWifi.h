@@ -35,7 +35,7 @@ String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const fl
 
   re += myTimestamp + "\"},{\"temperatura_wewn\": \"";
 
-  re += String(temperatura) + "\"},{\"timestamp\": \""+myTimestamp+ "\"}]";
+  re += String(temperatura) + "\"}]";
   return re;
 }
 
