@@ -26,10 +26,15 @@ void initRTC() {
 
 String getTimestamp() {
   DateTime now = rtc.now();
-
   String re = "";
   re += String(now.year()) + "-" + String(now.month()) + "-" + String(now.day()) + " ";
   re += String(now.hour()) + ":" + String(now.minute()) + ":" + String(now.second());
 
+  return re;
+}
+
+String getDay() {
+  DateTime now = rtc.now();
+  String re = String(now.year()) + "-" + String(now.month()) + "-" + String(now.day());
   return re;
 }

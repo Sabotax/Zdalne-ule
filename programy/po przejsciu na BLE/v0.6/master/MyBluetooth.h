@@ -47,9 +47,10 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       pCharacteristic_spanie->notify();
 
       // todo get data from value
-      //sendDataToServer(SlaveDataShot( "espSlave01", 69.11, 25.3, getTimestamp() ));
-      //sendDataToServer("espSlave01", 69.11, 25.3, "tu_miala_byc_Twoja_godzina" );
-      sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
+
+      //sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
+
+      saveDataToSD(SD,"espSlave01", 69.11, 25.3, getTimestamp() );
     }
 };
 

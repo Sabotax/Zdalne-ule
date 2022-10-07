@@ -1,27 +1,22 @@
 /*
- * Założenia:
- * -zapisuje dane na kartę na plik tekstowy (każdego dnia jest inny plik tekstowy), a poszczególne krotki dodaje w linii
- * -telefon będzie mógł zdobyć te dane i przechować (nie wiadomo jeszcze czy używając BLE czy włączanego na chwilę wifi)
- * -następnie telefon wyśle dane i przechowa odpowiedź serwera (który wkładając sprawdza, żeby się nie powtarzały krotki itp) mówiącą od którego dnia i którego esp ma dane
- * -następnie przy kolejnym łączeniu z tym konkretnym esp, esp dostanie dane do którego dnia może usunąć dane (bo znajdują się już na serwerze)
- * 
- * odnośnie przesyłania danych na telefon:
- * można skorzystać z BLE, (max 512 bajtów na usługę, czyli 512 znaków) ale trzeba w takim razie zrobić coś w stylu: przesyła około 500 znaków, kończy przesyłanie ich gdzieś 
- * (może w drugiej usłudze) informuje że dalej trzeba i że jeszce nie skończyło i dalej leci przesyłanie i tak w kółko, dzięki temu "protokołowi przesyłania większych ilości danych
- * over BLE" nie będzie problemów z włączaniem wifi i hotspot itp, więc tak będzie chyba lepiej, prądowo też
- * https://github.com/petewarden/ble_file_transfer
- * 
- * fun fact, dzięki wystawieniu informacji na początku jak duży jest plik/jego zawartość będzie można zrobić progress bar zwiększający się co iteracje tego protokołu
- * 
- * edit: jednak łatwiej chyba będzie zrobić charakterystykę na BLE która włącza wifi i wtedy po prostu przesłać POSTem bo inaczej to będzie udręka
+ * Connect the SD card to the following pins:
+ *
+ * SD Card | ESP32
+ *    D2       -
+ *    D3       SS
+ *    CMD      MOSI
+ *    VSS      GND
+ *    VDD      3.3V
+ *    CLK      SCK
+ *    VSS      GND
+ *    D0       MISO
+ *    D1       -
  */
-
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
 
-char bufor[32768];
-uint16_t bufor_index = 0;
+char bufor[30000];
 
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\n", dirname);
@@ -138,36 +133,95 @@ void deleteFile(fs::FS &fs, const char * path){
     }
 }
 
-void initSD() {
+void testFileIO(fs::FS &fs, const char * path){
+    File file = fs.open(path);
+    static uint8_t buf[512];
+    size_t len = 0;
+    uint32_t start = millis();
+    uint32_t end = start;
+    if(file){
+        len = file.size();
+        size_t flen = len;
+        start = millis();
+        while(len){
+            size_t toRead = len;
+            if(toRead > 512){
+                toRead = 512;
+            }
+            file.read(buf, toRead);
+            len -= toRead;
+        }
+        end = millis() - start;
+        Serial.printf("%u bytes read for %u ms\n", flen, end);
+        file.close();
+    } else {
+        Serial.println("Failed to open file for reading");
+    }
+
+
+    file = fs.open(path, FILE_WRITE);
+    if(!file){
+        Serial.println("Failed to open file for writing");
+        return;
+    }
+
+    size_t i;
+    start = millis();
+    for(i=0; i<2048; i++){
+        file.write(buf, 512);
+    }
+    end = millis() - start;
+    Serial.printf("%u bytes written for %u ms\n", 2048 * 512, end);
+    file.close();
+}
+
+void setup(){
+    Serial.begin(115200);
     if(!SD.begin()){
         Serial.println("Card Mount Failed");
         return;
     }
     uint8_t cardType = SD.cardType();
 
+    for(int i = 0; i < 10000; i++) {
+      bufor[i]='x';
+    }
+
     if(cardType == CARD_NONE){
         Serial.println("No SD card attached");
         return;
     }
-    // TODO obsłużyć błąd inicjalizacji i pokazać
+
+    Serial.print("SD Card Type: ");
+    if(cardType == CARD_MMC){
+        Serial.println("MMC");
+    } else if(cardType == CARD_SD){
+        Serial.println("SDSC");
+    } else if(cardType == CARD_SDHC){
+        Serial.println("SDHC");
+    } else {
+        Serial.println("UNKNOWN");
+    }
+
+    uint64_t cardSize = SD.cardSize() / (1024 * 1024);
+    Serial.printf("SD Card Size: %lluMB\n", cardSize);
+
+    listDir(SD, "/", 0);
+    createDir(SD, "/mydir");
+    listDir(SD, "/", 0);
+    removeDir(SD, "/mydir");
+    listDir(SD, "/", 2);
+    writeFile(SD, "/hello.txt", "Hello ");
+    appendFile(SD, "/hello.txt", "World!\n");
+    readFile(SD, "/hello.txt");
+    deleteFile(SD, "/foo.txt");
+    renameFile(SD, "/hello.txt", "/foo.txt");
+    readFile(SD, "/foo.txt");
+    testFileIO(SD, "/test.txt");
+    Serial.printf("Total space: %lluMB\n", SD.totalBytes() / (1024 * 1024));
+    Serial.printf("Used space: %lluMB\n", SD.usedBytes() / (1024 * 1024));
 }
 
+void loop(){
 
-void saveDataToSD(fs::FS &fs,const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp) {
-  String filename = getDay()+".json";
-  
-  File file = fs.open(filename, FILE_APPEND);
-  if(!file){
-    Serial.println("Failed to open file for appending");
-    //return;
-  }
-  else {
-    String message = SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,55.2)+";";
-    if(file.print(message)){
-      Serial.println("Message appended");
-    } else {
-      Serial.println("Append failed");
-    }
-    file.close();
-  }
 }

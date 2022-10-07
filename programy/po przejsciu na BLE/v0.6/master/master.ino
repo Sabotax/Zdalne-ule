@@ -2,6 +2,7 @@
 
 #include "MyRTC.h"
 #include "MyWifi.h"
+#include "MySDCard.h"
 #include "MyBluetooth.h"
 
 void setup() {
@@ -12,6 +13,7 @@ void setup() {
   initRTC();
   initBluetooth();
   initWifi();
+  initSD();
 }
 long timer = 0;
 void loop() {
