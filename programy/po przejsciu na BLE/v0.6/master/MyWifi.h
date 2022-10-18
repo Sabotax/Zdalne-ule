@@ -6,7 +6,6 @@ const char* password = "mtyRdz7KZcEc9k2Ezw";
 
 const char* serverName = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
 
-const char* espMasterId = "esp01";
 
 void initWifi() {
   WiFi.begin(ssid, password);
@@ -24,32 +23,6 @@ void initWifi() {
   Serial.print(F("Connected to WiFi network with IP Address: "));
   Serial.println(WiFi.localIP());
   #endif
-}
-
-String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp,const float& temperatura_zewn) {
-  String re="[{\"S\": \""; //espSlaveId
-  re += espSlaveId;
-
-  re += "\"},{\"W\": \""; //waga
-  re += String(waga) + "\"},{\"T\": \"";
-  //timestamp
-  re += myTimestamp + "\"},{\"I\": \"";
-  //temp wewn
-  re += String(temperatura) + "\"},{\"O\": \"";
-  //temp out
-  re += String(temperatura_zewn)+"\"}]";
-
-  return re;
-}
-
-
-String WholeDataToJson(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp,const float& temperatura_zewn) {
-  String re = "";
-  re += "{";
-  re += "\"M\": \"" + String(espMasterId) + "\","; //esp master id
-  re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,temperatura_zewn); //dane
-  re += "}";
-  return re;
 }
 
 void sendDataToServer(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp ) {

@@ -5,8 +5,7 @@ RTC_DS3231 rtc;
 void initRTC() {
   if (! rtc.begin()) {
     #ifdef DEBUG
-    Serial.println("Couldn't find RTC");
-    Serial.flush();
+      reportBug(10);
     #endif
     while (1) delay(10);
   }

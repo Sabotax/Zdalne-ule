@@ -60,6 +60,7 @@ void createDir(fs::FS &fs, const char * path){
         Serial.println("Dir created");
     } else {
         Serial.println("mkdir failed");
+        reportBug(20);
     }
 }
 
@@ -69,6 +70,7 @@ void removeDir(fs::FS &fs, const char * path){
         Serial.println("Dir removed");
     } else {
         Serial.println("rmdir failed");
+        reportBug(21);
     }
 }
 
@@ -78,6 +80,7 @@ void readFile(fs::FS &fs, const char * path){
     File file = fs.open(path);
     if(!file){
         Serial.println("Failed to open file for reading");
+        reportBug(22);
         return;
     }
 
@@ -100,6 +103,7 @@ void writeFile(fs::FS &fs, const char * path, const char * message){
         Serial.println("File written");
     } else {
         Serial.println("Write failed");
+        reportBug(23);
     }
     file.close();
 }
@@ -116,6 +120,7 @@ void appendFile(fs::FS &fs, const char * path, const char * message){
         Serial.println("Message appended");
     } else {
         Serial.println("Append failed");
+        reportBug(24);
     }
     file.close();
 }
@@ -126,6 +131,7 @@ void renameFile(fs::FS &fs, const char * path1, const char * path2){
         Serial.println("File renamed");
     } else {
         Serial.println("Rename failed");
+        reportBug(26);
     }
 }
 
@@ -135,38 +141,42 @@ void deleteFile(fs::FS &fs, const char * path){
         Serial.println("File deleted");
     } else {
         Serial.println("Delete failed");
+        reportBug(25);
     }
 }
 
 void initSD() {
     if(!SD.begin()){
         Serial.println("Card Mount Failed");
+        reportBug(27);
         return;
     }
     uint8_t cardType = SD.cardType();
 
     if(cardType == CARD_NONE){
         Serial.println("No SD card attached");
+        reportBug(28);
         return;
     }
-    // TODO obsłużyć błąd inicjalizacji i pokazać
 }
 
 
 void saveDataToSD(fs::FS &fs,const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp) {
-  String filename = getDay()+".json";
-  
+  String filename = "/"+getDay()+".json";
+  //Serial.println("filename: "+filename);
   File file = fs.open(filename, FILE_APPEND);
   if(!file){
     Serial.println("Failed to open file for appending");
-    //return;
+    reportBug(29);
+    return;
   }
   else {
     String message = SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,55.2)+";";
     if(file.print(message)){
-      Serial.println("Message appended");
+      Serial.println("Message appended - saveDataToSD");
     } else {
       Serial.println("Append failed");
+      reportBug(30);
     }
     file.close();
   }

@@ -49,7 +49,8 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       // todo get data from value
 
       //sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
-
+      //readFile(SD, "/foo.txt");
+      //writeFile(SD, "/hello.txt", "Hello ");
       saveDataToSD(SD,"espSlave01", 69.11, 25.3, getTimestamp() );
     }
 };
