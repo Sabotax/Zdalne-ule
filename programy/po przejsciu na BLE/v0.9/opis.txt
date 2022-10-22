@@ -1,0 +1,10 @@
+esp32 slave - przez bluteooth się łączy, daje dane, dowiaduje na ile ma iść spać, budzi sie łączy itd
+
+esp32 master - nie śpi, dostaje dane przez bluetooth, zapisuje je na karcie, gdy połączy się telefon to daje mu krotki zapisane na karcie, (dodatkowo - gdy dostanie sygnał to usuwa konkretne krotki - może być np, ze wie że cały dany dzień jest w bazie więc przy następnej komunikacji tel/gsm wie że może go usunąć)
+
+https://www.instructables.com/ESP32-Bluetooth-Low-Energy/
+https://elportal.pl/projekty/komunikacja-rf/278-korzystanie-z-funkcjonalnosci-ble-ukladu-esp32
+https://randomnerdtutorials.com/esp32-bluetooth-low-energy-ble-arduino-ide/
+
+------ v0.9 update
+gsm w końcu działa, rezygnujemy z wifi w obecnej formie i polegamy tylko na gsm + przechowywanie danych na karcie sd, póki co tylko działająca wersja potrzebna, pochylanie się nad oszczędzaniem prądu i samodzielnoscią modułu (typu wykrywanie i reakcja na awarie itp oraz wyłączanie niepotrzebnych modułów i ogólnie oszsczędności póxniej)
