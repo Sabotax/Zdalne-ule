@@ -2,7 +2,7 @@
 
 #include "MyHelper.h"
 #include "MyRTC.h"
-#include "MyWifi.h"
+#include "MyGSM.h"
 #include "MySDCard.h"
 #include "MyBluetooth.h"
 
@@ -13,7 +13,6 @@ void setup() {
 
   initRTC();
   initBluetooth();
-  initWifi();
   initSD();
 }
 long timer = 0;
