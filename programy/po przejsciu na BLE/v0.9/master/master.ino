@@ -1,3 +1,6 @@
+#include <Http.h>
+#include <Sim800.h>
+
 #define DEBUG
 
 #include "MyHelper.h"

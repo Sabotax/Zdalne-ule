@@ -1,7 +1,24 @@
 const char* serverName = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
-
+#include "TinyGSM.h"
 #define RX2 16
 #define TX2 17
+
+#define SerialMon Serial
+#define SerialAT Serial2
+#define TINY_GSM_MODEM_SIM800
+#define GSM_AUTOBAUD_MIN 9600
+#define GSM_AUTOBAUD_MAX 9600
+
+#ifdef DUMP_AT_COMMANDS
+#include <StreamDebugger.h>
+StreamDebugger debugger(SerialAT, SerialMon);
+TinyGsm        modem(debugger);
+#else
+TinyGsm        modem(SerialAT);
+#endif
+
+TinyGsmClient client(modem);
+HttpClient    http(client, server, port);
 
 #define BUFOR_GSM_SIZE 64
 char buforGSM[BUFOR_GSM_SIZE];
@@ -33,12 +50,12 @@ void initGSM() {
   Serial2.println("AT");
 }
 
-byte* getBatteryInfo() {
-  static byte re[3];
-  Serial2.println("AT+CBC");
-  if( awaitResponse() ) {
-    for(byte i = 0; i < buforGSM_used; i++) {
-      
-    }
-  }
-}
+//byte* getBatteryInfo() {
+//  static byte re[3];
+//  Serial2.println("AT+CBC");
+//  if( awaitResponse() ) {
+//    for(byte i = 0; i < buforGSM_used; i++) {
+//      
+//    }
+//  }
+//}
