@@ -22,30 +22,30 @@ void setup() {
   Serial.println(F("readVoltage:"));
   Serial.println(String(http.readVoltage()));
   
-  Serial.println(F("read GPS"));
-  http.readGpsLocation(buffer_gps);
-  Serial.println(buffer_gps);
+//  Serial.println(F("read GPS"));
+//  http.readGpsLocation(buffer_gps);
+//  Serial.println(buffer_gps);
 
-  Serial.println(F("readVoltagePercentage"));
-  http.readVoltagePercentage(buffer_battery);
-  Serial.println(buffer_battery);
-
-  Serial.println(F("Usypiam SIM (tryb snu 2) i czekam 10 sekund"));
-  http.sleep(false);
-  delay(10000);
-  Serial.println(F("Budze SIM"));
-  http.wakeUp();
-  delay(3000);
+//  Serial.println(F("readVoltagePercentage"));
+//  http.readVoltagePercentage(buffer_battery);
+//  Serial.println(buffer_battery);
+//
+//  Serial.println(F("Usypiam SIM (tryb snu 2) i czekam 10 sekund"));
+//  http.sleep(false);
+//  delay(10000);
+//  Serial.println(F("Budze SIM"));
+//  http.wakeUp();
+//  delay(3000);
 
   Serial.println(F("Wysyłam example json post"));
-  http.configureBearer("your.mobile.service.provider.apn");
+  //http.configureBearer("your.mobile.service.provider.apn");
   http.connect();
 
   char response[256];
   // wlaczanie ssl poprzez wrzucenie do linka https:// (samo wykrywa i ustawia biblioteka)
-  Result result = http.post("daniel.rozycki.student.put.poznan.pl", "{\"date\":\"12345678\"}", response);
+  Result result = http.post("daniel.rozycki.student.put.poznan.pl/incomingData.php", "{\"date\":\"12345678\"}", response);
   Serial.println(F("Odpowiedz"));
-  Serial.println(response);
+  Serial.println(String(response));
 
   http.disconnect();
   
