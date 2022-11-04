@@ -52,6 +52,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       //readFile(SD, "/foo.txt");
       //writeFile(SD, "/hello.txt", "Hello ");
       saveDataToSD(SD,"espSlave01", 69.11, 25.3, getTimestamp() );
+      makePostGSM("espSlave01", 69.11, 25.3, getTimestamp());
     }
 };
 

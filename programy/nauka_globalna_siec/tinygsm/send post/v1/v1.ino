@@ -18,7 +18,8 @@ const char gprsUser[] = "";
 const char gprsPass[] = "";
 
 // Server details
-const char server[]   = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
+const char server[]   = "http://daniel.rozycki.student.put.poznan.pl";
+const char resource[] = "/incomingData.php";
 #include <TinyGsmClient.h>
 #ifdef DUMP_AT_COMMANDS
 #include <StreamDebugger.h>
@@ -76,21 +77,34 @@ void connectGSM() {
   SerialMon.println(" success");
 }
 
-void makePostGSM(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp) {
-  String postData = WholeDataToJson(espSlaveId,waga,temperatura,myTimestamp,69.0);
-  SerialMon.println("making POST request with body:");
-  SerialMon.println(postData);
+void POSTrequestGSM() {
+  //TODO (zobaczyc http client przyklad i arduinojson), moze nie bedzie trzeba samemu pisac
+  SerialMon.println("making POST request");
   String contentType = "application/json";
-  http.post(server, contentType, postData);
+  String postData = "{\"name\":\"Alice\",\"age\"=\"12\"}";
 
+  http.post("http://daniel.rozycki.student.put.poznan.pl/incomingData.php", contentType, postData);
+
+  // read the status code and body of the response
   int statusCode = http.responseStatusCode();
   String response = http.responseBody();
-
-  if(statusCode != 200) reportBug(statusCode);
 
   SerialMon.print("Status code: ");
   SerialMon.println(statusCode);
   SerialMon.print("Response: ");
   SerialMon.println(response);
-  
+
+}
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  initGSM();
+  connectGSM();
+  POSTrequestGSM();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
 }

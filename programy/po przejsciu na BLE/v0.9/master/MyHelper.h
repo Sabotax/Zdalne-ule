@@ -25,7 +25,7 @@ String WholeDataToJson(const String& espSlaveId, const float& waga ,const float&
   return re;
 }
 
-void reportBug(byte code) {
+void reportBug(uint16_t code) {
   #ifdef DEBUG
     Serial.print("Zgłoszono bug o kodzie "+String(code));
     Serial.flush();

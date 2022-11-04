@@ -1,0 +1,24 @@
+21:28:10.833 -> Initializing modem...
+21:28:17.085 -> Initializing modem...
+21:28:27.053 -> Waiting for network... success
+21:28:27.149 -> Network connected
+21:28:27.152 -> Connecting to internet success
+21:28:31.269 -> GPRS connected
+21:28:31.269 -> Connecting to http://daniel.rozycki.student.put.poznan.pl
+21:28:31.899 ->  success
+21:28:31.900 -> making POST request
+21:28:39.520 -> Status code: 200
+21:28:39.522 -> Response: <!DOCTYPE html>
+21:28:39.524 -> <html>
+21:28:39.525 ->     <head>
+21:28:39.526 ->         <meta charset="utf-8">
+21:28:39.529 ->         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+21:28:39.534 ->         <title></title>
+21:28:39.537 ->         <meta name="description" content="">
+21:28:39.541 ->         <meta name="viewport" content="width=device-width, initial-scale=1">
+21:28:39.548 ->     </head>
+21:28:39.549 ->     <body>
+21:28:39.550 ->               
+21:28:39.552 -> Jest okej siema    </body>
+21:28:39.554 -> </html>
+21:28:39.555 -> 
