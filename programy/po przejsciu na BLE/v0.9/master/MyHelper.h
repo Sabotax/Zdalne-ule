@@ -19,6 +19,7 @@ String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const fl
 String WholeDataToJson(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp,const float& temperatura_zewn) {
   String re = "";
   re += "{";
+  re += "\"T\": \"Watykanczyk2137\","; //esp master id
   re += "\"M\": \"" + String(espMasterId) + "\","; //esp master id
   re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,temperatura_zewn); //dane
   re += "}";
