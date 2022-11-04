@@ -1,6 +1,10 @@
 <?php
 function querySelect($mysqli,$query) {
 
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
     if($rezultat=$mysqli->query($query) ) {     //jeśli 1) uda się otrzymać wynik zapytania + 2) przypisuje go do rezultat
         $tablica = Array();
         if($rezultat->num_rows > 0) { // ??? jesli zapytanie nie jest puste - w kolejnosci bo u gory jeszcze by nie bylo przypisane/zadeklarowane
@@ -32,6 +36,25 @@ function load_pasieki($mysqli) {
             echo "<option value=\"$row[0]\">$row[1]</option>";
         }
     }
+}
+
+function insertIncomingData($mysqli,$input) {
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    //TODO
+    $query = '
+        INSERT INTO 
+    ';
+
+    if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+    } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+      
+    $conn->close();
 }
 
 
