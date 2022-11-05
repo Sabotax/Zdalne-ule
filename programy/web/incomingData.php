@@ -9,13 +9,16 @@
 // }
 
 $token_autoryzujacy = "Watykanczyk2137";
-$require_once("library.php");
+require_once("PHP/library.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $incoming_data = json_decode(file_get_contents('php://input'));
+    $incoming_data = json_decode(file_get_contents('php://input'),true);
+    // print_r($incoming_data);
+    // echo "----";
+    // echo $incoming_data["T"];
     if(verifyIncomingData($incoming_data)) {
         require_once("PHP/connect_init.php");
-        insertPomiar($incoming_data);
+        insertPomiar($mysqli,$incoming_data);
     }
 }
 

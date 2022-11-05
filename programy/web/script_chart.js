@@ -67,8 +67,8 @@ function get_data_for_chart() {
         };
         let selector = "chart"
         let typ = document.getElementById("chart_typ").value
-        let czas_od = document.getElementById("okres_czasu_input_od").value + " 23:59:59";
-        let czas_do = document.getElementById("okres_czasu_input_do").value + " 00:00:00";
+        let czas_od = document.getElementById("okres_czasu_input_od").value + " 00:00:00";
+        let czas_do = document.getElementById("okres_czasu_input_do").value + " 23:59:59";
         let ul = document.getElementById("lista_ule").value;
 
         xmlhttp.open("POST", "PHP/ajax.php?selector=" + selector + "&typ="+typ+ "&czas_od="+czas_od+ "&czas_do="+czas_do+"&ul="+ul, true);

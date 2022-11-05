@@ -63,41 +63,37 @@ function insertKilkaPojedynczych($mysqli,$input,$zbiorowy_id) {
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-    for($i=0; $i < count($input["data"]) ; $i++ ) {
+    for($i=0; $i < count($input["D"]) ; $i++ ) {
+        echo "indeks petli = ".$i."\n";
         $query = "
         INSERT INTO `pomiary_pojedyncze`(`ID_pomiar_zbiorowy`, `ID_esp_slave`, `waga`, `temperatura`) 
-        VALUES ($zbiorowy_id,$input[data][$i][S],$input[data][$i][W],$input[data][$i][I])
+        VALUES ($zbiorowy_id,".$input["D"][$i]["S"].",\"".$input["D"][$i]["W"]."\",".$input["D"][$i]["I"].")
         ";
 
-        if ($mysqli->query($sql) === TRUE) {
+        if ($mysqli->query($query) === TRUE) {
             echo "New record pojedynczy $i created successfully";
         } else {
-            echo "Error: " . $sql . "<br>" . $mysqli->error;
+            echo "Error: " . $query . "<br>" . $mysqli->error;
         }
-    }
-
-    if ($mysqli->query($sql) === TRUE) {
-    echo "New record created successfully";
-    } else {
-    echo "Error: " . $sql . "<br>" . $mysqli->error;
     }
       
     //$mysqli->close();
 }
 
 function insertZbiorowy($mysqli,$input) {
-    $query = "INSERT INTO `pomiary_zbiorowe`(`ID_esp-master`, `data`, `temperatura_zewn`) VALUES ($input[M],$input[A],$input[C])";
+    $query = "INSERT INTO `pomiary_zbiorowe`(`ID_esp-master`, `data`, `temperatura_zewn`) VALUES ($input[M],\"$input[A]\",$input[C])";
+    // echo $query;
     $last_id = -1;
 
     if ($mysqli->connect_error) {
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-    if ($mysqli->query($sql) === TRUE) {
+    if ($mysqli->query($query) === TRUE) {
     $last_id = $mysqli->insert_id;
-    echo "New record created successfully";
+    echo "New record zbiorowy created successfully\n";
     } else {
-    echo "Error: " . $sql . "<br>" . $mysqli->error;
+    echo "Error: " . $query . "<br>" . $mysqli->error;
     }
           
     //$mysqli->close();
@@ -106,12 +102,13 @@ function insertZbiorowy($mysqli,$input) {
 
 function insertPomiar($mysqli,$input) {
     $id = insertZbiorowy($mysqli,$input);
+    echo "id zbiorowe = ".$id."\n";
     insertKilkaPojedynczych($mysqli,$input,$id);
 }
 
 function verifyIncomingData($incomingData) {
     $token_autoryzujacy = "Watykanczyk2137";
-    if($incoming_data["T"] == $token_autoryzujacy) {
+    if($incomingData["T"] == $token_autoryzujacy) {
         return true;
     }
     return false;
