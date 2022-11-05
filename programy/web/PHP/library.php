@@ -38,24 +38,83 @@ function load_pasieki($mysqli) {
     }
 }
 
-function insertIncomingData($mysqli,$input) {
+function insertPojedynczy($mysqli,$input,$zbiorowy_id) {
     if ($mysqli->connect_error) {
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-    //TODO
-    $query = '
-        INSERT INTO 
-    ';
+    //TODO for each row pojedynczych
+    
+        $query = "
+        INSERT INTO `pomiary_pojedyncze`(`ID_pomiar_zbiorowy`, `ID_esp_slave`, `waga`, `temperatura`) VALUES ($zbiorowy_id,'[value-3]','[value-4]','[value-5]')
+        ";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($mysqli->query($sql) === TRUE) {
     echo "New record created successfully";
     } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
     }
       
-    $conn->close();
+    //$mysqli->close();
 }
 
+function insertKilkaPojedynczych($mysqli,$input,$zbiorowy_id) {
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    for($i=0; $i < count($input["data"]) ; $i++ ) {
+        $query = "
+        INSERT INTO `pomiary_pojedyncze`(`ID_pomiar_zbiorowy`, `ID_esp_slave`, `waga`, `temperatura`) 
+        VALUES ($zbiorowy_id,$input[data][$i][S],$input[data][$i][W],$input[data][$i][I])
+        ";
+
+        if ($mysqli->query($sql) === TRUE) {
+            echo "New record pojedynczy $i created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $mysqli->error;
+        }
+    }
+
+    if ($mysqli->query($sql) === TRUE) {
+    echo "New record created successfully";
+    } else {
+    echo "Error: " . $sql . "<br>" . $mysqli->error;
+    }
+      
+    //$mysqli->close();
+}
+
+function insertZbiorowy($mysqli,$input) {
+    $query = "INSERT INTO `pomiary_zbiorowe`(`ID_esp-master`, `data`, `temperatura_zewn`) VALUES ($input[M],$input[A],$input[C])";
+    $last_id = -1;
+
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    if ($mysqli->query($sql) === TRUE) {
+    $last_id = $mysqli->insert_id;
+    echo "New record created successfully";
+    } else {
+    echo "Error: " . $sql . "<br>" . $mysqli->error;
+    }
+          
+    //$mysqli->close();
+    return $last_id;
+}
+
+function insertPomiar($mysqli,$input) {
+    $id = insertZbiorowy($mysqli,$input);
+    insertKilkaPojedynczych($mysqli,$input,$id);
+}
+
+function verifyIncomingData($incomingData) {
+    $token_autoryzujacy = "Watykanczyk2137";
+    if($incoming_data["T"] == $token_autoryzujacy) {
+        return true;
+    }
+    return false;
+}
 
 ?>

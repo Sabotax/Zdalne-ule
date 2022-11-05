@@ -9,18 +9,15 @@
 // }
 
 $token_autoryzujacy = "Watykanczyk2137";
+$require_once("library.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $incoming_data = json_decode(file_get_contents('php://input'));
     if(verifyIncomingData($incoming_data)) {
         require_once("PHP/connect_init.php");
+        insertPomiar($incoming_data);
     }
 }
 
-function verifyIncomingData($incomingData) {
-    if($incoming_data["T"] == "Watykanczyk2137") {
-        return true;
-    }
-    return false;
-}
+
 ?>

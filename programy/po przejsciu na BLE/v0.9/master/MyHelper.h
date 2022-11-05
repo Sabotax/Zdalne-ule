@@ -1,17 +1,15 @@
 const char* espMasterId = "esp01";
 
-String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp,const float& temperatura_zewn) {
+String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp) {
   String re="[{\"S\": \""; //espSlaveId
   re += espSlaveId;
 
   re += "\"},{\"W\": \""; //waga
-  re += String(waga) + "\"},{\"T\": \"";
+  re += String(waga) + "\"}";
   //timestamp
-  re += myTimestamp + "\"},{\"I\": \"";
+  re += ",{\"I\": \"";
   //temp wewn
-  re += String(temperatura) + "\"},{\"O\": \"";
-  //temp out
-  re += String(temperatura_zewn)+"\"}]";
+  re += String(temperatura) + "\"}]";
 
   return re;
 }
@@ -20,8 +18,10 @@ String WholeDataToJson(const String& espSlaveId, const float& waga ,const float&
   String re = "";
   re += "{";
   re += "\"T\": \"Watykanczyk2137\","; //esp master id
-  re += "\"M\": \"" + String(espMasterId) + "\","; //esp master id
-  re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,temperatura_zewn); //dane
+  re += "\"M\": \"" + String(espMasterId) + "\",";
+  re += "\"C\": \"" + String(temperatura_zewn) + "\","; 
+  re += "\"A\": \"" + myTimestamp + "\","; //esp master id
+  re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura); //dane
   re += "}";
   return re;
 }
