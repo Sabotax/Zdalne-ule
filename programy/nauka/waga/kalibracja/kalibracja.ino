@@ -1,12 +1,13 @@
 #include "HX711.h"
  
-#define DOUT  5         //pin 3 Arduino i wyjście DAT czujnika
+#define DOUT  2         //pin 3 Arduino i wyjście DAT czujnika
 #define CLK  4           //pin 2 Arduino i wyjście CLK czujnika
  
 HX711 scale(DOUT, CLK);
  
-float calibration_factor = 500;     //współczynnik kalibracji
-//416600
+float calibration_factor = 10570.00;     //współczynnik kalibracji
+//416600 belka
+//10570.00 drewno v1
  
 void setup() {
   Serial.begin(9600);
@@ -23,9 +24,8 @@ void setup() {
   Serial.print("Zero factor: ");               //Może być wykorzystane aby usunąć potrzebę tarowania skali. Użyteczne w projektach o stałej skalli
   Serial.println(zero_factor);
 
-  pinMode(LED_BUILTIN, OUTPUT);
 }
- 
+
 void loop() {
  
   scale.set_scale(calibration_factor);       //Wyrównanie według współczynnika kalibracji
@@ -43,13 +43,23 @@ void loop() {
     if(temp == '+')
       calibration_factor += 10;
     else if (temp == 'a') {
-      calibration_factor += 500;
+      calibration_factor += 1000;
     }
     else if (temp == 'z') {
-      calibration_factor -= 500;
+      calibration_factor -= 1000;
     }
-    else if(temp == '-')
+    else if(temp == '-') {
       calibration_factor -= 10;
+    }
+    else if(temp == 'm') {
+      calibration_factor += 100000;
+    }
+    else if(temp == 'n') {
+      calibration_factor -= 100000;
+    }
+    
   }
+                                                                                                                                                                                                                                                                                 
+  delay(500);
 
 }

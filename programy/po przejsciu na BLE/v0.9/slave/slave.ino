@@ -30,7 +30,7 @@ float tempC = 69;
 //#define pin_waga_clk D2
 //#include "HX711.h"
 //HX711 scale(pin_waga_data,pin_waga_clk);
-//float calibration_factor = 1;
+float calibration_factor = 10570; // w otoczeniu 2kg
 ////-- zmienne
 //float pomiar_waga;
 float pomiar_waga = 420;
