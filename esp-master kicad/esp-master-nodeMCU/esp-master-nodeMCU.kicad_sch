@@ -1519,7 +1519,6 @@
     )
   )
 
-
   (junction (at 128.27 43.18) (diameter 0) (color 0 0 0 0)
     (uuid 7b8eb076-a292-43b4-9ea6-3673085a6248)
   )
@@ -1998,7 +1997,7 @@
     (property "Reference" "C2" (id 0) (at 146.05 35.56 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "C" (id 1) (at 146.05 38.1 0)
+    (property "Value" "33pF" (id 1) (at 146.05 38.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 148.2852 50.8 0)
@@ -2088,7 +2087,7 @@
     (property "Reference" "C1" (id 0) (at 125.73 35.56 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "C_Polarized" (id 1) (at 125.73 38.1 0)
+    (property "Value" "2200uF" (id 1) (at 125.73 38.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 129.2352 50.8 0)
@@ -2175,7 +2174,7 @@
     (property "Reference" "C3" (id 0) (at 158.75 35.56 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "C" (id 1) (at 158.75 38.1 0)
+    (property "Value" "10pF" (id 1) (at 158.75 38.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 160.9852 50.8 0)
@@ -2687,13 +2686,13 @@
       (reference "BT1") (unit 1) (value "Battery") (footprint "")
     )
     (path "/37551ef5-1a93-4655-9635-abdd4742c8aa"
-      (reference "C1") (unit 1) (value "C_Polarized") (footprint "")
+      (reference "C1") (unit 1) (value "2200uF") (footprint "")
     )
     (path "/09b4820b-cacf-4ab6-bc1c-27905b41c380"
-      (reference "C2") (unit 1) (value "C") (footprint "")
+      (reference "C2") (unit 1) (value "33pF") (footprint "")
     )
     (path "/53675dc1-84df-46b5-8cc9-715e2017b317"
-      (reference "C3") (unit 1) (value "C") (footprint "")
+      (reference "C3") (unit 1) (value "10pF") (footprint "")
     )
     (path "/c2bbfd57-799e-45c5-b16f-899657985044"
       (reference "D1") (unit 1) (value "DIODE") (footprint "")
