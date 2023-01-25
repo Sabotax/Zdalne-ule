@@ -14,6 +14,8 @@ void setup() {
   initRTC();
   initBluetooth();
   initSD();
+  initGSM();
+  connectGSM();
 }
 long timer = 0;
 void loop() {
@@ -37,5 +39,19 @@ void loop() {
     if (deviceConnected && !oldDeviceConnected) {
         // do stuff here on connecting
         oldDeviceConnected = deviceConnected;
+    }
+
+    if(send_msg_flag) {
+      send_msg_flag = false;
+      // todo get data from value
+      //wakeUpGSM();
+      //connectGSM();
+      //sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
+      //readFile(SD, "/foo.txt");
+      //writeFile(SD, "/hello.txt", "Hello ");
+      saveDataToSD(SD,"espSlave01", 69.11, 25.3, getTimestamp() );
+      makePostGSM("espSlave01", 69.11, 25.3, getTimestamp());
+      //delay(5000);
+      //goSleepGSM();
     }
 }

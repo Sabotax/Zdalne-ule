@@ -171,7 +171,7 @@ void saveDataToSD(fs::FS &fs,const String& espSlaveId, const float& waga ,const 
     return;
   }
   else {
-    String message = SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp,55.2)+";";
+    String message = SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp)+";";
     if(file.print(message)){
       Serial.println("Message appended - saveDataToSD");
     } else {

@@ -4,10 +4,10 @@ String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const fl
   String re="[{\"S\": \""; //espSlaveId
   re += espSlaveId;
 
-  re += "\"},{\"W\": \""; //waga
-  re += String(waga) + "\"}";
+  re += "\",\"W\": \""; //waga
+  re += String(waga) + "\"";
   //timestamp
-  re += ",{\"I\": \"";
+  re += ",\"I\": \"";
   //temp wewn
   re += String(temperatura) + "\"}]";
 
@@ -21,7 +21,7 @@ String WholeDataToJson(const String& espSlaveId, const float& waga ,const float&
   re += "\"M\": \"" + String(espMasterId) + "\",";
   re += "\"C\": \"" + String(temperatura_zewn) + "\","; 
   re += "\"A\": \"" + myTimestamp + "\","; //esp master id
-  re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura); //dane
+  re += "\"D\": " + SlaveDataShotToJson(espSlaveId,waga,temperatura,myTimestamp); //dane
   re += "}";
   return re;
 }

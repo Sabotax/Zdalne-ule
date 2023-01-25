@@ -18,7 +18,8 @@ const char gprsUser[] = "";
 const char gprsPass[] = "";
 
 // Server details
-const char server[]   = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
+const char server[]   = "http://daniel.rozycki.student.put.poznan.pl";
+const char resource[] = "/incomingData.php";
 #include <TinyGsmClient.h>
 #ifdef DUMP_AT_COMMANDS
 #include <StreamDebugger.h>
@@ -32,6 +33,16 @@ TinyGsmClient client(modem);
 const int      port = 80;
 HttpClient    http(client, server, port);
 
+boolean send_msg_flag = false;
+
+//void goSleepGSM() {
+//  SerialMon.println("GSM cutting power");
+//  modem.poweroff();
+//}
+//void wakeUpGSM() {
+//  SerialMon.println("powering GSM");
+//  modem.restart();
+//}
 void initGSM() {
   Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
   Serial2.println("AT");
@@ -40,8 +51,8 @@ void initGSM() {
   SerialMon.println("Initializing modem...");
   modem.restart();
 
-  SerialMon.println("Initializing modem...");
-
+  //SerialMon.println("Initializing modem...");
+  //goSleepGSM();
 }
 
 void connectGSM() {
@@ -77,16 +88,17 @@ void connectGSM() {
 }
 
 void makePostGSM(const String& espSlaveId, const float& waga ,const float& temperatura, const String& myTimestamp) {
-  String postData = WholeDataToJson(espSlaveId,waga,temperatura,myTimestamp,69.0);
+  //String postData = WholeDataToJson(espSlaveId,waga,temperatura,myTimestamp,69.0);
+  //String postData = "{\"name\":\"Alice\",\"age\"=\"12\"}";
+  String postData = "{\"T\": \"ExToken\",\"ID\": \"esp01\",\"ID2\": \"espA\",\"masa\": \"1.02\",\"t\": \"21.1\"}";
   SerialMon.println("making POST request with body:");
   SerialMon.println(postData);
   String contentType = "application/json";
-  http.post(server, contentType, postData);
-
+  http.post("http://daniel.rozycki.student.put.poznan.pl/incomingData.php", contentType, postData);
   int statusCode = http.responseStatusCode();
   String response = http.responseBody();
 
-  if(statusCode != 200) reportBug(statusCode);
+  //if(statusCode != 200) reportBug(statusCode);
 
   SerialMon.print("Status code: ");
   SerialMon.println(statusCode);

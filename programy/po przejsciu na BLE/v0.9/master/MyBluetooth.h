@@ -46,13 +46,7 @@ class MyCallbacks: public BLECharacteristicCallbacks {
       pCharacteristic_spanie->setValue((uint8_t*) &czas_snu, 2);
       pCharacteristic_spanie->notify();
 
-      // todo get data from value
-
-      //sendDataToServer("espSlave01", 69.11, 25.3, getTimestamp() );
-      //readFile(SD, "/foo.txt");
-      //writeFile(SD, "/hello.txt", "Hello ");
-      saveDataToSD(SD,"espSlave01", 69.11, 25.3, getTimestamp() );
-      makePostGSM("espSlave01", 69.11, 25.3, getTimestamp());
+      send_msg_flag = true;
     }
 };
 
