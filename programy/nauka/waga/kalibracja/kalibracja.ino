@@ -5,7 +5,7 @@
  
 HX711 scale(DOUT, CLK);
  
-float calibration_factor = 10570.00;     //współczynnik kalibracji
+float calibration_factor = 1;     //współczynnik kalibracji
 //416600 belka
 //10570.00 drewno v1
  
@@ -18,7 +18,7 @@ void setup() {
   Serial.println("Wcisnij - lub z by zwiekszyc wspolczynnik kalibracji");
  
   scale.set_scale();
-  scale.tare();         //Resetuje skalę na 0
+  //scale.tare();         //Resetuje skalę na 0
  
   long zero_factor = scale.read_average();     //Odczyt podstawy
   Serial.print("Zero factor: ");               //Może być wykorzystane aby usunąć potrzebę tarowania skali. Użyteczne w projektach o stałej skalli
