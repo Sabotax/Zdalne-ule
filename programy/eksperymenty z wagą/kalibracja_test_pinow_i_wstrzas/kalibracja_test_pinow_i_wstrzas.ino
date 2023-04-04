@@ -1,16 +1,9 @@
 #include <HX711.h>
  
-//#define DOUT  16         //pin 3 Arduino i wyjście DAT czujnika
-//#define CLK  4           //pin 2 Arduino i wyjście CLK czujnika
-
-#define DOUT  32         //pin 3 Arduino i wyjście DAT czujnika
-#define CLK  33           //pin 2 Arduino i wyjście CLK czujnika
-//#define DOUT 3
-//#define CLK 2
-//#define wstrzas 32
-//d4 data
-//d2 clk
-//d5 wstzra do
+#define DOUT  35         
+#define CLK  34           
+#define wstrzasD 35
+#define wstrzasA 34
  
 HX711 loadcell;
  
@@ -26,16 +19,24 @@ void setup() {
   loadcell.begin(DOUT, CLK);
   loadcell.set_scale();
   loadcell.set_offset();
+
+  pinMode(wstrzasD,INPUT);
+  pinMode(wstrzasA,INPUT);
  
 }
 
 void loop() {
  
 //  scale.set_scale(calibration_factor);       //Wyrównanie według współczynnika kalibracji
+//todo budzenie się na pinach wstrząsowych
  
-  Serial.print("Odczyt: ");
-  Serial.println(loadcell.get_units(2));
- 
+  Serial.print("Waga:\t");
+  Serial.print(loadcell.get_units(7));
+  Serial.print("\tWstrzasA\t");
+  Serial.print(analogRead(wstrzasA));
+  Serial.print("\tWstrzasD\t");
+  Serial.print(digitalRead(wstrzasD));
+ Serial.println();
                                                                                                                                                                                                                                                                                  
   delay(50);
 
