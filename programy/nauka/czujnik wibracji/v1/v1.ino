@@ -1,21 +1,14 @@
+#define digital_wstrzas 26
+#define analog_wstrzas 25
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  pinMode(7,INPUT);
-  pinMode(13,OUTPUT);
+  Serial.begin(115200);
+  pinMode(digital_wstrzas,INPUT);
+  pinMode(analog_wstrzas,INPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if( digitalRead(7) == HIGH) {
-    digitalWrite(13,LOW);
-    
-  }
-  else {
-    digitalWrite(13,HIGH);
-    Serial.println(digitalRead(7) );
-  }
-
+  Serial.println(String(analogRead(analog_wstrzas))+"\t"+String(digitalRead(digital_wstrzas)));
   delay(10);
-
 }
