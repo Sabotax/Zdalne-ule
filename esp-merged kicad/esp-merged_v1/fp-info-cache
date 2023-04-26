@@ -1,4 +1,4 @@
-20590103498153364
+20595151152987776
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86443,6 +86443,13 @@ varistor
 2
 2
 wlasne_footprinty
+MH-sensor-series
+
+
+0
+4
+4
+wlasne_footprinty
 OLED
 
 
@@ -86456,3 +86463,17 @@ button R13-57A-05-BG
 0
 2
 2
+wlasne_footprinty
+prog pins ESP32 (aka esp01)
+
+
+0
+8
+8
+wlasne_footprinty
+screw connector 12
+
+
+0
+12
+12

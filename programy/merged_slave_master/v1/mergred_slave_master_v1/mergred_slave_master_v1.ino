@@ -42,7 +42,7 @@ const char* password = /*"mtyRdz7KZcEc9k2Ezw"*/ "9533f5tdu5av";
 const char* serverName = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
 
 //SLEEP
-#define TIME_TO_SLEEP  10
+#define TIME_TO_SLEEP  120
 #define uS_TO_S_FACTOR 1000000
 
 // funkcje
@@ -74,7 +74,7 @@ String SlaveDataShotToJson(const String& espSlaveId, const float& waga ,const fl
 
   re += "\",\"W\": \""; //waga
   re += String(waga) + "\"";
-  //timestamp
+  re += "\",\"W\": \"" + myTimestamp + "\""; //czas
   re += ",\"I\": \"";
   //temp wewn
   re += String(temperatura) + "\"}]";
