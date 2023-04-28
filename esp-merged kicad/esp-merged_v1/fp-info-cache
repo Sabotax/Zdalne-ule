@@ -1,4 +1,4 @@
-20601881713714715
+20603564437902139
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86468,8 +86468,8 @@ ds3231
 
 
 0
-0
-0
+10
+10
 wlasne_footprinty
 hx711
 
@@ -86505,3 +86505,10 @@ screw connector 12
 0
 12
 12
+wlasne_footprinty
+sim800l
+
+
+0
+0
+0
