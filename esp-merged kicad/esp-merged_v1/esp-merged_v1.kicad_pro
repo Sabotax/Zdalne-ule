@@ -235,7 +235,9 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [],
+    "pinned_footprint_libs": [
+      "wlasne_footprinty"
+    ],
     "pinned_symbol_libs": []
   },
   "meta": {

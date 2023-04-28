@@ -1,4 +1,4 @@
-20595151152987776
+20601881713714715
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86458,6 +86458,34 @@ OLED
 4
 wlasne_footprinty
 button R13-57A-05-BG
+
+
+0
+2
+2
+wlasne_footprinty
+ds3231
+
+
+0
+0
+0
+wlasne_footprinty
+hx711
+
+
+0
+10
+10
+wlasne_footprinty
+karta sd
+
+
+0
+7
+7
+wlasne_footprinty
+koszyk na baterie 1x1
 
 
 0

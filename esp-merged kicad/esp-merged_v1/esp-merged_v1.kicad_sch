@@ -659,7 +659,7 @@
         )
       )
     )
-    (symbol "Device:Battery" (pin_numbers hide) (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
+    (symbol "Device:Battery" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
       (property "Reference" "BT" (id 0) (at 2.54 2.54 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -2783,14 +2783,18 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 52515783-1d62-4e16-94c0-b56caf1bd793)
   )
-  (text "todo\nfootprint:\n	baterii\n	SIM800L\n	HX711\n	karty sd"
-    (at 93.345 157.48 0)
+  (text "todo\nfootprint:\n	SIM800L" (at 93.345 157.48 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 7f05c11f-9518-43c1-8bdc-9362bcbd03b5)
   )
   (text "Zegar czasu rzeczywistego" (at 158.75 31.115 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 959b2c5f-464c-492d-b249-b32353a7cfb2)
+  )
+  (text "todo jako antene dać wyjście odpowiednie do podłączenia PCB pod kabel i kablem do anteny "
+    (at 56.515 184.785 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid a4eba6df-7bd6-4885-9d4c-5dc8495b1033)
   )
   (text "Waga" (at 189.23 67.945 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -3048,7 +3052,7 @@
     (uuid 15aa75da-45cd-42cf-9e21-383f7cc14908)
     (property "Reference" "J?" (id 0) (at 270.51 59.055 0))
     (property "Value" "SD_Card" (id 1) (at 273.05 56.515 0))
-    (property "Footprint" "" (id 2) (at 247.65 45.085 0)
+    (property "Footprint" "wlasne_footprinty:karta sd" (id 2) (at 247.65 45.085 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://portal.fciconnect.com/Comergent//fci/drawing/10067847.pdf" (id 3) (at 247.65 45.085 0)
@@ -3133,7 +3137,7 @@
     (uuid 3e906b60-a74c-43dd-bad1-f706f0b88384)
     (property "Reference" "M?" (id 0) (at 213.995 70.485 0))
     (property "Value" "HX711" (id 1) (at 213.995 73.025 0))
-    (property "Footprint" "" (id 2) (at 215.9 92.075 0)
+    (property "Footprint" "wlasne_footprinty:hx711" (id 2) (at 215.9 92.075 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (id 3) (at 215.9 92.075 0)
@@ -3297,7 +3301,7 @@
     (property "Value" "DS3231M" (id 1) (at 193.04 52.705 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm" (id 2) (at 181.61 62.865 0)
+    (property "Footprint" "wlasne_footprinty:ds3231" (id 2) (at 181.61 62.865 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://datasheets.maximintegrated.com/en/ds/DS3231.pdf" (id 3) (at 188.468 46.355 0)
@@ -3632,7 +3636,7 @@
     (property "Value" "Battery" (id 1) (at 21.59 52.3239 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (id 2) (at 17.78 49.911 90)
+    (property "Footprint" "wlasne_footprinty:koszyk na baterie 1x1" (id 2) (at 17.78 49.911 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 17.78 49.911 90)
@@ -3687,7 +3691,7 @@
       (reference "AE?") (unit 1) (value "Antenna") (footprint "")
     )
     (path "/fdae1537-0230-405c-818b-09f62494491f"
-      (reference "BT?") (unit 1) (value "Battery") (footprint "")
+      (reference "BT?") (unit 1) (value "Battery") (footprint "wlasne_footprinty:koszyk na baterie 1x1")
     )
     (path "/543b574d-f4f4-4981-80a0-26a8cf3efc80"
       (reference "C?") (unit 1) (value "2200uF") (footprint "")
@@ -3708,7 +3712,7 @@
       (reference "F?") (unit 1) (value "Fuse") (footprint "")
     )
     (path "/15aa75da-45cd-42cf-9e21-383f7cc14908"
-      (reference "J?") (unit 1) (value "SD_Card") (footprint "")
+      (reference "J?") (unit 1) (value "SD_Card") (footprint "wlasne_footprinty:karta sd")
     )
     (path "/2f60fd02-4c6d-4755-a6da-591f500d5fc2"
       (reference "J?") (unit 1) (value "Conn_02x04_Male") (footprint "wlasne_footprinty:prog pins ESP32 (aka esp01)")
@@ -3717,7 +3721,7 @@
       (reference "J?") (unit 1) (value "Screw_Terminal_01x12") (footprint "wlasne_footprinty:screw connector 12")
     )
     (path "/3e906b60-a74c-43dd-bad1-f706f0b88384"
-      (reference "M?") (unit 1) (value "HX711") (footprint "")
+      (reference "M?") (unit 1) (value "HX711") (footprint "wlasne_footprinty:hx711")
     )
     (path "/f942f231-666a-422f-9054-604298697935"
       (reference "R") (unit 1) (value "10K") (footprint "")
@@ -3732,7 +3736,7 @@
       (reference "SW?") (unit 1) (value "SW_Push") (footprint "")
     )
     (path "/846ab384-d5c4-4270-84d2-d920f019659c"
-      (reference "U?") (unit 1) (value "DS3231M") (footprint "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm")
+      (reference "U?") (unit 1) (value "DS3231M") (footprint "wlasne_footprinty:ds3231")
     )
     (path "/d61b37e6-1acd-4826-b1f1-a50ad37b0751"
       (reference "U?") (unit 1) (value "ESP32-WROOM-32") (footprint "RF_Module:ESP32-WROOM-32")
