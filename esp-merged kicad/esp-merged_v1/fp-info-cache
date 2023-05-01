@@ -1,4 +1,4 @@
-20603564437902139
+20608614504173003
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86492,7 +86492,21 @@ koszyk na baterie 1x1
 2
 2
 wlasne_footprinty
+mały button
+
+
+0
+2
+2
+wlasne_footprinty
 prog pins ESP32 (aka esp01)
+
+
+0
+8
+8
+wlasne_footprinty
+prog pins ESP32 (aka esp01) v2 (odwrocone)
 
 
 0
@@ -86510,5 +86524,12 @@ sim800l
 
 
 0
+12
+12
+wlasne_footprinty
+wlacznik
+
+
 0
-0
+2
+2
