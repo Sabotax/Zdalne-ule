@@ -2759,10 +2759,6 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid df93bb6f-bdd3-4c66-9e59-e3cba847f732)
   )
-  (text "todo miejsca na srubki, w tym pod koszykiem" (at 39.37 20.32 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid eca64718-256d-4328-9d03-062495848446)
-  )
 
   (label "CS" (at 69.85 81.915 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))

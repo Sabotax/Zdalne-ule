@@ -1,0 +1,457 @@
+17:25:49.081 -> ets Jun  8 2016 00:22:57
+17:25:49.081 -> 
+17:25:49.081 -> rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:49.086 -> configsip: 0, SPIWP:0x00
+17:25:49.089 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:49.094 -> mode:DIO, clock div:2
+17:25:49.097 -> load:0x3fff0008,len:8
+17:25:49.099 -> load:0x3fff0010,len:3480
+17:25:49.103 -> load:0x40078000,len:7804
+17:25:49.103 -> ho 0 tail 1òets Jun  8 2016 00:22:57
+17:25:49.130 -> 
+17:25:49.130 -> rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:49.136 -> configsip: 0, SPIWP:0x00
+17:25:49.139 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:49.148 -> mode:DIO, clock div:2
+17:25:49.148 -> load:0x3fff0008,len:8
+17:25:49.149 -> load:0x3fff0010,len:3480
+17:25:49.152 -> load:0x40078000,len:7804
+17:25:49.152 -> ho 0 tail 12 room 4
+17:25:49.156 -> load:0x40080000,len:252
+17:25:49.161 -> entry 0x40080034
+17:25:49.161 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:49.168 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:49.172 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:49.177 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:49.180 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:49.186 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:49.188 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:49.194 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:49.199 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:49.208 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:49.216 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:49.222 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:49.230 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:49.238 -> [0;32mI (254) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:49.246 -> [0;32mI (277) boot: End of partition table[0m
+17:25:49.249 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:49.255 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:49.627 -> [0;32mI (1483) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:49.633 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:49.643 -> 
+17:25:49.643 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:49.653 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:49.661 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:49.676 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:49.685 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:49.692 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:49.700 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:49.706 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:49.714 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:49.720 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:49.728 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:49.731 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:49.737 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:49.745 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:49.764 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:49.767 -> Bin version:0.10.0
+17:25:49.770 -> 
+17:25:49.770 -> I (2054) wifi: wifi firmware version: c604573
+17:25:49.773 -> I (2054) wifi: config NVS flash: enabled
+17:25:49.775 -> I (2055) wifi: config nano formating: disabled
+17:25:49.781 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:49.785 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:49.790 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:49.795 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:49.798 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:49.803 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:49.806 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:49.815 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:49.821 -> 
+17:25:49.821 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:49.859 -> Guru Meditation Error of type StoreProhibited occurred on core  0. Exception was unhandled.
+17:25:49.864 -> Register dump:
+17:25:49.867 -> PC      : 0x40080000  PS      : 0x00060730  A0      : 0x8008c8ee  A1      : 0x3ffc4cf0  
+17:25:49.876 -> A2      : 0x3f401080  A3      : 0x3ffba37e  A4      : 0x0000001f  A5      : 0xffffffe8  
+17:25:49.884 -> 
+17:25:49.884 -> A6      : 0xffffffea  A7      : 0x3ffb2178  A8      : 0x40080000  A9      : 0x3ffc4d00  
+17:25:49.889 -> A10     : 0x00000000  A11     : 0x00000002  A12     : 0x5fff0007  A13     : 0x00000000  
+17:25:49.898 -> A14     : 0x00000000  A15     : 0x00000000  SAR     : 0x00000006  EXCCAUSE: 0x0000001d  
+17:25:49.906 -> EXCVADDR: 0xffffffd8  LBEG    : 0x4000c2e0  LEND    : 0x4000c2f6  LCOUNT  : 0x00000000  
+17:25:49.915 -> 
+17:25:49.915 -> Backtrace: 0x40080000:0x3ffc4cf0 0x4008c8ee:0x3ffc4d10 0x400898a1:0x3ffc4d50 0x4008a82d:0x3ffc4d80 0x4008aff3:0x3ffc4da0 0x4011761c:0x3ffc4dc0 0x40117871:0x3ffc4de0 0x400d8985:0x3ffc4e00 0x400d89c5:0x3ffc4e30 0x400d8ee6:0x3ffc4e60 0x400959a2:0x3ffc4e80
+17:25:49.938 -> 
+17:25:49.938 -> Rebooting...
+17:25:49.938 -> ets Jun  8 2016 00:22:57
+17:25:49.940 -> 
+17:25:49.940 -> rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:49.946 -> configsip: 0, SPIWP:0x00
+17:25:49.949 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:49.954 -> mode:DIO, clock div:2
+17:25:49.956 -> load:0x3fff0008,len:8
+17:25:49.956 -> load:0x3fff0010,len:3480
+17:25:49.959 -> load:0x40078000,len:7804
+17:25:49.962 -> ho 0 tail 12 room 4
+17:25:49.965 -> load:0x40080000,len:252
+17:25:49.970 -> entry 0x40080034
+17:25:49.970 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:49.975 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:49.981 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:49.987 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:49.990 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:49.995 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:49.998 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:50.001 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:50.009 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:50.018 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:50.023 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:50.031 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:50.039 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:50.047 -> [0;32mI (253) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:50.054 -> [0;32mI (277) boot: End of partition table[0m
+17:25:50.059 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:50.064 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:50.437 -> [0;32mI (1482) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:50.442 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:50.454 -> 
+17:25:50.454 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:50.462 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:50.470 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:50.485 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:50.494 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:50.502 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:50.510 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:50.515 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:50.524 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:50.529 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:50.538 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:50.540 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:50.546 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:50.555 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:50.575 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:50.576 -> Bin version:0.10.0
+17:25:50.579 -> 
+17:25:50.579 -> I (2054) wifi: wifi firmware version: c604573
+17:25:50.584 -> I (2054) wifi: config NVS flash: enabled
+17:25:50.585 -> I (2055) wifi: config nano formating: disabled
+17:25:50.591 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:50.594 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:50.599 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:50.605 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:50.607 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:50.613 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:50.616 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:50.624 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:50.629 -> 
+17:25:50.629 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:50.675 -> [0;32mI (2154) phy: phy_version: 329, Feb 22 2017, 15:58:07, 0, 0[0m
+17:25:50.681 -> I (2154) wifi: mode : softAP (94:b5:55:2b:b1:4d)
+17:25:50.684 -> Guru Meditation Error of type LoadProhibited occurred on core  0. Exception was unhandled.
+17:25:50.692 -> Register dump:
+17:25:50.695 -> PC      : 0x400f0083  PS      : 0x00060430  A0      : 0x800f2ff3  A1      : 0x3ffc36a0  
+17:25:50.703 -> A2      : 0x3ffcbff8  A3      : 0x3f405458  A4      : 0x00000043  A5      : 0x00000000  
+17:25:50.708 -> A6      : 0x00000000  A7      : 0x00000000  A8      : 0x00000000  A9      : 0x00000000  
+17:25:50.717 -> A10     : 0x00000043  A11     : 0x00000000  A12     : 0x00000058  A13     : 0x3ffcc050  
+17:25:50.725 -> A14     : 0x00000000  A15     : 0x00000005  SAR     : 0x0000001c  EXCCAUSE: 0x0000001c  
+17:25:50.734 -> EXCVADDR: 0x800f3045  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000  
+17:25:50.742 -> 
+17:25:50.742 -> Backtrace: 0x400f0083:0x3ffc36a0 0x400f2ff3:0x3ffc36c0 0x4010818d:0x3ffc36e0 0x40117fda:0x3ffc3710 0x40118119:0x3ffc3760 0x40117c14:0x3ffc3780
+17:25:50.754 -> 
+17:25:50.754 -> Rebooting...
+17:25:50.757 -> ets Jun  8 2016 00:22:57
+17:25:50.757 -> 
+17:25:50.760 -> rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:50.762 -> configsip: 0, SPIWP:0x00
+17:25:50.766 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:50.771 -> mode:DIO, clock div:2
+17:25:50.774 -> load:0x3fff0008,len:8
+17:25:50.777 -> load:0x3fff0010,len:3480
+17:25:50.779 -> load:0x40078000,len:7804
+17:25:50.779 -> ho 0 tail 12 room 4
+17:25:50.782 -> load:0x40080000,len:252
+17:25:50.787 -> entry 0x40080034
+17:25:50.787 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:50.795 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:50.798 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:50.804 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:50.809 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:50.812 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:50.815 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:50.821 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:50.826 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:50.834 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:50.842 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:50.851 -> 
+17:25:50.851 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:50.857 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:50.865 -> [0;32mI (253) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:50.873 -> [0;32mI (277) boot: End of partition table[0m
+17:25:50.876 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:50.881 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:51.255 -> [0;32mI (1482) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:51.260 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:51.271 -> 
+17:25:51.271 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:51.279 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:51.287 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:51.303 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:51.311 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:51.319 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:51.327 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:51.334 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:51.342 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:51.347 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:51.356 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:51.359 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:51.363 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:51.372 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:51.392 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:51.395 -> Bin version:0.10.0
+17:25:51.398 -> 
+17:25:51.398 -> I (2054) wifi: wifi firmware version: c604573
+17:25:51.400 -> I (2054) wifi: config NVS flash: enabled
+17:25:51.403 -> I (2055) wifi: config nano formating: disabled
+17:25:51.408 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:51.411 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:51.417 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:51.422 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:51.425 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:51.430 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:51.433 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:51.441 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:51.447 -> 
+17:25:51.447 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:51.493 -> [0;32mI (2154) phy: phy_version: 329, Feb 22 2017, 15:58:07, 0, 0[0m
+17:25:51.498 -> I (2154) wifi: mode : softAP (94:b5:55:2b:b1:4d)
+17:25:51.502 -> Guru Meditation Error of type LoadProhibited occurred on core  0. Exception was unhandled.
+17:25:51.510 -> Register dump:
+17:25:51.513 -> PC      : 0x400f0083  PS      : 0x00060430  A0      : 0x800f2ff3  A1      : 0x3ffc36a0  
+17:25:51.521 -> A2      : 0x3ffcbff8  A3      : 0x3f405458  A4      : 0x00000043  A5      : 0x00000000  
+17:25:51.527 -> A6      : 0x00000000  A7      : 0x00000000  A8      : 0x00000000  A9      : 0x00000000  
+17:25:51.535 -> A10     : 0x00000043  A11     : 0x00000000  A12     : 0x00000058  A13     : 0x3ffcc050  
+17:25:51.543 -> A14     : 0x00000000  A15     : 0x00000005  SAR     : 0x0000001c  EXCCAUSE: 0x0000001c  
+17:25:51.552 -> EXCVADDR: 0x800f3045  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000  
+17:25:51.559 -> 
+17:25:51.559 -> Backtrace: 0x400f0083:0x3ffc36a0 0x400f2ff3:0x3ffc36c0 0x4010818d:0x3ffc36e0 0x40117fda:0x3ffc3710 0x40118119:0x3ffc3760 0x40117c14:0x3ffc3780
+17:25:51.571 -> 
+17:25:51.571 -> Rebooting...
+17:25:51.575 -> ets Jun  8 2016 00:22:57
+17:25:51.575 -> 
+17:25:51.578 -> rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:51.581 -> configsip: 0, SPIWP:0x00
+17:25:51.586 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:51.589 -> mode:DIO, clock div:2
+17:25:51.592 -> load:0x3fff0008,len:8
+17:25:51.594 -> load:0x3fff0010,len:3480
+17:25:51.597 -> load:0x40078000,len:7804
+17:25:51.597 -> ho 0 tail 12 room 4
+17:25:51.600 -> load:0x40080000,len:252
+17:25:51.605 -> entry 0x40080034
+17:25:51.605 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:51.613 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:51.616 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:51.622 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:51.627 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:51.630 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:51.633 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:51.638 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:51.644 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:51.652 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:51.660 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:51.669 -> 
+17:25:51.669 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:51.675 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:51.683 -> [0;32mI (253) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:51.691 -> [0;32mI (277) boot: End of partition table[0m
+17:25:51.694 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:51.699 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:52.072 -> [0;32mI (1482) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:52.077 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:52.089 -> 
+17:25:52.089 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:52.097 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:52.105 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:52.120 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:52.129 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:52.137 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:52.145 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:52.151 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:52.160 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:52.165 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:52.174 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:52.176 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:52.182 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:52.190 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:52.210 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:52.212 -> Bin version:0.10.0
+17:25:52.215 -> 
+17:25:52.215 -> I (2054) wifi: wifi firmware version: c604573
+17:25:52.218 -> I (2054) wifi: config NVS flash: enabled
+17:25:52.221 -> I (2055) wifi: config nano formating: disabled
+17:25:52.226 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:52.229 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:52.235 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:52.240 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:52.243 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:52.249 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:52.252 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:52.260 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:52.265 -> 
+17:25:52.265 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:52.309 -> [0;32mI (2152) phy: phy_version: 329, Feb 22 2017, 15:58:07, 0, 0[0m
+17:25:52.315 -> I (2153) wifi: mode : softAP (94:b5:55:2b:b1:4d)
+17:25:52.318 -> Guru Meditation Error of type InstrFetchProhibited occurred on core  0. Exception was unhandled.
+17:25:52.326 -> Register dump:
+17:25:52.329 -> PC      : 0x800f2c9e  PS      : 0x00060430  A0      : 0x800f2c9e  A1      : 0x3ffc3680  
+17:25:52.338 -> A2      : 0x0104a8c0  A3      : 0x00000000  A4      : 0x00000058  A5      : 0x3ffcc050  
+17:25:52.345 -> A6      : 0x00000000  A7      : 0x00000005  A8      : 0x00a80000  A9      : 0xc0000000  
+17:25:52.351 -> A10     : 0x3ffcbff8  A11     : 0x00000058  A12     : 0x3f404ea4  A13     : 0x00000000  
+17:25:52.359 -> A14     : 0x00000000  A15     : 0x00000000  SAR     : 0x0000001c  EXCCAUSE: 0x00000014  
+17:25:52.368 -> EXCVADDR: 0x800f2c9c  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000  
+17:25:52.376 -> 
+17:25:52.376 -> Backtrace: 0x400f2c9e:0x3ffc3680 0x400f2c9e:0x3ffc36a0 0x400f2fde:0x3ffc36c0 0x4010818d:0x3ffc36e0 0x40117fda:0x3ffc3710 0x40118119:0x3ffc3760 0x40117c14:0x3ffc3780
+17:25:52.390 -> 
+17:25:52.390 -> Rebooting...
+17:25:52.393 -> ets Jun  8 2016 00:22:57
+17:25:52.393 -> 
+17:25:52.393 -> rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:52.400 -> configsip: 0, SPIWP:0x00
+17:25:52.402 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:52.407 -> mode:DIO, clock div:2
+17:25:52.410 -> load:0x3fff0008,len:8
+17:25:52.413 -> load:0x3fff0010,len:3480
+17:25:52.413 -> load:0x40078000,len:7804
+17:25:52.416 -> ho 0 tail 12 room 4
+17:25:52.419 -> load:0x40080000,len:252
+17:25:52.424 -> entry 0x40080034
+17:25:52.424 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:52.430 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:52.435 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:52.440 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:52.443 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:52.448 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:52.452 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:52.458 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:52.463 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:52.471 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:52.479 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:52.485 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:52.493 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:52.502 -> [0;32mI (253) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:52.510 -> [0;32mI (277) boot: End of partition table[0m
+17:25:52.513 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:52.519 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:52.891 -> [0;32mI (1482) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:52.896 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:52.907 -> 
+17:25:52.907 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:52.916 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:52.924 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:52.939 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:52.947 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:52.956 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:52.964 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:52.970 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:52.978 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:52.984 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:52.992 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:52.995 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:53.001 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:53.009 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:53.029 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:53.030 -> Bin version:0.10.0
+17:25:53.034 -> 
+17:25:53.034 -> I (2054) wifi: wifi firmware version: c604573
+17:25:53.036 -> I (2054) wifi: config NVS flash: enabled
+17:25:53.040 -> I (2055) wifi: config nano formating: disabled
+17:25:53.044 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:53.047 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:53.054 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:53.058 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:53.061 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:53.068 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:53.070 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:53.078 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:53.084 -> 
+17:25:53.084 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:53.128 -> [0;32mI (2151) phy: phy_version: 329, Feb 22 2017, 15:58:07, 0, 0[0m
+17:25:53.133 -> I (2152) wifi: mode : softAP (94:b5:55:2b:b1:4d)
+17:25:53.135 -> Guru Meditation Error of type LoadProhibited occurred on core  0. Exception was unhandled.
+17:25:53.144 -> Register dump:
+17:25:53.147 -> PC      : 0x400f0083  PS      : 0x00060430  A0      : 0x800f2ff3  A1      : 0x3ffc36a0  
+17:25:53.156 -> A2      : 0x3ffcbff8  A3      : 0x3f405458  A4      : 0x00000043  A5      : 0x00000000  
+17:25:53.161 -> A6      : 0x00000000  A7      : 0x00000000  A8      : 0x00000000  A9      : 0x00000000  
+17:25:53.169 -> A10     : 0x00000043  A11     : 0x00000000  A12     : 0x00000058  A13     : 0x3ffcc050  
+17:25:53.178 -> A14     : 0x00000000  A15     : 0x00000005  SAR     : 0x0000001c  EXCCAUSE: 0x0000001c  
+17:25:53.186 -> EXCVADDR: 0x800f3045  LBEG    : 0x4000c46c  LEND    : 0x4000c477  LCOUNT  : 0x00000000  
+17:25:53.194 -> 
+17:25:53.194 -> Backtrace: 0x400f0083:0x3ffc36a0 0x400f2ff3:0x3ffc36c0 0x4010818d:0x3ffc36e0 0x40117fda:0x3ffc3710 0x40118119:0x3ffc3760 0x40117c14:0x3ffc3780
+17:25:53.205 -> 
+17:25:53.205 -> Rebooting...
+17:25:53.208 -> ets Jun  8 2016 00:22:57
+17:25:53.208 -> 
+17:25:53.211 -> rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+17:25:53.214 -> configsip: 0, SPIWP:0x00
+17:25:53.217 -> clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+17:25:53.223 -> mode:DIO, clock div:2
+17:25:53.226 -> load:0x3fff0008,len:8
+17:25:53.229 -> load:0x3fff0010,len:3480
+17:25:53.230 -> load:0x40078000,len:7804
+17:25:53.230 -> ho 0 tail 12 room 4
+17:25:53.234 -> load:0x40080000,len:252
+17:25:53.239 -> entry 0x40080034
+17:25:53.239 -> [0;32mI (47) boot: ESP-IDF v2.0-3-gbef9896 2nd stage bootloader[0m
+17:25:53.247 -> [0;32mI (47) boot: compile time 05:59:45[0m
+17:25:53.250 -> [0;32mI (47) boot: Enabling RNG early entropy source...[0m
+17:25:53.256 -> [0;32mI (66) boot: SPI Speed      : 40MHz[0m
+17:25:53.261 -> [0;32mI (79) boot: SPI Mode       : DIO[0m
+17:25:53.263 -> [0;32mI (91) boot: SPI Flash Size : 4MB[0m
+17:25:53.267 -> [0;32mI (103) boot: Partition Table:[0m
+17:25:53.272 -> [0;32mI (115) boot: ## Label            Usage          Type ST Offset   Length[0m
+17:25:53.278 -> [0;32mI (137) boot:  0 phy_init         RF data          01 01 0000f000 00001000[0m
+17:25:53.287 -> [0;32mI (161) boot:  1 otadata          OTA data         01 00 00010000 00002000[0m
+17:25:53.295 -> [0;32mI (184) boot:  2 nvs              WiFi data        01 02 00012000 0000e000[0m
+17:25:53.303 -> 
+17:25:53.303 -> [0;32mI (207) boot:  3 at_customize     unknown          40 00 00020000 000e0000[0m
+17:25:53.308 -> [0;32mI (230) boot:  4 ota_0            OTA app          00 10 00100000 00180000[0m
+17:25:53.317 -> [0;32mI (253) boot:  5 ota_1            OTA app          00 11 00280000 00180000[0m
+17:25:53.324 -> [0;32mI (277) boot: End of partition table[0m
+17:25:53.327 -> [0;32mI (290) boot: Disabling RNG early entropy source...[0m
+17:25:53.334 -> [0;32mI (307) boot: Loading app partition at offset 00100000[0m
+17:25:53.706 -> [0;32mI (1482) boot: segment 0: paddr=0x00100018 vaddr=0x00000000 size=0x0ffe8 ( 65512) [0m
+17:25:53.711 -> [0;32mI (1483) boot: segment 1: paddr=0x00110008 vaddr=0x3f400010 size=0x1c5f0 (116208) map[0m
+17:25:53.723 -> 
+17:25:53.723 -> [0;32mI (1500) boot: segment 2: paddr=0x0012c600 vaddr=0x3ffb0000 size=0x0215c (  8540) load[0m
+17:25:53.731 -> [0;32mI (1530) boot: segment 3: paddr=0x0012e764 vaddr=0x40080000 size=0x00400 (  1024) load[0m
+17:25:53.739 -> [0;32mI (1553) boot: segment 4: paddr=0x0012eb6c vaddr=0x40080400 size=0x1b028 (110632) load[0m
+17:25:53.754 -> [0;32mI (1632) boot: segment 5: paddr=0x00149b9c vaddr=0x400c0000 size=0x00034 (    52) load[0m
+17:25:53.763 -> [0;32mI (1633) boot: segment 6: paddr=0x00149bd8 vaddr=0x00000000 size=0x06430 ( 25648) [0m
+17:25:53.771 -> [0;32mI (1649) boot: segment 7: paddr=0x00150010 vaddr=0x400d0018 size=0x7a56c (501100) map[0m
+17:25:53.779 -> [0;32mI (1677) heap_alloc_caps: Initializing. RAM available for dynamic allocation:[0m
+17:25:53.785 -> [0;32mI (1699) heap_alloc_caps: At 3FFBA6B8 len 00025948 (150 KiB): DRAM[0m
+17:25:53.793 -> [0;32mI (1720) heap_alloc_caps: At 3FFE8000 len 00018000 (96 KiB): D/IRAM[0m
+17:25:53.799 -> [0;32mI (1742) heap_alloc_caps: At 4009B428 len 00004BD8 (18 KiB): IRAM[0m
+17:25:53.807 -> [0;32mI (1763) cpu_start: Pro cpu up.[0m
+17:25:53.810 -> [0;32mI (1774) cpu_start: Single core mode[0m
+17:25:53.815 -> [0;32mI (1787) cpu_start: Pro cpu start user code[0m
+17:25:53.824 -> [0;32mI (1848) cpu_start: Starting scheduler on PRO CPU.[0m
+17:25:53.844 -> [0;32mI (2052) uart: queue free spaces: 10[0m
+17:25:53.847 -> Bin version:0.10.0
+17:25:53.850 -> 
+17:25:53.850 -> I (2054) wifi: wifi firmware version: c604573
+17:25:53.852 -> I (2054) wifi: config NVS flash: enabled
+17:25:53.855 -> I (2055) wifi: config nano formating: disabled
+17:25:53.861 -> I (2063) wifi: Init dynamic tx buffer num: 32
+17:25:53.863 -> I (2063) wifi: wifi driver task: 3ffc4f34, prio:23, stack:3584
+17:25:53.869 -> I (2069) wifi: Init static rx buffer num: 10
+17:25:53.874 -> I (2073) wifi: Init dynamic rx buffer num: 0
+17:25:53.876 -> I (2077) wifi: Init rx ampdu len mblock:7
+17:25:53.882 -> I (2080) wifi: Init lldesc rx ampdu entry mblock:4
+17:25:53.886 -> I (2085) wifi: wifi power manager task: 0x3ffca2dc prio: 21 stack: 2560
+17:25:53.894 -> I (2092) wifi: wifi timer task: 3ffcb35c, prio:22, stack:3584
+17:25:53.900 -> 
+17:25:53.900 -> [0;31mE (2097) phy_init: PHY data partition validated[0m
+17:25:53.919 -> [0;32mI (2127) phy: phy_version: 329, Feb 22 2017, 15:58:07, 0, 0[0m
+17:25:53.925 -> I (2128) wifi: mode : softAP (94:b5:55:2b:b1:4d)
+17:25:53.927 -> I (2131) wifi: mode : sta (94:b5:55:2b:b1:4c) + softAP (94:b5:55:2b:b1:4d)
+17:25:53.936 -> I (2134) wifi: mode : softAP (94:b5:55:2b:b1:4d)
