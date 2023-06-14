@@ -5,8 +5,8 @@ const String authToken = "Watykanczyk2137";
 String dataToJson(const float& waga, const String& myTimestamp) {
 
   String re = "{";
-  re += "\"auth\":"; re+= "\""+espId+"\",";
-  re += "\"id\":"; re+= "\""+authToken+"\",";
+  re += "\"auth\":"; re+= "\""+authToken+"\",";
+  re += "\"id\":"; re+= "\""+espId+"\",";
   re += "\"waga\":"; re+= "\""+String(waga)+"\",";
   re += "\"time\":"; re+= "\""+myTimestamp+"\"";
   re += "}";
@@ -25,12 +25,12 @@ String dataToCsvRow(const float& waga, const String& myTimestamp) {
 }
 
 //SLEEP
-#define TIME_TO_SLEEP  120
+#define TIME_TO_SLEEP  30
 #define uS_TO_S_FACTOR 1000000
 
 // funkcje
 void handle_sleep() {
-  Serial.println("Czas spania: " + String(TIME_TO_SLEEP * uS_TO_S_FACTOR) + " sekund" );
+  Serial.println("Czas spania: " + String(TIME_TO_SLEEP) + " sekund" );
   Serial.flush();
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   esp_deep_sleep_start();

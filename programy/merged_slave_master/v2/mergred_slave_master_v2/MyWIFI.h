@@ -3,7 +3,7 @@
 #include <HTTPClient.h>
 const char* ssid = /*"CGA2121_Tu7GnYu"*/ "NETIASPOT-C0D740";
 const char* password = /*"mtyRdz7KZcEc9k2Ezw"*/ "9533f5tdu5av";
-const char* serverName = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
+const char* serverName = "http://37.128.16.210/incomingData.php";
 
 void sendDataToServer(const String& dane) {
   if(WiFi.status()== WL_CONNECTED){
@@ -24,7 +24,7 @@ void sendDataToServer(const String& dane) {
       Serial.println(F("\n sending to server"));
       #endif
 
-      int httpResponseCode = http.POST(httpRequestData);
+      int httpResponseCode = http.POST(dane);
       #ifdef DEBUG
       Serial.println(F("HTTP Response code: "));
       Serial.println(httpResponseCode);

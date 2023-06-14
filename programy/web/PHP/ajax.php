@@ -24,7 +24,7 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
             echo '<option value="lista_ule_select_puste"></option>';
         }
         else {
-            $ule_respond = querySelect($mysqli,"SELECT `ID`,`nazwa` FROM `esp-slave` WHERE `ID_esp-master`=$lista_pasieki_value");
+            //$ule_respond = querySelect($mysqli,"SELECT `ID`,`nazwa` FROM `esp-slave` WHERE `ID_esp-master`=$lista_pasieki_value");
     
             echo '<option value="lista_ule_select_puste"></option>';
             foreach($ule_respond as $row) {
@@ -39,12 +39,19 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
         $czas_do = $_REQUEST["czas_do"];
         $ul = $_REQUEST["ul"];
         
+        // $pomiary_respond = querySelect($mysqli,
+        // "SELECT pomiary_pojedyncze.waga,pomiary_pojedyncze.temperatura,pomiary_zbiorowe.data,pomiary_zbiorowe.temperatura_zewn
+        // FROM pomiary_pojedyncze INNER JOIN pomiary_zbiorowe
+        // ON pomiary_pojedyncze.ID_pomiar_zbiorowy=pomiary_zbiorowe.ID_pomiar_zbiorowy
+        // WHERE pomiary_pojedyncze.ID_esp_slave=$ul
+        // AND (pomiary_zbiorowe.data BETWEEN '$czas_od' AND '$czas_do')");
+
         $pomiary_respond = querySelect($mysqli,
-        "SELECT pomiary_pojedyncze.waga,pomiary_pojedyncze.temperatura,pomiary_zbiorowe.data,pomiary_zbiorowe.temperatura_zewn
-        FROM pomiary_pojedyncze INNER JOIN pomiary_zbiorowe
-        ON pomiary_pojedyncze.ID_pomiar_zbiorowy=pomiary_zbiorowe.ID_pomiar_zbiorowy
-        WHERE pomiary_pojedyncze.ID_esp_slave=$ul
-        AND (pomiary_zbiorowe.data BETWEEN '$czas_od' AND '$czas_do')");
+        "SELECT pomiary.waga,pomiary.timeFromEsp
+        FROM pomiary
+        WHERE pomiary.espID='esp01'
+        AND (pomiary.timeFromEsp BETWEEN '$czas_od' AND '$czas_do')"
+        );
         
         /*
         Array ( 

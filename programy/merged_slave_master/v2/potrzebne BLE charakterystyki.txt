@@ -1,0 +1,24 @@
+ESP (po włączeniu ble-synchro):
+- wystawia charakterystykę RX_ESP, która odbiera dane od telefonu(tel robi write, po czym esp używa tego w callback.onWrite)
+Telefon:
+- wystawia charakterystykę RX_TEL, która odbiera dane od esp (esp robi write, po czym telefon używa tego w callback.onWrite)
+
+Żeby nie tworzyć mnogości charakterystyk oraz umożliwić łatwy transfer z wieloma klientami, trzeba będzie to wszystko zamieszczać w nagłówku
+wiadomości, podobnie do protokołu tcp/ip.
+
+Przykładowo:
+przełączamy esp w tryb bluetooth
+esp podłącza się do RX_TEL
+wysyła wiadomość w stylu: 
+	|to ja esp01|(bajt instrukcji - użyć enumów) np. tryb_negocjacja,tryb_rozpoczynam_strumień_danych,tryb kończę_strumień_danych|dane|
+	czyli dokładniej wysyła wiadomość
+	|esp01|oto mój RX, bierz go|RX uuid
+telefon otrzymuję wiadomość
+po fladze trybu wie co ma robić
+podłącza się do RX_ESP i wysyła na niego
+	|to ja telefon|potwierdzam otrzymanie RX|udało się
+	|tel01|rozpocznij wysyłanie danych|od dnia do dziś
+następnie ESP zaczyna strumieniować dane
+	|esp01|tryb strumieniowania dat|pierwsza krotka (telefon będzie sprawdzał czy dla esp01 jest już jakaś lista odbierająca to, czy nie)
+	|esp01|tryb strumieniowania dat|druga krotka
+	|esp01|koniec strumienia|

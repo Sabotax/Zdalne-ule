@@ -8,7 +8,7 @@
 //     echo "jest w pyte";
 // }
 
-$token_autoryzujacy = "Watykanczyk2137";
+
 require_once("PHP/library.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

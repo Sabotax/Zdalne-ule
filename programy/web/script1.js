@@ -42,7 +42,7 @@ let lista_pasieka = document.getElementById("lista_pasieka");
 lista_pasieka.addEventListener("change",load_ule);
 
 let lista_ule = document.getElementById("lista_ule");
-lista_ule.addEventListener("change",load_opcje_chart);
+//lista_ule.addEventListener("change",load_opcje_chart);
 
 let chart_btn;
 
@@ -68,3 +68,4 @@ function load_opcje_chart() {
     chart_btn = document.getElementById("chart_btn");
     chart_btn.addEventListener("click",load_chart)
 }
+load_opcje_chart();

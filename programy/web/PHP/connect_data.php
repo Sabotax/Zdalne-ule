@@ -2,5 +2,5 @@
 	$host = "localhost";
 	$db_user = "root";
 	$db_password="";
-	$db_name="zdalne_ule_v2";		
+	$db_name="zdalne_ule_v3";		
 ?>      

@@ -18,7 +18,7 @@
  * Kolejne wersje mają mieć: budzenie dodatkowo przez czujnik wstrząsu, gps
  */
 #define DEBUG
-#define GSM_turn_on
+//#define GSM_turn_on
 #define BLE_turn_on
 
 #include "MyHelper.h"
@@ -32,7 +32,7 @@
 
 #ifdef GSM_turn_on
   #include "MyGSM.h"
-#elif
+#else
   #include "MyWIFI.h"
 #endif
 
@@ -48,8 +48,12 @@ void setup() {
 
   #ifdef GSM_turn_on
     initMyGSM();
-  #elif
+  #else
     initMyWIFI();
+  #endif
+
+  #ifdef BLE_turn_on
+    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
   #endif
 }
 
@@ -63,9 +67,9 @@ void loop() {
   #ifdef GSM_turn_on
     connectGSM();
     makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
-  #elif
+  #else
     sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
   #endif
 
-//  handle_sleep();
+  handle_sleep();
 }

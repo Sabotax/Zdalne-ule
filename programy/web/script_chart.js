@@ -12,13 +12,7 @@ async function load_chart() {
 
     my_array.forEach(element => {
         waga_array.push(
-            {x: element[2],y: element[0]}
-        )
-        temperatura_array.push(
-            {x: element[2],y: element[1]}
-        )
-        temperatura_zewn_array.push(
-            {x: element[2],y: element[3]}
+            {x: element[1],y: element[0]}
         )
     });
 
@@ -31,16 +25,6 @@ async function load_chart() {
                     label: 'Waga',
                     data: waga_array,
                     borderColor: '#0000ff'
-                },
-                {
-                    label: 'Temperatura w ulu',
-                    data: temperatura_array,
-                    borderColor: '#ff3333'
-                },
-                {
-                    label: 'Temperatura zewnętrzna',
-                    data: temperatura_zewn_array,
-                    borderColor: '#ff8000'
                 }
             ]
         },
