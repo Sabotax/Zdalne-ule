@@ -3,8 +3,8 @@
 //#define DOUT  16         //pin 3 Arduino i wyjście DAT czujnika
 //#define CLK  4           //pin 2 Arduino i wyjście CLK czujnika
 
-#define DOUT  32         //pin 3 Arduino i wyjście DAT czujnika
-#define CLK  33           //pin 2 Arduino i wyjście CLK czujnika
+#define DOUT  26         //pin 3 Arduino i wyjście DAT czujnika
+#define CLK  25           //pin 2 Arduino i wyjście CLK czujnika
 //#define DOUT 3
 //#define CLK 2
 //#define wstrzas 32

@@ -42,34 +42,40 @@ void setup() {
   setCpuFrequencyMhz(80); //dla hx711
   Serial.begin(115200);
 
-  initMyRTC();
-  initMySD();
-  initMyWaga();
+  enableTouchWakeUp();
 
-  #ifdef GSM_turn_on
-    initMyGSM();
-  #else
-    initMyWIFI();
-  #endif
+  didIwakeUpForBle();
+  //print_wakeup_touchpad();
+  //esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
 
-  #ifdef BLE_turn_on
-    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
-  #endif
+  //initMyRTC();
+  //initMySD();
+//  initMyWaga();
+
+//  #ifdef GSM_turn_on
+//    initMyGSM();
+//  #else
+//    initMyWIFI();
+//  #endif
+
+//  #ifdef BLE_turn_on
+//    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
+//  #endif
 }
 
 void loop() {
-  float wagaOdczyt = loadcell.get_units(2);
+  //float wagaOdczyt = loadcell.get_units(2);
 
-  String nowTimestamp = getTimestamp();
+  //String nowTimestamp = getTimestamp();
 
-  saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestamp) );
+  //saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestamp) );
 
-  #ifdef GSM_turn_on
-    connectGSM();
-    makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
-  #else
-    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
-  #endif
+//  #ifdef GSM_turn_on
+//    connectGSM();
+//    makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
+//  #else
+//    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
+//  #endif
 
   handle_sleep();
 }
