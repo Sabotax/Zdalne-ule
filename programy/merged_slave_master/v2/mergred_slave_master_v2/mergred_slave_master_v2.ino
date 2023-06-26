@@ -77,5 +77,63 @@ void loop() {
 //    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
 //  #endif
 
-  handle_sleep();
+  if(bleWakeUp) {
+    if(millis() + (5*60*1000) > bleWakeUpMoment ) {
+      // time's up, going to sleep
+      handle_sleep();
+    }
+    else {
+      if(input_received ) {
+        input_received = false;
+
+        //decode input
+
+        String rozkaz = "";
+        bool rozkaz_done = false;
+
+        String data_incoming = "";
+        
+        for(uint8_t i = 0; i < input_size; i++) {
+          if(!rozkaz_done) {
+            if(input_data[i] == '|') {
+              rozkaz_done = true;
+            }
+            else {
+              rozkaz += String( (char) input_data[i] );
+            }
+          }
+          else {
+            data_incoming += input_data[i];
+          }
+        }
+        // input decoded
+
+        if(rozkaz == "1") {
+          // start sending data
+
+          //data incoming = który plik z datą brać
+          //String line from file = "X"
+
+          // TODO jak zrobić otwieranie pliku i wysyłanie pomiędzy kolejnymi pętlami
+          // deklaracja wyżej i otwieranie zamykanie w 1 i 3 ?
+        }
+
+        if(rozkaz == "2") {
+          //continue sending data
+          
+        }
+
+        if(rozkaz == "3") {
+          // close reading file
+          
+        }
+        
+      }
+    }
+  }
+  else {
+    handle_sleep();
+  }
+
+  
 }

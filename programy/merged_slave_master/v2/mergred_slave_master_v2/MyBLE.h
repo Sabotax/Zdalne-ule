@@ -8,6 +8,10 @@ BLECharacteristic* pCharacteristic_RX_ESP = NULL;
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
 
+uint8_t input_data[512] = [];
+uint8_t input_size = 0;
+bool input_received = false;
+
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 
@@ -26,76 +30,6 @@ static boolean doScan = false;
 static BLERemoteCharacteristic* pRemoteCharacteristic_RX_TEL;
 static BLEAdvertisedDevice* myDevice;
 
-class MyClientCallback : public BLEClientCallbacks {
-  void onConnect(BLEClient* pclient) {
-  }
-
-  void onDisconnect(BLEClient* pclient) {
-    connected = false;
-    Serial.println("onDisconnect");
-  }
-};
-
-bool connectToServer() {
-    Serial.print("Forming a connection to ");
-    Serial.println(myDevice->getAddress().toString().c_str());
-    
-    BLEClient*  pClient  = BLEDevice::createClient();
-    Serial.println(" - Created client");
-
-    pClient->setClientCallbacks(new MyClientCallback());
-
-    // Connect to the remove BLE Server.
-    pClient->connect(myDevice);  // if you pass BLEAdvertisedDevice instead of address, it will be recognized type of peer device address (public or private)
-    Serial.println(" - Connected to server");
-    pClient->setMTU(517); //set client to request maximum MTU from server (default is 23 otherwise)
-  
-    // Obtain a reference to the service we are after in the remote BLE server.
-    BLERemoteService* pRemoteService = pClient->getService(serviceUUID_TEL);
-    if (pRemoteService == nullptr) {
-      Serial.print("Failed to find our service UUID: ");
-      Serial.println(serviceUUID_TEL.toString().c_str());
-      pClient->disconnect();
-      return false;
-    }
-    Serial.println(" - Found our service");
-
-
-    // Obtain a reference to the characteristic in the service of the remote BLE server.
-    pRemoteCharacteristic_RX_TEL = pRemoteService->getCharacteristic(charUUID_RX_TEL);
-    if (pRemoteCharacteristic_RX_TEL == nullptr) {
-      Serial.print("Failed to find our characteristic UUID: ");
-      Serial.println(charUUID_RX_TEL.toString().c_str());
-      pClient->disconnect();
-      return false;
-    }
-    Serial.println(" - Found our characteristic");
-
-    connected = true;
-    return true;
-}
-
-class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
- /**
-   * Called for each advertising BLE server.
-   */
-  void onResult(BLEAdvertisedDevice advertisedDevice) {
-    Serial.print("BLE Advertised Device found: ");
-    Serial.println(advertisedDevice.toString().c_str());
-
-    // We have found a device, let us now see if it contains the service we are looking for.
-    if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID_TEL)) {
-
-      BLEDevice::getScan()->stop();
-      myDevice = new BLEAdvertisedDevice(advertisedDevice);
-      doConnect = true;
-      doScan = true;
-
-    } // Found our server
-  } // onResult
-}; // MyAdvertisedDeviceCallbacks
-
-//------------
 
 class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
@@ -108,28 +42,20 @@ class MyServerCallbacks: public BLEServerCallbacks {
     }
 
 };
-void MyRX() {
+void MyRX(uint8_t* input) {
   //R pamiętać, że tutaj jest wciąż callback (przerwanie), tylko lekkie operacje
 }
 class odbiorRX: public BLECharacteristicCallbacks {
-    void onWrite(BLECharacteristic *pCharacteristic) {
-      MyRX();
-      //R gdy telefon coś zapisze na tą charakterystykę to tutaj to odebrać
-//      std::string value = pCharacteristic->getValue();
-//      #ifdef DEBUG
-//      Serial.println("BLE callback on " + String(pCharacteristic->toString().c_str()));
-//      Serial.println(F("Received:"));
-//      if (value.length() > 0) {
-//        for (byte i = 0; i < value.length(); i++)
-//          Serial.print(value[i]);
-//      }
-//      #endif
-//
-//      pCharacteristic_spanie->setValue((uint8_t*) &czas_snu, 2);
-//      pCharacteristic_spanie->notify();
-//
-//      send_msg_flag = true;
+  void onWrite(BLECharacteristic *pCharacteristic) {
+    std::string value = pCharacteristic->getValue();
+    if (value.length() > 0) {
+      input_size = 0;
+      for (uint8_t i = 0; i < value.length(); i++)
+        input_data[i] = value[i];
+        input_size++;
+      }
     }
+    input_received = true;
 };
 
 void initBLE() {

@@ -3,8 +3,8 @@ const String espId = "esp01";
 const String authToken = "Watykanczyk2137";
 
 bool bleWakeUp = false;
+long bleWakeUpMoment=0;
 #define Threshold 50 /* Greater the value, more the sensitivity */
-touch_pad_t touchPin;
 
 String dataToJson(const float& waga, const String& myTimestamp) {
 
@@ -50,7 +50,7 @@ void didIwakeUpForBle() {
     case ESP_SLEEP_WAKEUP_EXT0 : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
     case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
     case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
-    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); break;
+    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); bleWakeUp=true;bleWakeUpMoment=millis();break;
     case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
