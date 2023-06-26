@@ -36,6 +36,8 @@
   #include "MyWIFI.h"
 #endif
 
+File file;
+
 // TODO osobny plik z stałymi wartościami nie-na-repo typu ssid, auth, serwer itp
 
 void setup() {
@@ -110,22 +112,49 @@ void loop() {
 
         if(rozkaz == "1") {
           // start sending data
+          String path = data_incoming;
+          Serial.printf("Reading file: %s\n", path);
 
-          //data incoming = który plik z datą brać
-          //String line from file = "X"
-
+          File file = fs.open(path);
+          if(!file){
+            Serial.println("Failed to open file for reading");
+          }
+    
           // TODO jak zrobić otwieranie pliku i wysyłanie pomiędzy kolejnymi pętlami
           // deklaracja wyżej i otwieranie zamykanie w 1 i 3 ?
         }
 
         if(rozkaz == "2") {
           //continue sending data
+          if(!file){
+            String line = "";
+            char c='#';
+            
+            Serial.println("Failed to open file for reading");
+            while(file.available()){
+                c = file.read();
+            }
+            if(c == '#') {
+              // file ended
+
+              // TX with message(rozkaz) that file ended (and line)
+            }
+            else if(c == ';') {
+              // line ended
+
+              // TX with line and rozkaz that is ready to continue
+            }
+            else {
+              line += String(c);
+            }
+            
+          }
           
         }
 
         if(rozkaz == "3") {
           // close reading file
-          
+          file.close();
         }
         
       }
