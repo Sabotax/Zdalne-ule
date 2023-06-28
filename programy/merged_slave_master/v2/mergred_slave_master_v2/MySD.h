@@ -7,7 +7,7 @@
 File file;
 
 void saveDataToSD(fs::FS &fs,const String& data) {
-  String filename = "/"+getDay()+".json";
+  String filename = "/"+getDay()+".csv";
   Serial.println("filename: "+filename);
   file = fs.open(filename, FILE_APPEND);
   if(!file){

@@ -21,9 +21,9 @@ String dataToJson(const float& waga, const String& myTimestamp) {
 String dataToCsvRow(const float& waga, const String& myTimestamp) {
 
   String re = "";
-  re += espId+";";
-  re+= String(waga)+";";
-  re+= myTimestamp+"\r\n";
+  re += espId+",";
+  re+= String(waga)+",";
+  re+= myTimestamp+";";
 
   return re;
 }

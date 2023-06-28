@@ -19,7 +19,7 @@ bool input_received = false;
 #define serviceUUID_ESP "a9a5d9db-1d47-44a6-84cb-a3d00cf2a25f"
 // The characteristic of the remote service we are interested in.
 #define charUUID_RX_ESP "453a0b55-0417-4ee6-b458-83d3ff6fe054"
-#define charUUID_TX_ESP "453a0b55-0417-4ee6-b458-83d3ff6fe054"
+#define charUUID_TX_ESP "391150c1-8fe8-47f3-b045-9be85e40683b"
 
 class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {

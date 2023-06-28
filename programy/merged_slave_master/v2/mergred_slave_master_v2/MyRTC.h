@@ -17,6 +17,11 @@ String getDay() {
   String re = String(now.year()) + "-" + String(now.month()) + "-" + String(now.day());
   return re;
 }
+String getMonthMy() {
+  DateTime now = rtc.now();
+  String re = String(now.year()) + "-" + String(now.month());
+  return re;
+}
 
 void initMyRTC() {
   //RTC
