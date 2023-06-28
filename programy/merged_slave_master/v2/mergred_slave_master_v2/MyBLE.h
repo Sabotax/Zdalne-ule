@@ -9,7 +9,7 @@ BLECharacteristic* pCharacteristic_TX_ESP = NULL;
 bool deviceConnected = false;
 bool oldDeviceConnected = false;
 
-uint8_t input_data[512] = [];
+uint8_t input_data[512];
 uint8_t input_size = 0;
 bool input_received = false;
 
@@ -29,6 +29,7 @@ class MyServerCallbacks: public BLEServerCallbacks {
 
     void onDisconnect(BLEServer* pServer) {
       deviceConnected = false;
+      file.close();
     }
 
 };
@@ -40,12 +41,13 @@ class odbiorRX: public BLECharacteristicCallbacks {
     std::string value = pCharacteristic->getValue();
     if (value.length() > 0) {
       input_size = 0;
-      for (uint8_t i = 0; i < value.length(); i++)
+      for (uint8_t i = 0; i < value.length(); i++) {
         input_data[i] = value[i];
         input_size++;
       }
     }
     input_received = true;
+  }
 };
 
 void initBLE() {
@@ -95,6 +97,6 @@ void MyTX(String newValue) {
   Serial.println("Setting new characteristic value to \"" + newValue + "\"");
   
   // Set the characteristic's value to be the array of bytes that is actually a string.
-  pCharacteristic_TX_ESP->writeValue(newValue.c_str(), newValue.length());
+  pCharacteristic_TX_ESP->setValue(std::string(newValue.c_str()));
   pCharacteristic_TX_ESP->notify();
 }

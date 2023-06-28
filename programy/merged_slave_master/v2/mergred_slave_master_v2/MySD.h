@@ -2,13 +2,14 @@
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
-char bufor[32768];
-uint16_t bufor_index = 0;
+//char bufor[32768];
+//uint16_t bufor_index = 0;
+File file;
 
 void saveDataToSD(fs::FS &fs,const String& data) {
   String filename = "/"+getDay()+".json";
   Serial.println("filename: "+filename);
-  File file = fs.open(filename, FILE_APPEND);
+  file = fs.open(filename, FILE_APPEND);
   if(!file){
     Serial.println("Failed to open file for appending");
     //reportBug(29);

@@ -30,13 +30,13 @@
   #include "MyBLE.h"
 #endif
 
-#ifdef GSM_turn_on
-  #include "MyGSM.h"
-#else
-  #include "MyWIFI.h"
-#endif
+//#ifdef GSM_turn_on
+//  #include "MyGSM.h"
+//#else
+//  #include "MyWIFI.h"
+//#endif
 
-File file;
+
 
 // TODO osobny plik z stałymi wartościami nie-na-repo typu ssid, auth, serwer itp
 
@@ -60,17 +60,13 @@ void setup() {
 //    initMyWIFI();
 //  #endif
 
-//  #ifdef BLE_turn_on
-//    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
-//  #endif
+  #ifdef BLE_turn_on
+    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
+  #endif
 }
 
 void loop() {
-  //float wagaOdczyt = loadcell.get_units(2);
-
-  //String nowTimestamp = getTimestamp();
-
-  //saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestamp) );
+  
 
 //  #ifdef GSM_turn_on
 //    connectGSM();
@@ -80,6 +76,7 @@ void loop() {
 //  #endif
 
   if(bleWakeUp) {
+    // TODO włączenie leda na 32 lub 33
     if(millis() + (5*60*1000) > bleWakeUpMoment ) {
       // time's up, going to sleep
       handle_sleep();
@@ -115,10 +112,13 @@ void loop() {
           String path = data_incoming;
           Serial.printf("Reading file: %s\n", path);
 
-          File file = fs.open(path);
+          file = SD.open(path);
           if(!file){
             Serial.println("Failed to open file for reading");
+            MyTX("4|");
           }
+
+          MyTX("1|");
     
           // TODO jak zrobić otwieranie pliku i wysyłanie pomiędzy kolejnymi pętlami
           // deklaracja wyżej i otwieranie zamykanie w 1 i 3 ?
@@ -138,11 +138,14 @@ void loop() {
               // file ended
 
               // TX with message(rozkaz) that file ended (and line)
+
+              MyTX("3|"+line);
             }
             else if(c == ';') {
               // line ended
 
               // TX with line and rozkaz that is ready to continue
+              MyTX("2|"+line);
             }
             else {
               line += String(c);
@@ -156,11 +159,21 @@ void loop() {
           // close reading file
           file.close();
         }
+
+        if(rozkaz == "4") {
+          // send current weight
+          float wagaOdczyt = loadcell.get_units(2);
+          MyTX("6|"+String(wagaOdczyt));
+        }
         
       }
     }
   }
   else {
+    float wagaOdczyt = loadcell.get_units(2);
+    String nowTimestamp = getTimestamp();
+    saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestamp) );
+    
     handle_sleep();
   }
 
