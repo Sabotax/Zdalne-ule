@@ -14,12 +14,12 @@ String getTimestamp() {
 
 String getDay() {
   DateTime now = rtc.now();
-  String re = String(now.year()) + "-" + String(now.month()) + "-" + String(now.day());
-  return re;
-}
-String getMonthMy() {
-  DateTime now = rtc.now();
-  String re = String(now.year()) + "-" + String(now.month());
+  String my_year = String(now.year());
+  String my_month = String(now.month());
+  String my_day = String(now.day());
+  if(my_month.length()==1) my_month = "0"+my_month;
+  if(my_day.length()==1) my_day = "0"+my_day;
+  String re = my_year + "-" + my_month + "-" + my_day;
   return re;
 }
 
