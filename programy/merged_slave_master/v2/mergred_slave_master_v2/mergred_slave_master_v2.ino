@@ -164,6 +164,11 @@ void loop() {
                 line += String(c);
               }
             }
+
+            if(!file.available()) {
+              MyTX("6|");
+              file.close();
+            }
           }
           
         }

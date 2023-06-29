@@ -2,16 +2,6 @@
 #include "RTClib.h"
 #include <Wire.h>
 RTC_DS3231 rtc;
-
-String getTimestamp() {
-  DateTime now = rtc.now();
-  String re = "";
-  re += String(now.year()) + "-" + String(now.month()) + "-" + String(now.day()) + "T";
-  re += String(now.hour()) + ":" + String(now.minute()) + ":" + String(now.second());
-
-  return re;
-}
-
 String getDay() {
   DateTime now = rtc.now();
   String my_year = String(now.year());
@@ -20,6 +10,22 @@ String getDay() {
   if(my_month.length()==1) my_month = "0"+my_month;
   if(my_day.length()==1) my_day = "0"+my_day;
   String re = my_year + "-" + my_month + "-" + my_day;
+  return re;
+}
+String getTimestamp() {
+  DateTime now = rtc.now();
+
+  String myDay = getDay();
+  String myHour = String(now.hour());
+  if(myHour.length()==1) myHour = "0"+myHour;
+  String myMinute = String(now.minute());
+  if(myMinute.length()==1) myMinute = "0"+myMinute;
+  String mySec = String(now.second());
+  if(mySec.length()==1) mySec = "0"+mySec;
+  String myHourAll = myHour + ":" + myMinute + ":" + mySec;
+
+  String re = myDay + "T" + myHourAll;
+
   return re;
 }
 
@@ -35,6 +41,7 @@ void initMyRTC() {
     #ifdef DEBUG
     Serial.println("RTC lost power, let's set the time!");
     #endif
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }
