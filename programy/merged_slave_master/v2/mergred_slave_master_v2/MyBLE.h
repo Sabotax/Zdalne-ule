@@ -99,4 +99,41 @@ void MyTX(String newValue) {
   // Set the characteristic's value to be the array of bytes that is actually a string.
   pCharacteristic_TX_ESP->setValue(std::string(newValue.c_str()));
   pCharacteristic_TX_ESP->notify();
+
+  /*
+   * #include <iostream>
+
+using namespace std;
+
+int main()
+{
+    uint8_t waga1 = 88;
+    uint8_t waga2 = 23;
+    long epoch = 1688083410;
+    
+    bool arr[6*8];
+    
+    arr[0] = (88 >> 7) & 1;
+    arr[1] = (88 >> 6) & 1;
+    arr[2] = (88 >> 5) & 1;
+    arr[3] = (88 >> 4) & 1;
+    arr[4] = (88 >> 3) & 1;
+    arr[5] = (88 >> 2) & 1;
+    arr[6] = (88 >> 1) & 1;
+    arr[7] = (88 >> 0) & 1;
+    
+    
+    cout << arr[0];
+    cout << arr[1];
+    cout << arr[2];
+    cout << arr[3];
+    cout << arr[4];
+    cout << arr[5];
+    cout << arr[6];
+    cout << arr[7];
+
+    return 0;
+}
+
+   */
 }
