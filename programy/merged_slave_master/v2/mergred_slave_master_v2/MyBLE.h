@@ -135,5 +135,15 @@ int main()
     return 0;
 }
 
+UINT32 value;
+UINT8 result[4];
+
+result[0] = (value & 0x000000ff);
+result[1] = (value & 0x0000ff00) >> 8;
+result[2] = (value & 0x00ff0000) >> 16;
+result[3] = (value & 0xff000000) >> 24;
+
+wysłać (uint8_t instrukcja)(uint8_t waga1)(uint8_t waga2)(uint8_t epoch1)(uint8_t epoch2)(uint8_t epoch3)(uint8_t epoch4), a epochy to ma być rodzielony long
+
    */
 }
