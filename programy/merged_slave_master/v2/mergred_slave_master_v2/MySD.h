@@ -17,7 +17,7 @@ void saveDataToSD(fs::FS &fs,const String& data) {
   }
   else {
     if(file.print(data)){
-      Serial.println("Message appended - saveDataToSD");
+      Serial.println("Message appended - saveDataToSD: " + data);
     } else {
       Serial.println("Append failed");
       //reportBug(30);

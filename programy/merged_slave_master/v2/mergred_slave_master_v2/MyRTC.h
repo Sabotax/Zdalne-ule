@@ -12,6 +12,10 @@ String getDay() {
   String re = my_year + "-" + my_month + "-" + my_day;
   return re;
 }
+String getEpoch() {
+  DateTime now = rtc.now();
+  return String(now.unixtime());
+}
 String getTimestamp() {
   DateTime now = rtc.now();
 

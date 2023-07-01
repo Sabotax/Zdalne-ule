@@ -44,6 +44,9 @@ void setup() {
   setCpuFrequencyMhz(80); //dla hx711
   Serial.begin(115200);
 
+  digitalWrite(33,LOW);
+  pinMode(33,OUTPUT);
+
   enableTouchWakeUp();
 
   didIwakeUpForBle();
@@ -76,12 +79,11 @@ void loop() {
 //  #endif
 
   if(bleWakeUp) {
-    // TODO włączenie leda na 32 lub 33
+    digitalWrite(33,HIGH);
     if( millis() > bleWakeUpMoment + (1000*60*5)) {
-    //if( bleWakeUpMoment + (5*60*1000) > millis() ) {
-    //if(millis() + (5*60*1000) < bleWakeUpMoment ) {
       // time's up, going to sleep
       Serial.println("time's up, going to sleep " + String(millis() ) + " " + String(bleWakeUpMoment));
+      digitalWrite(33,LOW);
       handle_sleep();
     }
     else {
@@ -123,10 +125,10 @@ void loop() {
           file = SD.open(path);
           if(!file){
             Serial.println("Failed to open file for reading");
-            MyTX("5|");
+            myTXstring(5,"0");
           }
           else {
-            MyTX("1|");
+            myTXstring(1,"");
           }
           
     
@@ -150,14 +152,14 @@ void loop() {
   
                 // TX with message(rozkaz) that file ended (and line)
                 file.close();
-                MyTX("3|"+line);
+                myTXrow(3,line);
                 break;
               }
               else if(c == ';') {
                 // line ended
   
                 // TX with line and rozkaz that is ready to continue
-                MyTX("2|"+line);
+                myTXrow(2,line);
                 break;
               }
               else {
@@ -166,7 +168,7 @@ void loop() {
             }
 
             if(!file.available()) {
-              MyTX("6|");
+              myTXstring(6,"");
               file.close();
             }
           }
@@ -178,7 +180,7 @@ void loop() {
           Serial.println("wykonuje pomiar");
           //float wagaOdczyt = loadcell.get_units(2);
           float wagaOdczyt = random(100);
-          MyTX("4|"+String(wagaOdczyt));
+          myTXstring(4,String(wagaOdczyt));
         }
         
       }
@@ -187,8 +189,8 @@ void loop() {
   else {
     //float wagaOdczyt = loadcell.get_units(2);
     float wagaOdczyt = random(100);
-    String nowTimestamp = getTimestamp();
-    saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestamp) );
+    String nowTimestampEpoch = getEpoch();
+    saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
     
     handle_sleep();
   }
