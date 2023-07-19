@@ -181,6 +181,20 @@ void loop() {
           Serial.println("wykonuje pomiar="+String(wagaOdczyt));
           myTXstring(4,String(wagaOdczyt));
         }
+
+        if(rozkaz == "7") {
+          // set offset to rtc and weight
+          weight_offset = data_incoming.toFloat();
+          loadcell.set_offset(weight_offset);
+          myTXstring(7,"");
+        }
+
+        if(rozkaz == "8") {
+          // set scale to rtc and weight
+          weight_scale = data_incoming.toFloat();
+          loadcell.set_offset(weight_scale);
+          myTXstring(8,"");
+        }
         
       }
     }
