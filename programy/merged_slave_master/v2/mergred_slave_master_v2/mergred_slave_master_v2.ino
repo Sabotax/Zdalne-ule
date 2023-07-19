@@ -192,7 +192,7 @@ void loop() {
         if(rozkaz == "8") {
           // set scale to rtc and weight
           weight_scale = data_incoming.toFloat();
-          loadcell.set_offset(weight_scale);
+          loadcell.set_scale(weight_scale);
           myTXstring(8,"");
         }
         
