@@ -55,7 +55,7 @@ void setup() {
 
   initMyRTC();
   initMySD();
-//  initMyWaga();
+  initMyWaga();
 
 //  #ifdef GSM_turn_on
 //    initMyGSM();
@@ -177,9 +177,8 @@ void loop() {
 
         if(rozkaz == "4") {
           // send current weight
-          Serial.println("wykonuje pomiar");
-          //float wagaOdczyt = loadcell.get_units(2);
-          float wagaOdczyt = random(100);
+          wagaOdczyt = loadcell.get_units(2);
+          Serial.println("wykonuje pomiar="+String(wagaOdczyt));
           myTXstring(4,String(wagaOdczyt));
         }
         
@@ -187,8 +186,7 @@ void loop() {
     }
   }
   else {
-    //float wagaOdczyt = loadcell.get_units(2);
-    float wagaOdczyt = random(100);
+    wagaOdczyt = loadcell.get_units(2);
     String nowTimestampEpoch = getEpoch();
     saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
     

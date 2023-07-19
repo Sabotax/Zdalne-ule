@@ -1,8 +1,10 @@
 // WAGA
 #include <HX711.h>
-#define DOUT  32
-#define CLK  33 
+#define DOUT  26
+#define CLK  25 
 HX711 loadcell;
+
+float wagaOdczyt;
 
 void initMyWaga() {
   //WAGA

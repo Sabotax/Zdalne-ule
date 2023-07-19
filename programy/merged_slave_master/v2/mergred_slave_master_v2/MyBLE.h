@@ -98,7 +98,7 @@ void myTXstring(uint8_t rozkaz, String dataString) {
   dane[0] = rozkaz;
   
   for(short i = 1 ; i < dataString.length()+1; i++) {
-    dane[i] = (char) dataString[i];
+    dane[i] = (char) dataString[i-1];
   }
   
   pCharacteristic_TX_ESP->setValue(dane, dataString.length()+1);

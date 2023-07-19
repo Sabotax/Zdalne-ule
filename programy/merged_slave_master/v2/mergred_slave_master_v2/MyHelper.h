@@ -4,7 +4,7 @@ const String authToken = "Watykanczyk2137";
 
 bool bleWakeUp = false;
 long bleWakeUpMoment=0;
-#define Threshold 50 /* Greater the value, more the sensitivity */
+#define Threshold 80
 
 String dataToJson(const float& waga, const String& myTimestamp) {
 
@@ -28,7 +28,7 @@ String dataToCsvRow(const float& waga, const String& myTimestamp) {
 }
 
 //SLEEP
-#define TIME_TO_SLEEP  30
+#define TIME_TO_SLEEP  1800
 #define uS_TO_S_FACTOR 1000000
 
 // funkcje
@@ -63,6 +63,7 @@ void callback(){
 void enableTouchWakeUp() {
   //Setup interrupt on Touch Pad 1 (GPIO 0)
   touchAttachInterrupt(T9, callback, Threshold);
+  touchAttachInterrupt(T8, callback, Threshold);
 
   //Configure Touchpad as wakeup source
   esp_sleep_enable_touchpad_wakeup();
