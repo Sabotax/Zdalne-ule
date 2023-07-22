@@ -23,6 +23,7 @@ byte rozkaz=0;
 float offset = 0;
 float scale = 0;
 bool measure = false;
+bool loop_measuring = false;
 
 void loop() {
 
@@ -34,6 +35,9 @@ void loop() {
       }
       if(buf == "S") {
         rozkaz = 2;
+      }
+      if(buf == "D") {
+        rozkaz = 3;
       }
       buf = "";
     }
@@ -47,6 +51,14 @@ void loop() {
         scale = buf.toFloat();
         loadcell.set_scale(scale);
         Serial.println("Scale set to " + String(scale));
+      }
+      if(rozkaz == 3) {
+        if(buf == "start") {
+          loop_measuring = true;
+        }
+        if(buf == "stop") {
+          loop_measuring = false;
+        }
       }
       rozkaz = 0;
       buf = "";
@@ -63,6 +75,8 @@ void loop() {
   }
 
   if(measure) {
+    measure = false;
+    
     float pierwszy_pomiar = loadcell.get_units();
     float sum = pierwszy_pomiar;
     float min = pierwszy_pomiar;
@@ -82,5 +96,10 @@ void loop() {
     Serial.println("Srednia: " + String(sum));
     Serial.println("Min: " + String(min));
     Serial.println("Max: " + String(max));
+  }
+
+  if(loop_measuring) {
+    Serial.println(loadcell.get_units());
+    delay(5000);
   }
 }
