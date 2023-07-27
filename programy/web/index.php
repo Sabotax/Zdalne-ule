@@ -21,34 +21,16 @@
                 </div>
             </div>
             <div id="left">
-                <div id="pasieka">
-                    <div id="pasieka_select">
-                        <p>Wybór pasieki</p>
-                        <select id="lista_pasieka">
-                            <?php
-                            // wszytkie esp-master z bazy
-                            load_pasieki($mysqli);
-                            ?>
-                        </select>
-                        <button id="btn_pasieka_pokaz" disabled>Pokaż</buton>
-                    </div>
-                    <div id="pasieka_opcje">
-                        <button id="btn_pasieka_zmien_nazwe" disabled>Zmień nazwę</button>
-                    </div>
-                </div>
                 <div id="ul">
                     <div id="ul_select">
                         <p>Wybór ula</p>
-                        <select id="lista_ule" disabled>
+                        <select id="lista_ule">
                             <?php
                             //include_once("connect_init.php");
                             // wszytkie esp-slave dla danego esp-master z bazy
                             ?>
                         </select>
-                        <button id="btn_ule_pokaz" disabled>Pokaż</buton>
-                    </div>
-                    <div id="ul_opcje">
-                        <button id="btn_ul_zmien_nazwe" disabled>Zmień nazwę</button>
+                        <button id="btn_ule_pokaz">Pokaż</buton>
                     </div>
                 </div>
                 <div id="ul_showcase">

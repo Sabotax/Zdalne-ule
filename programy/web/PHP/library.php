@@ -118,7 +118,7 @@ function insertPomiar($mysqli,$input) {
 
     if ($mysqli->query($query) === TRUE) {
     $last_id = $mysqli->insert_id;
-    echo "New record zbiorowy created successfully\n";
+    echo "Pomyslnie dodano rekord\n";
     } else {
     echo "Error: " . $query . "<br>" . $mysqli->error;
     }

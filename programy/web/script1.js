@@ -8,22 +8,8 @@ function load_ule() { //str jaką wartość wysyła
             document.getElementById("lista_ule").innerHTML = this.responseText; // responseText - to to co będzie echo w ajax.php
         }
     };
-    let valueA = document.getElementById("lista_pasieka").value
 
-    //debug
-    //document.getElementById("center").innerHTML=valueA;
-
-    if (valueA == "lista_pasieka_select_puste") {
-        //document.getElementById("center").innerHTML+="if";
-        //document.getElementById("lista_ule").setAttribute("disabled",true);
-        document.getElementById("lista_ule").disabled = true;
-    }
-    else {
-        //document.getElementById("center").innerHTML+="else";
-        //document.getElementById("lista_ule").setAttribute("disabled",false);
-        document.getElementById("lista_ule").disabled = false;
-    }
-    xmlhttp.open("POST", "PHP/ajax.php?selector=" + selector + "&valueA="+valueA, true);
+    xmlhttp.open("POST", "PHP/ajax.php?selector=" + selector, true);
     
     xmlhttp.send();
 }
@@ -38,11 +24,12 @@ function MyDebug(str,dopisac=false) {
     
 }
 
-let lista_pasieka = document.getElementById("lista_pasieka");
-lista_pasieka.addEventListener("change",load_ule);
 
 let lista_ule = document.getElementById("lista_ule");
-//lista_ule.addEventListener("change",load_opcje_chart);
+load_ule();
+
+let btn_ule_pokaz = document.getElementById("btn_ule_pokaz");
+btn_ule_pokaz.addEventListener("click", load_opcje_chart);
 
 let chart_btn;
 
@@ -68,4 +55,3 @@ function load_opcje_chart() {
     chart_btn = document.getElementById("chart_btn");
     chart_btn.addEventListener("click",load_chart)
 }
-load_opcje_chart();
