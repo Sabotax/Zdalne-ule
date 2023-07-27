@@ -6,8 +6,8 @@ HX711 loadcell;
 
 float wagaOdczyt;
 
-RTC_DATA_ATTR float weight_offset = 0;
-RTC_DATA_ATTR float weight_scale = 1;
+RTC_DATA_ATTR float weight_offset = 970500;
+RTC_DATA_ATTR float weight_scale = 41990;
 
 void initMyWaga() {
   //WAGA
