@@ -152,7 +152,7 @@ void myTXrow(uint8_t rozkaz,String line) {
   int calkowiteInt = atoi( calkowiteStr.c_str());
   int ulamkiInt = atoi( ulamkiStr.c_str());
 
-  if(calkowiteInt > 255 || ulamkiInt > 255) {
+  if(calkowiteInt > 255 || ulamkiInt > 255 || calkowiteInt < 0 || ulamkiInt < 0) {
     myTXstring(5,"1");
     return;
   }

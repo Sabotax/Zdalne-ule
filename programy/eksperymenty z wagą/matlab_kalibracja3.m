@@ -25,5 +25,6 @@ plot(x,y1)
 a = 4.199e+04; %41990
 b = 9.705e+05; %970500
 
-
-%odp = (pomiar-b)/a
+%%
+pomiar = 50;
+odp = (pomiar-b)/a

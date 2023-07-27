@@ -21,6 +21,8 @@
 //#define GSM_turn_on
 #define BLE_turn_on
 
+#include "authData.h"
+
 #include "MyHelper.h"
 #include "MyRTC.h"
 #include "MySD.h"
@@ -30,11 +32,11 @@
   #include "MyBLE.h"
 #endif
 
-//#ifdef GSM_turn_on
-//  #include "MyGSM.h"
-//#else
-//  #include "MyWIFI.h"
-//#endif
+#ifdef GSM_turn_on
+  #include "MyGSM.h"
+#else
+  #include "MyWIFI.h"
+#endif
 
 
 
@@ -57,11 +59,11 @@ void setup() {
   initMySD();
   initMyWaga();
 
-//  #ifdef GSM_turn_on
-//    initMyGSM();
-//  #else
-//    initMyWIFI();
-//  #endif
+  #ifdef GSM_turn_on
+    initMyGSM();
+  #else
+    initMyWIFI();
+  #endif
 
   #ifdef BLE_turn_on
     initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
@@ -71,12 +73,12 @@ void setup() {
 void loop() {
   
 
-//  #ifdef GSM_turn_on
-//    connectGSM();
-//    makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
-//  #else
-//    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
-//  #endif
+  #ifdef GSM_turn_on
+    connectGSM();
+    makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
+  #else
+    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
+  #endif
 
   if(bleWakeUp) {
     digitalWrite(33,HIGH);

@@ -15,10 +15,7 @@ const char apn[]      = "internet";
 const char gprsUser[] = "";
 const char gprsPass[] = "";
 
-// Server details
-const char server[] = "http://daniel.rozycki.student.put.poznan.pl";
-const char resource[] = "/incomingData.php";
-const char serverAndResource[] = "http://daniel.rozycki.student.put.poznan.pl/incomingData.php";
+
 
 #include <TinyGsmClient.h>
 #ifdef DUMP_AT_COMMANDS
