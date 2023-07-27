@@ -128,7 +128,6 @@ function insertPomiar($mysqli,$input) {
 }
 
 function verifyIncomingData($incomingData) {
-    $token_autoryzujacy = "Watykanczyk2137";
     if($incomingData["auth"] == $token_autoryzujacy) {
         return true;
     }
