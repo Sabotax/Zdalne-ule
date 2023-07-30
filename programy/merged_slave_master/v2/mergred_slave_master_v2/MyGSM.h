@@ -32,14 +32,16 @@ HttpClient    http(client, server, port);
 
 boolean send_msg_flag = false;
 
-//void goSleepGSM() {
-//  SerialMon.println("GSM cutting power");
-//  modem.poweroff();
-//}
-//void wakeUpGSM() {
-//  SerialMon.println("powering GSM");
-//  modem.restart();
-//}
+void goSleepGSM() {
+  SerialMon.println("GSM cutting power");
+  modem.poweroff();
+}
+void wakeUpGSM() {
+  SerialMon.println("powering GSM");
+  Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
+  Serial2.println("AT");
+  modem.restart();
+}
 void initMyGSM() {
   Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
   Serial2.println("AT");
@@ -99,4 +101,12 @@ void makePostGSM(const String& dane) {
   SerialMon.print("Response: ");
   SerialMon.println(response);
   
+}
+
+String myGetBattery() {
+  uint8_t  chargeState = -99;
+  int8_t   percent     = -99;
+  uint16_t milliVolts  = -9999;
+  modem.getBattStats(chargeState, percent, milliVolts);
+  return String(percent);
 }

@@ -18,7 +18,7 @@
  * Kolejne wersje mają mieć: budzenie dodatkowo przez czujnik wstrząsu, gps
  */
 #define DEBUG
-//#define GSM_turn_on
+#define GSM_turn_on
 #define BLE_turn_on
 
 #include "authData.h"
@@ -59,26 +59,9 @@ void setup() {
   initMySD();
   initMyWaga();
 
-  #ifdef GSM_turn_on
-    initMyGSM();
-  #else
-    initMyWIFI();
-  #endif
-
-  #ifdef BLE_turn_on
-    initBLE(); // póki co zawsze włącza, nie tylko po przełączeniu fizycznym
-  #endif
 }
 
 void loop() {
-  
-
-  #ifdef GSM_turn_on
-    connectGSM();
-    makePostGSM( dataToJson(wagaOdczyt, nowTimestamp) );
-  #else
-    sendDataToServer( dataToJson(wagaOdczyt, nowTimestamp) );
-  #endif
 
   if(bleWakeUp) {
     digitalWrite(33,HIGH);
@@ -89,6 +72,10 @@ void loop() {
       handle_sleep();
     }
     else {
+      #ifdef BLE_turn_on
+        initBLE();
+      #endif
+    
       if(input_received) {
         Serial.println("Przetwarzam input");
         input_received = false;
@@ -197,15 +184,45 @@ void loop() {
           loadcell.set_scale(weight_scale);
           myTXstring(8,"");
         }
+
+        if(rozkaz == "10") {
+          // TODO opcjonalnie set czas spania
+        }
+
+        if(rozkaz == "11") {
+          // Read current battery
+          initMyGSM();
+          delay(2000);
+
+          String batteryPercent = myGetBattery();
+          myTXstring(11,batteryPercent);
+        }
         
       }
     }
   }
   else {
+    #ifdef GSM_turn_on
+      initMyGSM();
+    #else
+      initMyWIFI();
+    #endif
+
     wagaOdczyt = loadcell.get_units(2);
     String nowTimestampEpoch = getEpoch();
+
     saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
-    
+
+    String batteryPercent = myGetBattery();
+
+    #ifdef GSM_turn_on
+      connectGSM();
+      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
+    #else
+      sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
+    #endif
+
+    goSleepGSM();
     handle_sleep();
   }
 

@@ -6,13 +6,14 @@ bool bleWakeUp = false;
 long bleWakeUpMoment=0;
 #define Threshold 80
 
-String dataToJson(const float& waga, const String& myTimestamp) {
+String dataToJson(const float& waga, const String& myTimestamp, const String& battery) {
 
   String re = "{";
   re += "\"auth\":"; re+= "\""+authToken+"\",";
   re += "\"id\":"; re+= "\""+espId+"\",";
   re += "\"waga\":"; re+= "\""+String(waga)+"\",";
-  re += "\"time\":"; re+= "\""+myTimestamp+"\"";
+  re += "\"time\":"; re+= "\""+myTimestamp+"\",";
+  re += "\"batt\":"; re+= "\""+battery+"\"";
   re += "}";
 
   return re;
