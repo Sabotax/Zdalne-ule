@@ -50,7 +50,10 @@ class odbiorRX: public BLECharacteristicCallbacks {
   }
 };
 
+bool BLEinitStarted = false;
 void initBLE() {
+  if(BLEinitStarted) return;
+  BLEinitStarted = true;
   // Create the BLE Device
   BLEDevice::init("ESP01");
 

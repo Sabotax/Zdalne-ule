@@ -192,10 +192,21 @@ void loop() {
         if(rozkaz == "11") {
           // Read current battery
           initMyGSM();
-          delay(2000);
+          delay(5000);
 
           String batteryPercent = myGetBattery();
           myTXstring(11,batteryPercent);
+        }
+
+        if(rozkaz == "12") {
+          // Read current signal
+          if(!modem.isNetworkConnected()) {
+            initMyGSM();
+            delay(5000);
+          }
+          
+          int signalStrength = modem.getSignalQuality();
+          myTXstring(12,String(signalStrength));
         }
         
       }
@@ -217,7 +228,7 @@ void loop() {
 
     #ifdef GSM_turn_on
       connectGSM();
-      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
+      if(connectingSuccess) makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
     #else
       sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
     #endif

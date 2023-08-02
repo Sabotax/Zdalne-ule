@@ -15,7 +15,7 @@ const char apn[]      = "internet";
 const char gprsUser[] = "";
 const char gprsPass[] = "";
 
-
+bool connectingSuccess = false;
 
 #include <TinyGsmClient.h>
 #ifdef DUMP_AT_COMMANDS
@@ -55,9 +55,10 @@ void initMyGSM() {
 }
 
 void connectGSM() {
+  long momentStartConnecting = millis();
   modem.gprsConnect(apn, gprsUser, gprsPass);
   SerialMon.print("Waiting for network...");
-  if (!modem.waitForNetwork()) {
+  if (!modem.waitForNetwork() || millis() > momentStartConnecting + (1000*60*1)) {
     SerialMon.println(" fail");
     delay(10000);
     return;
@@ -74,7 +75,10 @@ void connectGSM() {
   }
   SerialMon.println(" success");
 
-  if (modem.isGprsConnected()) { SerialMon.println("GPRS connected"); }
+  if (modem.isGprsConnected()) { 
+    SerialMon.println("GPRS connected"); 
+    SerialMon.println("Signal strength: " + String(modem.getSignalQuality()));
+  }
 
   SerialMon.print("Connecting to ");
   SerialMon.println(server);
@@ -84,6 +88,7 @@ void connectGSM() {
     return;
   }
   SerialMon.println(" success");
+  connectingSuccess = true;
 }
 
 void makePostGSM(const String& dane) {
