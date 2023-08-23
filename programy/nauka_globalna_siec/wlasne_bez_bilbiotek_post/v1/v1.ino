@@ -2,19 +2,21 @@
 #define TX2 17
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
 
   Serial.println("---Start---");
+  Serial.println("Resetting SIM");
+  resetSIM();
 
-  String sendtoserver = "{\"data\":\"Twoja stara\"}";
+  String sendtoserver = "{\"auth\":\"Watykanczyk2137\",\"id\":0,\"waga\":\"59.00\",\"time\":1692811966,\"batt\":\"20\"} ";
 
-  Serial2.println("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
-  Serial2.println("AT+SAPBR=3,1,\"APN\",\"internet\"");
-  Serial2.println("AT+SAPBR=3,1,\"USER\",\"\"");
-  Serial2.println("AT+SAPBR=3,1,\"PWD\",\"\"");
-  Serial2.println("AT+SAPBR=1,1");
-  Serial2.println("AT+SAPBR=2,1");
+  sendAT("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
+  sendAT("AT+SAPBR=3,1,\"APN\",\"internet\"");
+  sendAT("AT+SAPBR=3,1,\"USER\",\"\"");
+  sendAT("AT+SAPBR=3,1,\"PWD\",\"\"");
+  sendAT("AT+SAPBR=1,1");
+  sendAT("AT+SAPBR=2,1");
 
 
 /********************GSM Communication Starts********************/
@@ -22,75 +24,44 @@ void setup() {
   if (Serial2.available())
   Serial.write(Serial2.read());
  
-  Serial2.println("AT");
+  sendAT("AT");
   delay(3000);
  
-//  Serial2.println("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
-//  delay(6000);
-//  ShowSerialData();
-// 
-//  Serial2.println("AT+SAPBR=3,1,\"APN\",\"airtelgprs.com\"");//APN
-//  delay(6000);
-//  ShowSerialData();
-// 
-//  Serial2.println("AT+SAPBR=1,1");
-//  delay(6000);
-//  ShowSerialData();
-// 
-//  Serial2.println("AT+SAPBR=2,1");
-//  delay(6000);
-//  ShowSerialData();
- 
- 
-  Serial2.println("AT+HTTPINIT");
+  sendAT("AT+HTTPINIT");
   delay(6000);
   ShowSerialData();
  
-  Serial2.println("AT+HTTPPARA=\"CID\",1");
+  sendAT("AT+HTTPPARA=\"CID\",1");
   delay(6000);
   ShowSerialData();
  
-//  StaticJsonBuffer<200> jsonBuffer;
-//  JsonObject& object = jsonBuffer.createObject();
-//  
-//  object.set("deviceID",deviceID);
-//  object.set("humidity",humidity);
-//  object.set("temperature",temperature);
-//  object.set("timedate",t);
-//  
-//  object.printTo(Serial);
-//  Serial.println(" ");  
-//  String sendtoserver;
-//  object.prettyPrintTo(sendtoserver);
-//  delay(4000);
- 
-  Serial2.println("AT+HTTPPARA=\"URL\",\"http://daniel.rozycki.student.put.poznan.pl/incomingData.php\""); //Server address
+  sendAT("AT+HTTPPARA=\"URL\",\"http://lepotato-zdalneule.ddns.net/incomingData.php\""); //Server address
   delay(4000);
   ShowSerialData();
  
-  Serial2.println("AT+HTTPPARA=\"CONTENT\",\"application/json\"");
+  sendAT("AT+HTTPPARA=\"CONTENT\",\"application/json\"");
   delay(4000);
   ShowSerialData();
  
  
-  Serial2.println("AT+HTTPDATA=" + String(sendtoserver.length()) + ",100000");
+  sendAT("AT+HTTPDATA=" + String(sendtoserver.length()) + ",100000");
   Serial.println(sendtoserver);
   delay(6000);
   ShowSerialData();
  
-  Serial2.println(sendtoserver);
+  sendAT(sendtoserver);
   delay(6000);
   ShowSerialData;
  
-  Serial2.println("AT+HTTPACTION=1");
+  sendAT("AT+HTTPACTION=1");
   delay(6000);
   ShowSerialData();
  
-  Serial2.println("AT+HTTPREAD");
+  sendAT("AT+HTTPREAD");
   delay(6000);
   ShowSerialData();
  
-  Serial2.println("AT+HTTPTERM");
+  sendAT("AT+HTTPTERM");
   delay(10000);
   ShowSerialData;
 
@@ -112,3 +83,39 @@ void ShowSerialData()
   delay(1000);
  
 }
+
+void resetSIM() {
+  sendAT("AT+CFUN=0");
+  delay(2000);
+  sendAT("AT+CFUN=1,1");
+  delay(15000);
+}
+
+void sendAT(String s) {
+  Serial.println("Komenda: " + s);
+  Serial2.println(s);
+}
+
+
+/*
+ * tak wyglada w przypadku faila
+ * Resetting SIM
+20:25:40.036 -> 
+20:25:49.045 -> +SAPBR 1: DEACT
+20:25:49.045 -> 
+20:25:49.045 -> +CPIN: NOT READY
+20:25:49.045 -> 
+20:25:49.045 -> OK
+20:25:49.045 -> 
+20:25:49.045 -> ERROR
+20:25:49.045 -> 
+20:25:49.045 -> ERROR
+20:25:56.017 -> 
+20:25:56.017 -> ERROR
+20:26:01.041 -> 
+20:26:01.041 -> ERROR
+
+trzeba znowu zrobic restart i moze zwiekszyc czekanie do 20/30 sekund i po tym ponownie sie poprawnie laczy
+
+Todo trzeba to w kodzie obsluzyc
+ */

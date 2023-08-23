@@ -10,13 +10,15 @@
 #define TINY_GSM_USE_GPRS true
 #define TINY_GSM_USE_WIFI false
 
+
+
 // Your GPRS credentials, if any
 const char apn[]      = "internet";
 const char gprsUser[] = "";
 const char gprsPass[] = "";
 
 bool connectingSuccess = false;
-
+#define DUMP_AT_COMMANDS
 #include <TinyGsmClient.h>
 #ifdef DUMP_AT_COMMANDS
 #include <StreamDebugger.h>
@@ -34,21 +36,24 @@ boolean send_msg_flag = false;
 
 void goSleepGSM() {
   SerialMon.println("GSM cutting power");
-  modem.poweroff();
+  //modem.poweroff();
+  //modem.sleepEnable();
 }
 void wakeUpGSM() {
   SerialMon.println("powering GSM");
-  Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
+  Serial2.begin(38400, SERIAL_8N1, RX2, TX2);
   Serial2.println("AT");
   modem.restart();
 }
 void initMyGSM() {
-  Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
+  Serial2.begin(38400, SERIAL_8N1, RX2, TX2);
   Serial2.println("AT");
   delay(6000);
 
   SerialMon.println("Initializing modem...");
   modem.restart();
+  delay(6000);
+  Serial2.println("AT");
 
   //SerialMon.println("Initializing modem...");
   //goSleepGSM();
@@ -85,7 +90,7 @@ void connectGSM() {
   if (!client.connect(server, port)) {
     SerialMon.println(" fail");
     delay(10000);
-    return;
+    //return;
   }
   SerialMon.println(" success");
   connectingSuccess = true;
