@@ -20,6 +20,8 @@
 #define DEBUG
 #define GSM_turn_on
 #define BLE_turn_on
+//#define mockData
+//#define turnOnSD
 
 #include "authData.h"
 
@@ -38,10 +40,6 @@
   #include "MyWIFI.h"
 #endif
 
-
-
-// TODO osobny plik z stałymi wartościami nie-na-repo typu ssid, auth, serwer itp
-
 void setup() {
   setCpuFrequencyMhz(80); //dla hx711
   Serial.begin(115200);
@@ -57,10 +55,14 @@ void setup() {
   //print_wakeup_touchpad();
   //esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
 
-//  initMyRTC();
-//  initMySD();
-//  initMyWaga();
-  
+  #ifndef mockData
+    initMyRTC();
+    initMyWaga();
+  #endif
+
+  #ifdef turnOnSD
+    initMySD();
+  #endif
 
 }
 
@@ -108,110 +110,118 @@ else {
         Serial.println("rozkaz = " + rozkaz);
         Serial.println("dane = " + data_incoming);
 
-//        if(rozkaz == "1") {
-//          // start sending data
-//          // TODO dekodowanie path?
-//          String path = "/"+data_incoming+".csv";
-//          Serial.println("Reading file: " + path);
-//
-//          file = SD.open(path);
-//          if(!file){
-//            Serial.println("Failed to open file for reading");
-//            myTXstring(5,"0");
-//          }
-//          else {
-//            myTXstring(1,"");
-//          }
-//          
-//    
-//          // TODO jak zrobić otwieranie pliku i wysyłanie pomiędzy kolejnymi pętlami
-//          // deklaracja wyżej i otwieranie zamykanie w 1 i 3 ?
-//        }
-//
-//        if(rozkaz == "2") {
-//          //continue sending data
-//          Serial.println("file "+ String((bool) file));
-//          if(file){
-//            String line = "";
-//            char c='#';
-//            
-//            while(file.available()){
-//              c = file.read();
-//              Serial.println(c);
-//            
-//              if(c == '#') {
-//                // file ended
-//  
-//                // TX with message(rozkaz) that file ended (and line)
-//                file.close();
-//                myTXrow(3,line);
-//                break;
-//              }
-//              else if(c == ';') {
-//                // line ended
-//  
-//                // TX with line and rozkaz that is ready to continue
-//                myTXrow(2,line);
-//                break;
-//              }
-//              else {
-//                line += String(c);
-//              }
-//            }
-//
-//            if(!file.available()) {
-//              myTXstring(6,"");
-//              file.close();
-//            }
-//          }
-//          
-//        }
-//
-//        if(rozkaz == "4") {
-//          // send current weight
-//          wagaOdczyt = loadcell.get_units(2);
-//          Serial.println("wykonuje pomiar="+String(wagaOdczyt));
-//          myTXstring(4,String(wagaOdczyt));
-//        }
-//
-//        if(rozkaz == "7") {
-//          // set offset to rtc and weight
-//          weight_offset = data_incoming.toFloat();
-//          loadcell.set_offset(weight_offset);
-//          myTXstring(7,"");
-//        }
-//
-//        if(rozkaz == "8") {
-//          // set scale to rtc and weight
-//          weight_scale = data_incoming.toFloat();
-//          loadcell.set_scale(weight_scale);
-//          myTXstring(8,"");
-//        }
-//
-//        if(rozkaz == "10") {
-//          // TODO opcjonalnie set czas spania
-//        }
-//
-////        if(rozkaz == "11") {
-////          // Read current battery
-////          initMyGSM();
-////          delay(5000);
-////
-////          String batteryPercent = myGetBattery();
-////          myTXstring(11,batteryPercent);
-////        }
+        #ifdef turnOnSD
 
-//        if(rozkaz == "12") {
-//          // Read current signal
-//          if(!modem.isNetworkConnected()) {
-//            initMyGSM();
-//            delay(5000);
-//          }
-//          
-//          int signalStrength = modem.getSignalQuality();
-//          myTXstring(12,String(signalStrength));
-//        }
-        
+          if(rozkaz == "1") {
+            // start sending data
+            // TODO dekodowanie path?
+            String path = "/"+data_incoming+".csv";
+            Serial.println("Reading file: " + path);
+  
+            file = SD.open(path);
+            if(!file){
+              Serial.println("Failed to open file for reading");
+              myTXstring(5,"0");
+            }
+            else {
+              myTXstring(1,"");
+            }
+            
+      
+            // TODO jak zrobić otwieranie pliku i wysyłanie pomiędzy kolejnymi pętlami
+            // deklaracja wyżej i otwieranie zamykanie w 1 i 3 ?
+          }
+  
+          if(rozkaz == "2") {
+            //continue sending data
+            Serial.println("file "+ String((bool) file));
+            if(file){
+              String line = "";
+              char c='#';
+              
+              while(file.available()){
+                c = file.read();
+                Serial.println(c);
+              
+                if(c == '#') {
+                  // file ended
+    
+                  // TX with message(rozkaz) that file ended (and line)
+                  file.close();
+                  myTXrow(3,line);
+                  break;
+                }
+                else if(c == ';') {
+                  // line ended
+    
+                  // TX with line and rozkaz that is ready to continue
+                  myTXrow(2,line);
+                  break;
+                }
+                else {
+                  line += String(c);
+                }
+              }
+  
+              if(!file.available()) {
+                myTXstring(6,"");
+                file.close();
+              }
+            }
+            
+          }
+
+        #endif
+
+        #ifndef mockData
+
+          if(rozkaz == "4") {
+            // send current weight
+            wagaOdczyt = loadcell.get_units(2);
+            Serial.println("wykonuje pomiar="+String(wagaOdczyt));
+            myTXstring(4,String(wagaOdczyt));
+          }
+  
+          if(rozkaz == "7") {
+            // set offset to rtc and weight
+            weight_offset = data_incoming.toFloat();
+            loadcell.set_offset(weight_offset);
+            myTXstring(7,"");
+          }
+  
+          if(rozkaz == "8") {
+            // set scale to rtc and weight
+            weight_scale = data_incoming.toFloat();
+            loadcell.set_scale(weight_scale);
+            myTXstring(8,"");
+          }
+        #endif
+
+        if(rozkaz == "10") {
+          // TODO opcjonalnie set czas spania
+        }
+
+        #ifdef GSM_turn_on
+
+          if(rozkaz == "11") {
+            // Read current battery
+            initMyGSM();
+            delay(5000);
+  
+            String batteryPercent = String(getBattery());
+            myTXstring(11,batteryPercent);
+          }
+  
+          if(rozkaz == "12") {
+            // Read current signal
+            if(!isConnected()) {
+              initMyGSM();
+            }
+            
+            int signalStrength = getSignal();
+            myTXstring(12,String(signalStrength));
+          }
+        #endif
       }
     }
   }
@@ -222,15 +232,19 @@ else {
       initMyWIFI();
     #endif
 
-    //wagaOdczyt = loadcell.get_units(2);
-    wagaOdczyt = random(100);
-    //String nowTimestampEpoch = getEpoch();
-    String nowTimestampEpoch = String(random(10000));
+    #ifdef mockData
+      wagaOdczyt = random(100);
+      String nowTimestampEpoch = String(random(10000));
+      String batteryPercent = String(random(100));
+    #else
+      wagaOdczyt = loadcell.get_units(2);
+      String nowTimestampEpoch = getEpoch();
+      String batteryPercent = String(getBattery());
+    #endif
 
-    //saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
-
-    //String batteryPercent = myGetBattery();
-    String batteryPercent = String(random(100));;
+    #ifdef turnOnSD
+      saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
+    #endif
 
     #ifdef GSM_turn_on
       makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );

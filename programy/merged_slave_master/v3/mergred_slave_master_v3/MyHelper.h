@@ -29,7 +29,7 @@ String dataToCsvRow(const float& waga, const String& myTimestamp) {
 }
 
 //SLEEP
-#define TIME_TO_SLEEP  60
+#define TIME_TO_SLEEP  1800
 #define uS_TO_S_FACTOR 1000000
 
 // funkcje
