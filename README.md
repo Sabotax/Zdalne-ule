@@ -6,7 +6,9 @@ Używane technologie:
 	- C++ od strony mikontrolerów,
 	![alt text](foldery%20pomocnicze/zdjecia%20readme/schemat.PNG)
 	![alt text](foldery%20pomocnicze/zdjecia%20readme/pcb_schemat.PNG)
+ \
 	- Javascript/PHP od strony serwera
+ \
 	- Kotlin od strony aplikacji mobilnej
 	![alt text](foldery%20pomocnicze/zdjecia%20readme/Screenshot_2023-09-22-02-25-18-607_com.example.beeallrounder.jpg)
 	![alt text](foldery%20pomocnicze/zdjecia%20readme/Screenshot_2023-09-22-02-25-11-049_com.example.beeallrounder.jpg)
