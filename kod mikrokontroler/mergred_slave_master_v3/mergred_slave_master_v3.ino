@@ -18,7 +18,7 @@
  * Kolejne wersje mają mieć: budzenie dodatkowo przez czujnik wstrząsu, gps
  */
 #define DEBUG
-#define GSM_turn_on
+//#define GSM_turn_on
 #define BLE_turn_on
 //#define mockData
 //#define turnOnSD
@@ -34,11 +34,11 @@
   #include "MyBLE.h"
 #endif
 
-#ifdef GSM_turn_on
+//#ifdef GSM_turn_on
   #include "MyGSM.h"
-#else
+//#else
   #include "MyWIFI.h"
-#endif
+//#endif
 
 void setup() {
   setCpuFrequencyMhz(80); //dla hx711
