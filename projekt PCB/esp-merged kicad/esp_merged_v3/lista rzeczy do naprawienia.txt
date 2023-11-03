@@ -1,0 +1,8 @@
+1. prawidłowo ułożyć piny do programowania
+2. przycisk do programowania
+3. podpisać też przyciski i piny prog, opcjonalnie
+4. piny/wyjścia pod przycisk do wybudzania
+5. piny pod led wybudzający
+6. czujnik wstrząsu zostawić
+7. poprawić rozstaw dla schematu sim800L (chyba o milimetr się nie zgadzał)
+8. jak się uda, to niech interfejs PROG nie zasłania karty SD

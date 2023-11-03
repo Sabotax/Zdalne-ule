@@ -108,7 +108,9 @@ function insertKilkaPojedynczych($mysqli,$input,$zbiorowy_id) {
 // }
 
 function insertPomiar($mysqli,$input) {
-    $query = "INSERT INTO `pomiary`(`espID`, `waga`, `timeFromEsp`) VALUES ('$input[id]','$input[waga]','$input[time]')";
+    $timestamp = convertEpochToDatetime($input['time']);
+
+    $query = "INSERT INTO `pomiary`(`espID`, `waga`, `timeFromEsp`) VALUES ('$input[id]','$input[waga]','$timestamp')";
     // echo $query;
     $last_id = -1;
 
@@ -128,10 +130,21 @@ function insertPomiar($mysqli,$input) {
 }
 
 function verifyIncomingData($incomingData) {
+    $token_autoryzujacy = "Watykanczyk2137";
     if($incomingData["auth"] == $token_autoryzujacy) {
         return true;
     }
     return false;
+}
+
+function convertEpochToDatetime($epoch) {
+    $epochTimestamp = $epoch; // Your epoch timestamp
+    $datetimeFormat = 'Y-m-d H:i:s'; // MySQL datetime format
+
+    // Convert epoch timestamp to datetime
+    $dateTime = new DateTime("@$epochTimestamp"); // @ symbol indicates a Unix timestamp
+    $formattedDatetime = $dateTime->format($datetimeFormat);
+    return $formattedDatetime;
 }
 
 ?>

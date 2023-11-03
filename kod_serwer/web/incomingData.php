@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once("PHP/connect_init.php");
         insertPomiar($mysqli,$incoming_data);
     }
+    else header('HTTP/1.0 403 Forbidden');
 }
 
 
