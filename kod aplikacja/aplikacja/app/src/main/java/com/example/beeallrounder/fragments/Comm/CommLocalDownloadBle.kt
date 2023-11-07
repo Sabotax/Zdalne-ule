@@ -49,6 +49,9 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
     private lateinit var editTextSetScale: EditText
     private lateinit var btnSetSleepTime: Button
     private lateinit var editTextSetSleepTime: EditText
+    private lateinit var btnTare: Button
+    private lateinit var btnSignal: Button
+    private lateinit var btnBattery: Button
 
     private lateinit var spinnerDevice: Spinner
     private lateinit var spinnerSubmenu: Spinner
@@ -168,6 +171,40 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
             }
         }
 
+        btnTare = view.findViewById<Button>(R.id.btnCommLocalDownloadBleTare)
+        btnTare.setOnClickListener {
+            log("Wykonuję pomiar")
+            if(currentSpinnerDeviceOption != null) {
+                devicesList[currentSpinnerDeviceOption!!].sendData(
+                    RemoteBLEDeviceController.Companion.INSTRUCTION_TYPE_SENDING.TARE,
+                    ""
+                )
+            }
+        }
+
+
+        btnSignal = view.findViewById<Button>(R.id.btnCommLocalDownloadBleSignal)
+        btnSignal.setOnClickListener {
+            log("Wykonuję pomiar")
+            if(currentSpinnerDeviceOption != null) {
+                devicesList[currentSpinnerDeviceOption!!].sendData(
+                    RemoteBLEDeviceController.Companion.INSTRUCTION_TYPE_SENDING.GET_SIGNAL,
+                    ""
+                )
+            }
+        }
+
+        btnBattery = view.findViewById<Button>(R.id.btnCommLocalDownloadBlePomiarBateria)
+        btnBattery.setOnClickListener {
+            log("Wykonuję pomiar")
+            if(currentSpinnerDeviceOption != null) {
+                devicesList[currentSpinnerDeviceOption!!].sendData(
+                    RemoteBLEDeviceController.Companion.INSTRUCTION_TYPE_SENDING.GET_BATTERY,
+                    ""
+                )
+            }
+        }
+
         spinnerDevice = view.findViewById(R.id.spinnerDevice)
         spinnerSubmenu = view.findViewById(R.id.spinnerSubmenu)
         setSpinnerOptions(submenusList,spinnerSubmenu)
@@ -196,6 +233,8 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
                 valueToSet
             )
         }
+
+
 
         Thread{
             //update UI base on backend thread input

@@ -199,6 +199,12 @@ void loop() {
               loadcell.set_scale(weight_scale);
               myTXstring(8,"");
             }
+
+            if(rozkaz == "9") {
+              // tare
+              loadcell.tare();
+              myTXstring(9,"");
+            }
           #endif
   
           if(rozkaz == "10") {

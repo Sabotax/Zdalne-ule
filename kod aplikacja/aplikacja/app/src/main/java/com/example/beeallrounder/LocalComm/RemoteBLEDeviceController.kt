@@ -53,7 +53,11 @@ class RemoteBLEDeviceController(
             CONTINUE("2"),
             WYKONAJ_POMIAR("4"),
             SET_OFFSET("7"),
-            SET_SCALE("8")
+            SET_SCALE("8"),
+            TARE("9"),
+            SET_SLEEP("10"), //todo
+            GET_BATTERY("11"),
+            GET_SIGNAL("12")
         }
 
         enum class INSTRUCTION_TYPE_RECEIVING(val value: Int) {
@@ -65,6 +69,10 @@ class RemoteBLEDeviceController(
             STOP_EMPTY(6),
             OFFSET_SET_SUCCESS(7),
             SCALE_SET_SUCCESS(8),
+            TARE_SUCCESS(9),
+            SET_SLEEP_SUCCESS(10),
+            GET_BATTERY_SUCCESS(11),
+            GET_SIGNAL_SUCCESS(12)
         }
     }
 
@@ -193,6 +201,15 @@ class RemoteBLEDeviceController(
                                 }
                                 INSTRUCTION_TYPE_RECEIVING.SCALE_SET_SUCCESS -> {
                                     dataToLogQueue.add("Pomyślnie ustawiono scale")
+                                }
+                                INSTRUCTION_TYPE_RECEIVING.TARE_SUCCESS -> {
+                                    dataToLogQueue.add("Pomyślnie wykonano tarowanie")
+                                }
+                                INSTRUCTION_TYPE_RECEIVING.GET_BATTERY_SUCCESS -> {
+                                    dataToLogQueue.add("Poziom baterii wynosi ${message.msgString}")
+                                }
+                                INSTRUCTION_TYPE_RECEIVING.GET_SIGNAL_SUCCESS -> {
+                                    dataToLogQueue.add("Siła zasięgu wynosi ${message.msgString}")
                                 }
                                 else -> {
                                     dataToLogQueue.add("Instrukcja nierozpoznana ")

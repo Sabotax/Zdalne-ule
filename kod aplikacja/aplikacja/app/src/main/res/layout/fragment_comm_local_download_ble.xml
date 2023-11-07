@@ -77,14 +77,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBleConnect" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        tools:context=".fragments.Comm.CommLocalDownloadBle"
         android:id="@+id/viewBleSubmenuDatePomiar"
         android:layout_width="0dp"
         android:layout_height="205dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible">
+        tools:context=".fragments.Comm.CommLocalDownloadBle">
 
         <Button
             android:id="@+id/btnCommLocalDownloadBlePomiarWaga"
@@ -105,6 +106,26 @@
             android:text="Bateria"
             app:layout_constraintStart_toStartOf="@+id/btnCommLocalDownloadBlePomiarWaga"
             app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBlePomiarWaga" />
+
+        <Button
+            android:id="@+id/btnCommLocalDownloadBleTare"
+            android:layout_width="145dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:enabled="false"
+            android:text="Tarowanie"
+            app:layout_constraintStart_toStartOf="@+id/btnCommLocalDownloadBlePomiarWaga"
+            app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBlePomiarBateria" />
+
+        <Button
+            android:id="@+id/btnCommLocalDownloadBleSignal"
+            android:layout_width="145dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="36dp"
+            android:enabled="false"
+            android:text="Sygnał"
+            app:layout_constraintStart_toEndOf="@+id/btnCommLocalDownloadBlePomiarWaga"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -162,7 +183,8 @@
             android:ems="10"
             android:inputType="numberSigned"
             app:layout_constraintStart_toStartOf="@+id/editTextCommLocalDownloadBleSetWeightScale"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCommLocalDownloadBleSetWeightScale" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextCommLocalDownloadBleSetWeightScale"
+            android:enabled="false" />
 
         <Button
             android:id="@+id/btnCommLocalDownloadBleSetSleepTime"
@@ -171,7 +193,8 @@
             android:layout_marginTop="20dp"
             android:text="Button"
             app:layout_constraintEnd_toEndOf="@+id/btnCommLocalDownloadBleSetWeightScale"
-            app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBleSetWeightScale" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBleSetWeightScale"
+            android:enabled="false" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -208,5 +231,6 @@
             tools:layout_conversion_absoluteHeight="45dp"
             tools:layout_conversion_absoluteWidth="401dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
