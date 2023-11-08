@@ -6,6 +6,9 @@ bool bleWakeUp = false;
 long bleWakeUpMoment=0;
 #define Threshold 80
 
+#define pinWakeUpButton GPIO_NUM_32
+#define pinWakeUpLed 33
+
 String dataToJson(const float& waga, const String& myTimestamp, const String& battery) {
 
   String re = "{";
@@ -50,7 +53,13 @@ void didIwakeUpForBle() {
     case ESP_SLEEP_WAKEUP_EXT0 : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
     case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
     case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
-    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); bleWakeUp=true;bleWakeUpMoment=millis();break;
+    case ESP_SLEEP_WAKEUP_TOUCHPAD : 
+      Serial.println("Wakeup caused by touchpad"); 
+      #ifdef wakeUpTouch
+        bleWakeUp=true;
+        bleWakeUpMoment=millis();
+      #endif
+      break;
     case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
@@ -68,4 +77,7 @@ void enableTouchWakeUp() {
 
   //Configure Touchpad as wakeup source
   esp_sleep_enable_touchpad_wakeup();
+}
+void enableGpioWakeUp() {
+  esp_sleep_enable_ext0_wakeup(pinWakeUpButton,1)
 }

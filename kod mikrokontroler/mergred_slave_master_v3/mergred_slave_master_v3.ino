@@ -22,6 +22,7 @@
 #define BLE_turn_on
 //#define mockData
 //#define turnOnSD
+#define wakeUpTouch
 
 #include "authData.h"
 
@@ -46,11 +47,14 @@ void setup() {
 
   delay(3000);
 
-  digitalWrite(33,LOW);
-  pinMode(33,OUTPUT);
+  digitalWrite(pinWakeUpLed,LOW);
+  pinMode(pinWakeUpLed,OUTPUT);
 
-  enableTouchWakeUp();
-
+  #ifdef wakeUpTouch
+    enableTouchWakeUp();
+  #else
+    enableGpioWakeUp();
+  #endif
   didIwakeUpForBle();
   //print_wakeup_touchpad();
   //esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
@@ -73,11 +77,11 @@ void loop() {
   #endif
 
   if(bleWakeUp) {
-    digitalWrite(33,HIGH);
+    digitalWrite(pinWakeUpLed,HIGH);
     if( millis() > bleWakeUpMoment + (1000*60*5)) {
       // time's up, going to sleep
       Serial.println("time's up, going to sleep " + String(millis() ) + " " + String(bleWakeUpMoment));
-      digitalWrite(33,LOW);
+      digitalWrite(pinWakeUpLed,LOW);
       handle_sleep();
     }
     else {
