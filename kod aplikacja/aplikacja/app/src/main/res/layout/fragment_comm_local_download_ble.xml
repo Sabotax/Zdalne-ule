@@ -92,7 +92,7 @@
             android:layout_width="145dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Pomiar wagi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +102,7 @@
             android:layout_width="145dp"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Bateria"
             app:layout_constraintStart_toStartOf="@+id/btnCommLocalDownloadBlePomiarWaga"
             app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBlePomiarWaga" />
@@ -112,7 +112,7 @@
             android:layout_width="145dp"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Tarowanie"
             app:layout_constraintStart_toStartOf="@+id/btnCommLocalDownloadBlePomiarWaga"
             app:layout_constraintTop_toBottomOf="@+id/btnCommLocalDownloadBlePomiarBateria" />
@@ -122,7 +122,7 @@
             android:layout_width="145dp"
             android:layout_height="50dp"
             android:layout_marginStart="36dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Sygnał"
             app:layout_constraintStart_toEndOf="@+id/btnCommLocalDownloadBlePomiarWaga"
             app:layout_constraintTop_toTopOf="parent" />
@@ -213,7 +213,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Synch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -55,10 +55,11 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
 
     private lateinit var spinnerDevice: Spinner
     private lateinit var spinnerSubmenu: Spinner
-    private val submenusList = listOf("pomiarSynch","weightSet")
+    private val submenusList = listOf("Funkcje","Waga","Pamięć")
 
     private lateinit var viewSubmenuPomiarSynch: View
     private lateinit var viewSubmenuWeightSet: View
+    private lateinit var viewSubmenuSdSynch: View
 
     object ButtonsController {
         var flag: Boolean = false
@@ -211,6 +212,7 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
 
         viewSubmenuPomiarSynch = view.findViewById(R.id.viewBleSubmenuDatePomiar)
         viewSubmenuWeightSet = view.findViewById(R.id.viewBleSubmenuWeightSet)
+        viewSubmenuSdSynch = view.findViewById(R.id.viewBleSubmenuSdSynch)
 
         btnSetOffset = view.findViewById(R.id.btnCommLocalDownloadBleSetWeightOffset)
         editTextSetOffset = view.findViewById(R.id.editTextCommLocalDownloadBleSetWeightOffset)
@@ -256,6 +258,8 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
                         btnPomiar.isEnabled = ButtonsController.btnPomiar
                         spinnerDevice.isEnabled = ButtonsController.spinner
 
+                        // todo podzielic przyciski na grupy i tak nimi zarządząc poprzez grupy
+
                         ButtonsController.flag = false
                     }
 
@@ -292,10 +296,17 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
                     0 -> {
                         viewSubmenuPomiarSynch.visibility = View.VISIBLE
                         viewSubmenuWeightSet.visibility = View.GONE
+                        viewSubmenuSdSynch.visibility = View.GONE
                     }
                     1 -> {
                         viewSubmenuPomiarSynch.visibility = View.GONE
                         viewSubmenuWeightSet.visibility = View.VISIBLE
+                        viewSubmenuSdSynch.visibility = View.GONE
+                    }
+                    2 -> {
+                        viewSubmenuWeightSet.visibility = View.GONE
+                        viewSubmenuPomiarSynch.visibility = View.GONE
+                        viewSubmenuSdSynch.visibility = View.VISIBLE
                     }
                 }
             }

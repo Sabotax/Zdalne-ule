@@ -1,7 +1,6 @@
 // tutaj zrobić reportowanie buga dobre (z opcją ledową) i helpery jsonowe
 const int espId = 0;
 
-
 bool bleWakeUp = false;
 long bleWakeUpMoment=0;
 #define Threshold 80
@@ -50,7 +49,13 @@ void didIwakeUpForBle() {
 
   switch(wakeup_reason)
   {
-    case ESP_SLEEP_WAKEUP_EXT0 : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
+    case ESP_SLEEP_WAKEUP_EXT0 : 
+    Serial.println("Wakeup caused by external signal using RTC_IO");
+    #ifndef wakeUpTouch
+      bleWakeUp=true;
+      bleWakeUpMoment=millis();
+    #endif
+    break;
     case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
     case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
     case ESP_SLEEP_WAKEUP_TOUCHPAD : 
@@ -79,5 +84,5 @@ void enableTouchWakeUp() {
   esp_sleep_enable_touchpad_wakeup();
 }
 void enableGpioWakeUp() {
-  esp_sleep_enable_ext0_wakeup(pinWakeUpButton,1)
+  esp_sleep_enable_ext0_wakeup(pinWakeUpButton,1);
 }

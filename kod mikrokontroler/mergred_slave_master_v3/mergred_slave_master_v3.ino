@@ -22,7 +22,7 @@
 #define BLE_turn_on
 //#define mockData
 //#define turnOnSD
-#define wakeUpTouch
+//#define wakeUpTouch
 
 #include "authData.h"
 
@@ -72,7 +72,7 @@ void setup() {
 
 void loop() {
 
-  #ifdef BLE_turn_on
+  #ifndef BLE_turn_on
     bleWakeUp = false;
   #endif
 
