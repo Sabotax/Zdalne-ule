@@ -6,3 +6,8 @@
 6. czujnik wstrząsu zostawić
 7. poprawić rozstaw dla schematu sim800L (chyba o milimetr się nie zgadzał)
 8. jak się uda, to niech interfejs PROG nie zasłania karty SD
+
+
+----
+9. do programowania zrobić tylko gniazdo ethernet na PCB i osobny mały układ do programowania na prototypowej zamiast PROG
+
