@@ -1,0 +1,26 @@
+#include <Arduino.h>
+#include <esp_sleep.h>
+
+RTC_DATA_ATTR uint64_t totalSleepTime = 0;  // Variable to store the total sleep time
+
+void setup() {
+  Serial.begin(115200);
+
+  // Calculate the time spent in the previous sleep cycle
+  if (esp_sleep_get_wakeup_cause() == ESP_SLEEP_WAKEUP_TIMER) {
+    totalSleepTime += esp_sleep_get_time_since_boot();
+  }
+
+  // Print the total sleep time
+  Serial.printf("Total Sleep Time: %lld microseconds\n", totalSleepTime);
+
+  // Set the timer for the next wake-up (e.g., 10 seconds)
+  esp_sleep_enable_timer_wakeup(10 * uS_TO_S_FACTOR);
+
+  // Go to sleep
+  esp_deep_sleep_start();
+}
+
+void loop() {
+  // This code won't be executed as the ESP32 goes to deep sleep in setup
+}

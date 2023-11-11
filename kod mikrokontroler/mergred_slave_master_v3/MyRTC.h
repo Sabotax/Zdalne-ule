@@ -45,7 +45,6 @@ void initMyRTC() {
     #ifdef DEBUG
     Serial.println("RTC lost power, let's set the time!");
     #endif
-    //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
-  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 }

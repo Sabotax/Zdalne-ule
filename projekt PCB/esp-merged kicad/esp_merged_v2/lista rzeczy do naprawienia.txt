@@ -10,4 +10,5 @@
 
 ----
 9. do programowania zrobić tylko gniazdo ethernet na PCB i osobny mały układ do programowania na prototypowej zamiast PROG
-
+10. sim800L ma miec przylaczony pin do usypiania go
+11. !!!! być może inne rozwiązanie bateriowe nie jest potrzebne, jeśli użyjemy panelu słonecznego i ładowania Li-Pol TP4056 ! (chyba mam jeden w pudle)
