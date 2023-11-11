@@ -219,8 +219,7 @@ void loop() {
   
             if(rozkaz == "11") {
               // Read current battery
-              initMyGSM();
-              delay(5000);
+              handshakeGSM();
     
               String batteryPercent = String(getBattery());
               myTXstring(11,batteryPercent);
@@ -228,9 +227,7 @@ void loop() {
     
             if(rozkaz == "12") {
               // Read current signal
-              if(!isConnected()) {
-                initMyGSM();
-              }
+              handshakeGSM();
               
               int signalStrength = getSignal();
               myTXstring(12,String(signalStrength));

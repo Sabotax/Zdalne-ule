@@ -86,3 +86,12 @@ void enableTouchWakeUp() {
 void enableGpioWakeUp() {
   esp_sleep_enable_ext0_wakeup(pinWakeUpButton,1);
 }
+void convertIntToThree8uint(uint8_t* arrayToBeFilled, int convertedNumber) {
+  uint32_t workingNumber;
+  if(convertedNumber < 0) workingNumber = 0;
+  else workingNumber = (uint32_t) convertedNumber;
+
+  arrayToBeFilled[0] = (workingNumber & 0x000000ff);
+  arrayToBeFilled[1] = (workingNumber & 0x0000ff00) >> 8;
+  arrayToBeFilled[2] = (workingNumber & 0x00ff0000) >> 16;
+}

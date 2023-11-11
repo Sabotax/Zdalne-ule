@@ -134,11 +134,10 @@ void myTXrow(uint8_t rozkaz,String line) {
   }
   
   // waga
-  uint8_t calkowite=0;
   uint8_t ulamki=0;
   String calkowiteStr="";
   String ulamkiStr="";
-  //waga < 255 musi byc
+
   bool calkowiteSwitch = true;
   for(short i = 0; i < wagaStr.length();i++) {
     if(wagaStr[i] == '.') {
@@ -155,12 +154,7 @@ void myTXrow(uint8_t rozkaz,String line) {
   int calkowiteInt = atoi( calkowiteStr.c_str());
   int ulamkiInt = atoi( ulamkiStr.c_str());
 
-  if(calkowiteInt > 255 || ulamkiInt > 255 || calkowiteInt < 0 || ulamkiInt < 0) {
-    myTXstring(5,"1");
-    return;
-  }
-
-  calkowite = (uint8_t) calkowiteInt;
+  uint8_t calkowiteArray[3]; convertIntToThree8uint(calkowiteArray,calkowiteInt);
   ulamki = (uint8_t) ulamkiInt;
 
   // czas
@@ -174,10 +168,11 @@ void myTXrow(uint8_t rozkaz,String line) {
   uint8_t epochValuePart2 = (epochValue & 0x00ff0000) >> 16;
   uint8_t epochValuePart3 = (epochValue & 0xff000000) >> 24;
 
-  uint8_t tab[7] = {
-    rozkaz,calkowite,ulamki,epochValuePart0,epochValuePart1,epochValuePart2,epochValuePart3
+  uint8_t tab[9] = {
+    rozkaz,epochValuePart0,epochValuePart1,epochValuePart2,epochValuePart3,
+    calkowiteArray[0],calkowiteArray[1],calkowiteArray[2],ulamki
   };
 
-  pCharacteristic_TX_ESP->setValue(tab,7);
+  pCharacteristic_TX_ESP->setValue(tab,9);
   pCharacteristic_TX_ESP->notify();
 }

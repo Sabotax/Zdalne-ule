@@ -107,15 +107,15 @@ class RemoteBLEDeviceController(
         val rozkaz = msg[0].toInt()
         when(rozkaz) {
             2,3 -> {
-                val calkowite = msg[1].toInt()
-                val ulamki = msg[2].toInt()
-                val waga = "$calkowite.$ulamki".toDoubleOrNull()
-
                 val epochSeconds: Long =
-                    ((msg[6].toLong() and 0xFF) shl 24) or
-                            ((msg[5].toLong() and 0xFF) shl 16) or
-                            ((msg[4].toLong() and 0xFF) shl 8) or
-                            (msg[3].toLong() and 0xFF)
+                    ((msg[4].toLong() and 0xFF) shl 24) or
+                            ((msg[3].toLong() and 0xFF) shl 16) or
+                            ((msg[2].toLong() and 0xFF) shl 8) or
+                            (msg[1].toLong() and 0xFF)
+
+                val calkowite = convert3uint8ToLong(msg[7],msg[6],msg[5])
+                val ulamki = msg[8].toInt()
+                val waga = "$calkowite.$ulamki".toDoubleOrNull()
 
                 //val epochTime = Instant.ofEpochSecond(epochSeconds).atZone(ZoneId.systemDefault()).toLocalDateTime()
 
@@ -126,23 +126,7 @@ class RemoteBLEDeviceController(
                     epochSeconds
                 )
             }
-            1,4,5,6 -> {
-                return ReceivedMsg(
-                    enumValues<INSTRUCTION_TYPE_RECEIVING>().find { it.value == rozkaz },
-                    if(msg.size>1) msg.copyOfRange(1,msg.size-1).toString(Charsets.US_ASCII) else "",
-                    null,
-                    null
-                )
-            }
-            7 -> {
-                return ReceivedMsg(
-                    enumValues<INSTRUCTION_TYPE_RECEIVING>().find { it.value == rozkaz },
-                    if(msg.size>1) msg.copyOfRange(1,msg.size-1).toString(Charsets.US_ASCII) else "",
-                    null,
-                    null
-                )
-            }
-            8 -> {
+            1,4,5,6,7,8,9,10,11 -> {
                 return ReceivedMsg(
                     enumValues<INSTRUCTION_TYPE_RECEIVING>().find { it.value == rozkaz },
                     if(msg.size>1) msg.copyOfRange(1,msg.size-1).toString(Charsets.US_ASCII) else "",
@@ -156,6 +140,12 @@ class RemoteBLEDeviceController(
             }
         }
     }
+
+    fun convert3uint8ToLong(vararg numbers: Byte): Long =
+        if(numbers.size != 3) 0
+        else (((numbers[0].toLong() and 0xFF) shl 16)
+            or ((numbers[1].toLong() and 0xFF) shl 8)
+            or (numbers[2].toLong() and 0xFF))
 
     fun executeReceiving() {
         Thread {

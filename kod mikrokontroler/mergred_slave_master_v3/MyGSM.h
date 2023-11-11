@@ -100,10 +100,14 @@ int getHttpStatus() {
   return valueNumber;
 }
 
-void initMyGSM() { // TODO init only if not connected
+void handshakeGSM() {
   SerialAT.begin(38400, SERIAL_8N1, RX2, TX2);
   SerialAT.println("AT");
   waitResponse(2);
+}
+
+void initMyGSM() { // TODO init only if not connected
+  handshakeGSM();
 
   if(!isConnected()) {
     sendAT("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
