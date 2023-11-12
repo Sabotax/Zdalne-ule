@@ -110,7 +110,7 @@ function insertKilkaPojedynczych($mysqli,$input,$zbiorowy_id) {
 function insertPomiar($mysqli,$input) {
     $timestamp = convertEpochToDatetime($input['time']);
 
-    $query = "INSERT INTO `pomiary`(`espID`, `waga`, `timeFromEsp`) VALUES ('$input[id]','$input[waga]','$timestamp')";
+    $query = "INSERT INTO `pomiary`(`espID`, `waga`, `bateria`, `timeFromEsp`) VALUES ('$input[id]','$input[waga]','$input[batt]','$timestamp')";
     // echo $query;
     $last_id = -1;
 

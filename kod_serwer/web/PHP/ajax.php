@@ -41,12 +41,12 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
         // AND (pomiary_zbiorowe.data BETWEEN '$czas_od' AND '$czas_do')");
 
         $pomiary_respond = querySelect($mysqli,
-        "SELECT pomiary.waga,pomiary.timeFromEsp
+        "SELECT pomiary.waga,pomiary.timeFromEsp,pomiary.bateria
         FROM pomiary
-        WHERE pomiary.espID='esp01'
+        WHERE pomiary.espID='esp01' 
         AND (pomiary.timeFromEsp BETWEEN '$czas_od' AND '$czas_do')"
         );
-        
+        // TODO zmiana id na dynamiczne
         /*
         Array ( 
             [0] => Array ( 

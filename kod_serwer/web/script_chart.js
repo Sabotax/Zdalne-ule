@@ -7,12 +7,14 @@ async function load_chart() {
 
     // dostosowanie do chart
     let waga_array = Array();
-    let temperatura_array = Array();
-    let temperatura_zewn_array = Array();
+    let bateria_array = Array();
 
     my_array.forEach(element => {
         waga_array.push(
             {x: element[1],y: element[0]}
+        )
+        bateria_array.push(
+            {x: element[1],y: element[2]}
         )
     });
 
@@ -25,6 +27,11 @@ async function load_chart() {
                     label: 'Waga',
                     data: waga_array,
                     borderColor: '#0000ff'
+                },
+                {
+                    label: 'Bateria',
+                    data: bateria_array,
+                    borderColor: '#00ffff'
                 }
             ]
         },
