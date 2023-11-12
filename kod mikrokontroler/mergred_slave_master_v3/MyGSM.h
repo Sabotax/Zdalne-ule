@@ -126,13 +126,13 @@ void initMyGSM() { // TODO init only if not connected
     waitResponse(1);
 
     //testowo tutaj
-    getBattery();
-    getSignal();
+    //getBattery();
+    //getSignal();
   }
   
 }
 
-String makePostGSM(String body) {
+String makePostGSM(String body, bool retry) {
 
   while(SerialAT.available()) SerialAT.read();
  
@@ -172,6 +172,8 @@ String makePostGSM(String body) {
  
   sendAT("AT+HTTPTERM");
   waitResponse(6);
+
+  if(status != 200 && retry) makePostGSM(body,false); // jak jest 601 to chbya trzeba restart sim w ogole od zasilania, pamietac o tranzystorze od tego jakims w przyszlosci?
 
   return response;
 }

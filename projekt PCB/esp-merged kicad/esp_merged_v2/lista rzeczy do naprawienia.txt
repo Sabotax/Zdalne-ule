@@ -1,14 +1,16 @@
-1. prawidłowo ułożyć piny do programowania
-2. przycisk do programowania
-3. podpisać też przyciski i piny prog, opcjonalnie
-4. piny/wyjścia pod przycisk do wybudzania
-5. piny pod led wybudzający
-6. czujnik wstrząsu zostawić
+1. prawidłowo ułożyć piny do programowania -> porzucone, rj45
+2. przycisk do programowania -> porzucone, rj45
+3. podpisać też przyciski i piny prog, opcjonalnie -> porzucone, rj45
+4. piny/wyjścia pod przycisk do wybudzania -> DONE
+5. piny pod led wybudzający -> DONE
+6. czujnik wstrząsu zostawić -> DONE [ ono będzie musiało być na ext1 w budzeniu chyba ]
 7. poprawić rozstaw dla schematu sim800L (chyba o milimetr się nie zgadzał)
-8. jak się uda, to niech interfejs PROG nie zasłania karty SD
+8. jak się uda, to niech interfejs PROG nie zasłania karty SD -> porzucone, rj45
 
 
 ----
 9. do programowania zrobić tylko gniazdo ethernet na PCB i osobny mały układ do programowania na prototypowej zamiast PROG
-10. sim800L ma miec przylaczony pin do usypiania go
+10. sim800L ma miec przylaczony pin do usypiania go [ usypianie prawie na pewno przez komende, a budzenie przez pin dtr ], potwierdzic, ale jak tak to DONE
 11. !!!! być może inne rozwiązanie bateriowe nie jest potrzebne, jeśli użyjemy panelu słonecznego i ładowania Li-Pol TP4056 ! (chyba mam jeden w pudle)
+
+led ma mieć 100ohm max rezystor, wg obliczeń 36

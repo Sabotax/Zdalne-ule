@@ -258,7 +258,7 @@ void loop() {
     #endif
 
     #ifdef GSM_turn_on
-      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
+      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent), true );
     #else
       sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
     #endif

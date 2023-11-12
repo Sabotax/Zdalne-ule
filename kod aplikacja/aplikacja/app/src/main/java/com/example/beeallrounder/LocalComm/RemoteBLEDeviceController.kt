@@ -126,10 +126,10 @@ class RemoteBLEDeviceController(
                     epochSeconds
                 )
             }
-            1,4,5,6,7,8,9,10,11 -> {
+            1,4,5,6,7,8,9,10,11,12 -> {
                 return ReceivedMsg(
                     enumValues<INSTRUCTION_TYPE_RECEIVING>().find { it.value == rozkaz },
-                    if(msg.size>1) msg.copyOfRange(1,msg.size-1).toString(Charsets.US_ASCII) else "",
+                    if(msg.size>1) msg.copyOfRange(1,msg.size).toString(Charsets.US_ASCII) else "",
                     null,
                     null
                 )
