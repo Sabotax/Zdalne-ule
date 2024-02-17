@@ -42,9 +42,12 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
         // WHERE pomiary_pojedyncze.ID_esp_slave=$ul
         // AND (pomiary_zbiorowe.data BETWEEN '$czas_od' AND '$czas_do')");
 
-        $query = "SELECT pomiary.waga,pomiary.timeFromEsp,pomiary.bateria
-        FROM pomiary
-        WHERE pomiary.espID='esp01' ";
+        $query = "SELECT pomiary.waga,";
+
+        if($timeFlag) $query.= "pomiary.timeFromDB";
+        else $query.= "pomiary.timeFromEsp";
+        
+        $query .= ",pomiary.bateria FROM pomiary WHERE pomiary.espID='esp01' ";
 
         if($timeFlag) $query.= "AND (pomiary.timeFromDB BETWEEN '$czas_od' AND '$czas_do')";
         else $query.= "AND (pomiary.timeFromEsp BETWEEN '$czas_od' AND '$czas_do')";
