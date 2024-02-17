@@ -1,0 +1,8 @@
+bez gsm po wifi
+0.1 mA w spaniu, chwilowy spike przy wysyłce
+
+z gsm:
+
+2 mA w spaniu, przy wysyłce która trwa z minute albo dłużej
+
+po podłączeniu stanu wysokiego do pinu RESET na sim, spada do 0/0.1 mA z powrotem

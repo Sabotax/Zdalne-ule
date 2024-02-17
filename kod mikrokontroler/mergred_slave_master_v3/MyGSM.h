@@ -128,6 +128,8 @@ void initMyGSM() { // TODO init only if not connected
     //testowo tutaj
     //getBattery();
     //getSignal();
+    sendAT("AT+CNUM");
+    waitResponse(3);
   }
   
 }
@@ -177,4 +179,24 @@ String makePostGSM(String body, bool retry) {
 
   return response;
 }
-// todo sleep, wakeup
+void sleepGSM() {
+  // AT+CSCLK=2 i AT+CFUN=0
+  #ifdef DEBUG
+    Serial.println("Usypiam GSM");
+  #endif
+  sendAT("AT+CFUN=0"); // funkcje radiowe
+  sendAT("AT+CSCLK=2"); // tryb wolny zegara
+  SerialAT.flush();
+}
+void wakeUpGSM() {
+  // cokolwiek, a w ciągu 5 (lub 50ms wg innych źródeł) sekund po tym AT+CSCLK=0 i AT+CFUN=1
+  #ifdef DEBUG
+    Serial.println("Budzę GSM");
+  #endif
+  sendAT("AT");
+  delay(500);
+  sendAT("AT+CSCLK=0");
+  waitResponse(5);
+  sendAT("AT+CFUN=1");
+  waitResponse(5);
+}

@@ -19,8 +19,11 @@
  */
 #define DEBUG
 #define GSM_turn_on
+//#define WIFI_turn_on
 #define BLE_turn_on
-//#define mockData
+//#define mockRTC
+//#define mockWeight
+//#define mockBattery
 //#define turnOnSD
 //#define wakeUpTouch
 
@@ -59,13 +62,20 @@ void setup() {
   //print_wakeup_touchpad();
   //esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
 
-  #ifndef mockData
+  #ifndef mockRTC
     initMyRTC();
+  #endif
+
+  #ifndef mockWeight
     initMyWaga();
   #endif
 
   #ifdef turnOnSD
     initMySD();
+  #endif
+
+  #ifdef GSM_turn_on
+    wakeUpGSM();
   #endif
 
 }
@@ -82,6 +92,7 @@ void loop() {
       // time's up, going to sleep
       Serial.println("time's up, going to sleep " + String(millis() ) + " " + String(bleWakeUpMoment));
       digitalWrite(pinWakeUpLed,LOW);
+      sleepGSM();
       handle_sleep();
     }
     else {
@@ -181,7 +192,7 @@ void loop() {
   
           #endif
   
-          #ifndef mockData
+          #ifndef mockWeight
   
             if(rozkaz == "4") {
               // send current weight
@@ -239,17 +250,26 @@ void loop() {
   else {
     #ifdef GSM_turn_on
       initMyGSM();
-    #else
+    #endif
+    #ifdef WIFI_turn_on
       initMyWIFI();
     #endif
 
-    #ifdef mockData
+    #ifdef mockWeight
       wagaOdczyt = random(100);
-      String nowTimestampEpoch = String(random(10000));
-      String batteryPercent = String(random(100));
     #else
       wagaOdczyt = loadcell.get_units(2);
+    #endif
+
+    #ifdef mockRTC
+      String nowTimestampEpoch = "1";
+    #else
       String nowTimestampEpoch = getEpoch();
+    #endif
+
+    #ifdef mockBattery
+      String batteryPercent = String(random(100));
+    #else
       String batteryPercent = String(getBattery());
     #endif
 
@@ -259,10 +279,12 @@ void loop() {
 
     #ifdef GSM_turn_on
       makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent), true );
-    #else
+      sleepGSM();
+    #endif
+    #ifdef WIFI_turn_on
       sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
     #endif
-
+    
     handle_sleep();
   }
 

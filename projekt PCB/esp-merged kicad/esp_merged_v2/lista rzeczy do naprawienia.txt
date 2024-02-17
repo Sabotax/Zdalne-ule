@@ -14,3 +14,12 @@
 11. !!!! być może inne rozwiązanie bateriowe nie jest potrzebne, jeśli użyjemy panelu słonecznego i ładowania Li-Pol TP4056 ! (chyba mam jeden w pudle)
 
 led ma mieć 100ohm max rezystor, wg obliczeń 36
+
+zrobić 2 ogniwa baterii z TP0456 zamiast jednego
+
+
+----
+rozdzielić baterie na osobne pudełko, w nim dać interfejs do podłączenia solarów na zewnątrz, oraz interfejs na kable do samego zdalnego ula
+oraz wskaznik baterii np 
+https://allegro.pl/oferta/wskaznik-poziomu-naladowania-baterii-ogniwa-1s-8s-13887584781?utm_feed=aa34192d-eee2-4419-9a9a-de66b9dfae24&utm_term=test&utm_source=google&utm_medium=cpc&utm_campaign=_elktrk_komputery_akcesoria_pla_pmax&ev_campaign_id=17966335850&gad_source=1&gclid=CjwKCAiAkp6tBhB5EiwANTCx1N8qRIyNHIF6WX5Z1XwzJRCyoNcbhd6A8Q5A5MHG9-lIjeKyympyNhoCCksQAvD_BwE
+oraz wyjście usb oczywiście z tp4056 do ładowania

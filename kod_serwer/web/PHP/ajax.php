@@ -32,6 +32,8 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
         $czas_od = $_REQUEST["czas_od"];
         $czas_do = $_REQUEST["czas_do"];
         $ul = $_REQUEST["ul"];
+        $timeFlag = false;
+        if($_REQUEST["timeFlag"] == "true") $timeFlag=true;
         
         // $pomiary_respond = querySelect($mysqli,
         // "SELECT pomiary_pojedyncze.waga,pomiary_pojedyncze.temperatura,pomiary_zbiorowe.data,pomiary_zbiorowe.temperatura_zewn
@@ -40,12 +42,17 @@ if( !( $mysqli->connect_errno ) ) { //jesli sie uda polaczyć
         // WHERE pomiary_pojedyncze.ID_esp_slave=$ul
         // AND (pomiary_zbiorowe.data BETWEEN '$czas_od' AND '$czas_do')");
 
-        $pomiary_respond = querySelect($mysqli,
-        "SELECT pomiary.waga,pomiary.timeFromEsp,pomiary.bateria
+        $query = "SELECT pomiary.waga,pomiary.timeFromEsp,pomiary.bateria
         FROM pomiary
-        WHERE pomiary.espID='esp01' 
-        AND (pomiary.timeFromEsp BETWEEN '$czas_od' AND '$czas_do')"
-        );
+        WHERE pomiary.espID='esp01' ";
+
+        if($timeFlag) $query.= "AND (pomiary.timeFromDB BETWEEN '$czas_od' AND '$czas_do')";
+        else $query.= "AND (pomiary.timeFromEsp BETWEEN '$czas_od' AND '$czas_do')";
+
+        $pomiary_respond = querySelect($mysqli,$query);
+
+
+
         // TODO zmiana id na dynamiczne
         /*
         Array ( 

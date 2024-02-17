@@ -49,6 +49,8 @@ function load_opcje_chart() {
         <option value="chart_typ_ogolny">Ogólna waga</option>
         <!-- <option value="chart_typ_roznicowy">Różnicowa waga</option> -->
     </select>
+    Czas z momentu wpisu do bazy?
+    <input type="checkbox" id="timeFlag">
     <input id="chart_btn" type="button" value="Pokaż">
     </P>
     `
