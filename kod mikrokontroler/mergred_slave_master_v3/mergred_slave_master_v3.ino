@@ -24,7 +24,7 @@
 //#define mockRTC
 //#define mockWeight
 //#define mockBattery
-//#define turnOnSD
+#define turnOnSD
 //#define wakeUpTouch
 
 #include "authData.h"
@@ -227,7 +227,7 @@ void loop() {
           }
   
           #ifdef GSM_turn_on
-  
+  //TODO jesli zakladamy że gsm śpi poprawnie, to musimy je obudzić żeby zdobyć te dane, a następnie uśpić z powrotem
             if(rozkaz == "11") {
               // Read current battery
               handshakeGSM();

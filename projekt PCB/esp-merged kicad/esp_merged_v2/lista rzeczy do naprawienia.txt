@@ -23,3 +23,7 @@ rozdzielić baterie na osobne pudełko, w nim dać interfejs do podłączenia so
 oraz wskaznik baterii np 
 https://allegro.pl/oferta/wskaznik-poziomu-naladowania-baterii-ogniwa-1s-8s-13887584781?utm_feed=aa34192d-eee2-4419-9a9a-de66b9dfae24&utm_term=test&utm_source=google&utm_medium=cpc&utm_campaign=_elktrk_komputery_akcesoria_pla_pmax&ev_campaign_id=17966335850&gad_source=1&gclid=CjwKCAiAkp6tBhB5EiwANTCx1N8qRIyNHIF6WX5Z1XwzJRCyoNcbhd6A8Q5A5MHG9-lIjeKyympyNhoCCksQAvD_BwE
 oraz wyjście usb oczywiście z tp4056 do ładowania
+
+
+w nowym designie: usb z żyłami rt tx do esp32 prosto, dodatkowo:
+miejsce na kondensator na zasilanie tylko dla esp32 (też się lubi resetować, na to wygląda, nie musi być tak duży jak dla sim)

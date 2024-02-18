@@ -1,0 +1,3 @@
+ATE0&W
+
+trzeba wyłączyć echo (powtórzenie otrzymanych komand) żeby dobrze działał program

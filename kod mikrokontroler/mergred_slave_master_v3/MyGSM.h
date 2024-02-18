@@ -175,7 +175,10 @@ String makePostGSM(String body, bool retry) {
   sendAT("AT+HTTPTERM");
   waitResponse(6);
 
-  if(status != 200 && retry) makePostGSM(body,false); // jak jest 601 to chbya trzeba restart sim w ogole od zasilania, pamietac o tranzystorze od tego jakims w przyszlosci?
+  if(status != 200 && retry)  {
+    resetSIM();
+    makePostGSM(body,false); // jak jest 601 to chbya trzeba restart sim w ogole od zasilania, pamietac o tranzystorze od tego jakims w przyszlosci?
+  }
 
   return response;
 }
