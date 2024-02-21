@@ -78,6 +78,10 @@ void setup() {
     wakeUpGSM();
   #endif
 
+  if(digitalRead(pinWakeUpButton) == HIGH) {
+    bleWakeUp = true;
+  }
+
 }
 
 void loop() {
@@ -98,6 +102,9 @@ void loop() {
     else {
         #ifdef BLE_turn_on
           initBLE();
+        #endif
+        #ifdef GSM_turn_on
+          wakeUpGSM();
         #endif
       
         if(input_received) {
@@ -134,7 +141,8 @@ void loop() {
             if(rozkaz == "1") {
               // start sending data
               // TODO dekodowanie path?
-              String path = "/"+data_incoming+".csv";
+              //String path = "/"+data_incoming+".csv";
+              String path = data_incoming+".csv";
               Serial.println("Reading file: " + path);
     
               file = SD.open(path);
@@ -244,6 +252,11 @@ void loop() {
               myTXstring(12,String(signalStrength));
             }
           #endif
+
+          if(rozkaz == "A") {
+            uint32_t converted_epoch = data_incoming.toInt();
+            setTimeRTC(converted_epoch);
+          }
         }
       }
   }

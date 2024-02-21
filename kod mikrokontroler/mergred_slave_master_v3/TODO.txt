@@ -1,0 +1,5 @@
+dodać synchro czasu z telefonu na układ
+
+sprawdzic czy synchroSd zadziała dla txt
+
+https://interrupt.memfault.com/blog/ble-throughput-primer

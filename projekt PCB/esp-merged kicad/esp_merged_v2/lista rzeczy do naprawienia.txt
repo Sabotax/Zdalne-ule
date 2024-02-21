@@ -27,3 +27,7 @@ oraz wyjście usb oczywiście z tp4056 do ładowania
 
 w nowym designie: usb z żyłami rt tx do esp32 prosto, dodatkowo:
 miejsce na kondensator na zasilanie tylko dla esp32 (też się lubi resetować, na to wygląda, nie musi być tak duży jak dla sim)
+
+
+TODO
+sprawdzić TP4056 czy jak damy mu 5V na wejście ładowania to na wyjściu będzie dawał 4.2 V jak z baterii

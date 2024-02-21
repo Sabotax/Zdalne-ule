@@ -49,3 +49,7 @@ void initMyRTC() {
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 }
+
+void setTimeRTC(uint32_t epoch_second) {
+  rtc.adjust(DateTime(epoch_second));
+}

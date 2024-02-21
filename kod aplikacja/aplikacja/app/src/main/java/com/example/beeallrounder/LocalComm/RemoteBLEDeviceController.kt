@@ -57,7 +57,8 @@ class RemoteBLEDeviceController(
             TARE("9"),
             SET_SLEEP("10"), //todo
             GET_BATTERY("11"),
-            GET_SIGNAL("12")
+            GET_SIGNAL("12"),
+            SET_TIME("A") // todo
         }
 
         enum class INSTRUCTION_TYPE_RECEIVING(val value: Int) {
@@ -70,9 +71,10 @@ class RemoteBLEDeviceController(
             OFFSET_SET_SUCCESS(7),
             SCALE_SET_SUCCESS(8),
             TARE_SUCCESS(9),
-            SET_SLEEP_SUCCESS(10),
+            SET_SLEEP_SUCCESS(10),//todo
             GET_BATTERY_SUCCESS(11),
-            GET_SIGNAL_SUCCESS(12)
+            GET_SIGNAL_SUCCESS(12),
+            SET_TIME_SUCCESS(13)//todo
         }
     }
 
