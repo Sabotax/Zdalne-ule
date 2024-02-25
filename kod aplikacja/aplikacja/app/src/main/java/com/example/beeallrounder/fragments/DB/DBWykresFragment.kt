@@ -78,13 +78,14 @@ class DBWykresFragment : Fragment(),AdapterView.OnItemSelectedListener {
             val regexDate = Regex("^\\d{4}-\\d{1,2}-\\d{1,2}\$")
             if(dateFrom.matches(regexDate) && dateTo.matches(regexDate)) {
                 val epochFrom = getSecondsFromEpoch(dateFrom)
-                val epochTo = getSecondsFromEpoch(dateTo)
+                val epochTo = getSecondsFromEpoch(dateTo) + 86399 // + 23:59:59
                 val espId = if(currentSpinnerOption != null) spinnerOptions[currentSpinnerOption!!] else {
                     requireContext().toast("Nie wybrano urządzenia")
                     return@setOnClickListener
                 }
 
                 mUserViewModel.readBetween(espId,epochFrom,epochTo).observe(viewLifecycleOwner) { response ->
+                    graph.series.clear()
                     val response = response.sortedBy { it.timestampEsp }
 
                     val series: LineGraphSeries<DataPoint> = LineGraphSeries(
@@ -94,15 +95,15 @@ class DBWykresFragment : Fragment(),AdapterView.OnItemSelectedListener {
                                 null
                             }
                             else
-                                DataPoint(Date(it.timestampEsp),it.waga)
+                                DataPoint(it.timestampEsp.toDouble(),it.waga)
                         }.toTypedArray()
                     )
                     series.isDrawDataPoints = true
                     series.dataPointsRadius = 10F
-                    series.thickness = 8
+                    series.thickness = 8 // todo esp notuje w timezone +1 jako gmt
                     series.setOnDataPointTapListener { series, dataPoint ->
                         requireActivity().toast("Czas: ${LocalDateTime.ofEpochSecond(dataPoint.x.toLong(),0,
-                            ZoneOffset.of("+2"))} \nWaga: ${dataPoint.y.round(2) }")
+                            ZoneOffset.UTC)} \nWaga: ${dataPoint.y.round(2) }")
                     }
                     //graph.gridLabelRenderer.labelFormatter = DateAsXAxisLabelFormatter(activity);
                     graph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
