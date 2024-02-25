@@ -23,6 +23,7 @@ import com.example.beeallrounder.LocalComm.RemoteBLEDeviceController
 import com.example.beeallrounder.R
 import com.example.beeallrounder.databases.oldDB.viewmodel.UserViewModelOld
 import com.example.beeallrounder.fragments.toast
+import java.time.Instant
 
 
 class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLEControllerListener {
@@ -42,6 +43,7 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
     private lateinit var btnSynch: Button
     private lateinit var btnPomiar: Button
     private lateinit var inputDate: EditText
+    private lateinit var btnSynchTime: Button
 
     private lateinit var btnSetOffset: Button
     private lateinit var editTextSetOffset: EditText
@@ -158,6 +160,16 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
                         inputDate.text.toString()
                     )
                 }
+            }
+        }
+
+        btnSynchTime = view.findViewById(R.id.btnCommLocalDownloadBleSynchroTime)
+        btnSynchTime.setOnClickListener {
+            if(currentSpinnerDeviceOption != null) { // todo "& jest polaczone"
+                devicesList[currentSpinnerDeviceOption!!].sendData(
+                    RemoteBLEDeviceController.Companion.INSTRUCTION_TYPE_SENDING.SET_TIME,
+                    Instant.now().epochSecond.toString()
+                )
             }
         }
 

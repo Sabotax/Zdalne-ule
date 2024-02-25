@@ -87,20 +87,25 @@ void setup() {
 void loop() {
   if(bleWakeUp) {
     digitalWrite(pinWakeUpLed,HIGH);
-// disconnecting
-//    if (!deviceConnected && oldDeviceConnected) {
-//        delay(500); // give the bluetooth stack the chance to get things ready
-//        pServer->startAdvertising(); // restart advertising
-//        #ifdef DEBUG
-//          Serial.println(F("BLE start advertising"));
-//        #endif
-//        oldDeviceConnected = deviceConnected;
-//    }
-//    // connecting
-//    if (deviceConnected && !oldDeviceConnected) {
-//        // do stuff here on connecting
-//        oldDeviceConnected = deviceConnected;
-//    }
+ //disconnecting
+    if (!deviceConnected && oldDeviceConnected) {
+        delay(500); // give the bluetooth stack the chance to get things ready
+        pServer->startAdvertising(); // restart advertising
+        #ifdef DEBUG
+          Serial.println(F("BLE restart advertising"));
+        #endif
+        oldDeviceConnected = deviceConnected;
+    }
+    // connecting
+    if (deviceConnected && !oldDeviceConnected) {
+        // do stuff here on connecting
+        oldDeviceConnected = deviceConnected;
+        if((int) millis() % 5 == 0) {
+          #ifdef DEBUG
+            Serial.println(F("Client connected"));
+          #endif
+        }
+    }
     
     if( millis() > bleWakeUpMoment + (1000*60*5)) {
       // time's up, going to sleep
