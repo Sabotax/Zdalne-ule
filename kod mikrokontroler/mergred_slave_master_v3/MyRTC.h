@@ -52,4 +52,7 @@ void initMyRTC() {
 
 void setTimeRTC(uint32_t epoch_second) {
   rtc.adjust(DateTime(epoch_second));
+  #ifdef DEBUG
+    Serial.println("Pomyslnie ustawiono godzine na " + epoch_second);
+  #endif
 }
