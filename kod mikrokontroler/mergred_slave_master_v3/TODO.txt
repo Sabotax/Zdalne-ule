@@ -2,4 +2,6 @@ dodać synchro czasu z telefonu na układ
 
 sprawdzic czy synchroSd zadziała dla txt
 
+sprobowac przetestować SD nie na zdalnym ulu a na własnym obwodzie
+
 https://interrupt.memfault.com/blog/ble-throughput-primer

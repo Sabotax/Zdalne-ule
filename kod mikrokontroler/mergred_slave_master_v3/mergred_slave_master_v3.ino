@@ -85,13 +85,23 @@ void setup() {
 }
 
 void loop() {
-
-  #ifndef BLE_turn_on
-    bleWakeUp = false;
-  #endif
-
   if(bleWakeUp) {
     digitalWrite(pinWakeUpLed,HIGH);
+// disconnecting
+//    if (!deviceConnected && oldDeviceConnected) {
+//        delay(500); // give the bluetooth stack the chance to get things ready
+//        pServer->startAdvertising(); // restart advertising
+//        #ifdef DEBUG
+//          Serial.println(F("BLE start advertising"));
+//        #endif
+//        oldDeviceConnected = deviceConnected;
+//    }
+//    // connecting
+//    if (deviceConnected && !oldDeviceConnected) {
+//        // do stuff here on connecting
+//        oldDeviceConnected = deviceConnected;
+//    }
+    
     if( millis() > bleWakeUpMoment + (1000*60*5)) {
       // time's up, going to sleep
       Serial.println("time's up, going to sleep " + String(millis() ) + " " + String(bleWakeUpMoment));
@@ -100,13 +110,10 @@ void loop() {
       handle_sleep();
     }
     else {
-        #ifdef BLE_turn_on
-          initBLE();
-        #endif
-        #ifdef GSM_turn_on
-          wakeUpGSM();
-        #endif
-      
+      #ifdef BLE_turn_on
+        initBLE();
+      #endif
+    
         if(input_received) {
           Serial.println("Przetwarzam input");
           input_received = false;
@@ -141,13 +148,16 @@ void loop() {
             if(rozkaz == "1") {
               // start sending data
               // TODO dekodowanie path?
-              //String path = "/"+data_incoming+".csv";
-              String path = data_incoming+".csv";
+              String path = "/"+data_incoming+".txt";
               Serial.println("Reading file: " + path);
     
               file = SD.open(path);
               if(!file){
                 Serial.println("Failed to open file for reading");
+                String path2 = data_incoming+".txt";
+                Serial.println("Reading file: " + path2);
+                file = SD.open(path);
+                Serial.println("drugie otwarcie:" + bool(file));
                 myTXstring(5,"0");
               }
               else {
