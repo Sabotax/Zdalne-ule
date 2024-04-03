@@ -1,6 +1,6 @@
-1. prawidłowo ułożyć piny do programowania -> porzucone, rj45
-2. przycisk do programowania -> porzucone, rj45
-3. podpisać też przyciski i piny prog, opcjonalnie -> porzucone, rj45
+1. prawidłowo ułożyć piny do programowania -> porzucone, rj45 DONE
+2. przycisk do programowania -> porzucone, rj45 DONE
+3. podpisać też przyciski i piny prog, opcjonalnie -> porzucone, rj45 DONE
 4. piny/wyjścia pod przycisk do wybudzania -> DONE
 5. piny pod led wybudzający -> DONE
 6. czujnik wstrząsu zostawić -> DONE [ ono będzie musiało być na ext1 w budzeniu chyba ]
