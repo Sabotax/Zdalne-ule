@@ -12,7 +12,7 @@
         android:layout_width="343dp"
         android:layout_height="238dp"
         android:layout_marginTop="36dp"
-        android:background="#eee"
+        android:background="@color/teal_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -225,8 +225,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="32dp"
             android:ems="10"
-            android:hint="RRRR-MM-DD"
-            android:inputType="date"
+            android:hint="RRRRMMDD"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnCommLocalDownloadBleSynch"
             tools:layout_conversion_absoluteHeight="45dp"

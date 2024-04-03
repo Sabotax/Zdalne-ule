@@ -82,7 +82,6 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:ems="10"
-        android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DBUpdateDateText"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />

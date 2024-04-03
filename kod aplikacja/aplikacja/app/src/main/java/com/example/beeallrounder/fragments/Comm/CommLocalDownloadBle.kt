@@ -363,11 +363,11 @@ class CommLocalDownloadBle : Fragment(), AdapterView.OnItemSelectedListener, BLE
 
     private fun log(s: String) {
         if(logTextView.text.length + s.length > 999) {
-            requireContext().toast("log limit osiagniety")
-            logTextView.text = "${logTextView.text.drop(s.length+1)}\n$s"
+            //requireContext().toast("log limit osiagniety")
+            logTextView.text = "$s\n${logTextView.text.dropLast(s.length+1)}"
         }
         else
-            logTextView.text = "${logTextView.text}\n$s"
+            logTextView.text = "$s\n${logTextView.text}"
 
         //logScrollView.scrollTo(0, logScrollView.bottom);
         logScrollView.fullScroll(View.FOCUS_DOWN);
