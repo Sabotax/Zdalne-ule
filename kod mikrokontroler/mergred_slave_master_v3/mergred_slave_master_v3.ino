@@ -50,7 +50,7 @@ void setup() {
 
   delay(3000);
 
-  digitalWrite(pinWakeUpLed,LOW);
+  digitalWrite(pinWakeUpLed,HIGH);
   pinMode(pinWakeUpLed,OUTPUT);
 
   #ifdef wakeUpTouch
@@ -77,16 +77,28 @@ void setup() {
   #ifdef GSM_turn_on
     wakeUpGSM();
   #endif
-
-  if(digitalRead(pinWakeUpButton) == HIGH) {
-    bleWakeUp = true;
-  }
-
 }
 
 void loop() {
-  if(bleWakeUp) {
+
+  //led
+  if(ledStance == 0) {
+    digitalWrite(pinWakeUpLed,LOW);
+  } 
+  else if(ledStance == 1) {
+    if( int(millis()*1000) % 2 == 0 ) {
+      digitalWrite(pinWakeUpLed,LOW);
+    }
+    else {
+      digitalWrite(pinWakeUpLed,HIGH);
+    }
+  }
+  else if(ledStance == 2) {
     digitalWrite(pinWakeUpLed,HIGH);
+  }
+  
+  if(bleWakeUp) {
+    ledStance = 1;
  //disconnecting
     if (!deviceConnected && oldDeviceConnected) {
         delay(500); // give the bluetooth stack the chance to get things ready
@@ -315,6 +327,8 @@ void loop() {
     
     handle_sleep();
   }
+
+  
 
   
 }

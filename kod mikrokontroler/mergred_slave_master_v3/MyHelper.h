@@ -8,6 +8,8 @@ long bleWakeUpMoment=0;
 #define pinWakeUpButton GPIO_NUM_32
 #define pinWakeUpLed 33
 
+uint8_t ledStance = 2;
+
 String dataToJson(const float& waga, const String& myTimestamp, const String& battery) {
 
   String re = "{";

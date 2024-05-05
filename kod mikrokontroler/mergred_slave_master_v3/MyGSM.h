@@ -11,7 +11,7 @@ const char gprsPass[] = "";
 
 bool connectingSuccess = false;
 #define DUMP_AT_COMMANDS
-
+// TODO, jesli nie wykryje OK kilka razy to pomija calosc
 
 // basic tools
 String waitResponse(uint32_t t = 0){
@@ -115,7 +115,7 @@ void initMyGSM() { // TODO init only if not connected
       resetSIM();
     }
     sendAT("AT+SAPBR=3,1,\"APN\",\"internet\"");
-    waitResponse(1);
+    waitResponse(1); // todo async
     sendAT("AT+SAPBR=3,1,\"USER\",\"\"");
     waitResponse(1);
     sendAT("AT+SAPBR=3,1,\"PWD\",\"\"");
