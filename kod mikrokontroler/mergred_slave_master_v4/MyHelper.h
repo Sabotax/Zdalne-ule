@@ -10,6 +10,9 @@ long bleWakeUpMoment=0;
 
 uint8_t ledStance = 2;
 
+String dataToSend = "";
+bool sendingData = false;
+
 String dataToJson(const float& waga, const String& myTimestamp, const String& battery) {
 
   String re = "{";

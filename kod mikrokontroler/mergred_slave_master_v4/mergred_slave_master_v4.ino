@@ -152,12 +152,25 @@ void loop() {
       saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
     #endif
 
+    dataToSend = dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent); //todo wtloczyc get battery w sekwencje i dopiero wtedy zrobic json body
+    sendingData = true;
+
 //    #ifdef GSM_turn_on
 //      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent), true );
 //    #endif
 //    #ifdef WIFI_turn_on
 //      sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
 //    #endif
+  }
+
+  if(sendingData) {
+    #ifdef GSM_turn_on
+      makePostGSM();
+    #endif
+    #ifdef WIFI_turn_on
+      sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
+      sendingData = false;
+    #endif
   }
 
   //obsluga komunikacji

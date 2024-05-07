@@ -86,7 +86,7 @@ bool sendCommandGSM(String command, uint8_t responseWaitTime, String &responseMs
 bool rozkazWykonany_init[7] = {false};
 String odp_init[7] = {""};
 
-void initGSM() {
+bool initGSM() { // zwraca bool na potrzeby uruchomienia po restarcie/włączeniu w trybie blocking (w pętli while)
   #ifdef DEBUG
     Serial.println(F("initGSM krok 0"));
   #endif
@@ -137,6 +137,7 @@ void initGSM() {
                     for(uint8_t i = 0; i < 7; i++) {
                       rozkazWykonany_init[i] = false;
                     }
+                    return true;
                   }
                 }
               }
@@ -150,16 +151,83 @@ void initGSM() {
       }
     }
   }
+  return false;
 }
 
-bool rozkazWykonany1 = false; // jesli juz raz go zrobi, to zeby w petli od razu przeszlo do kolejnego
+bool rozkazWykonany_post[9] = {false};
+String odp_post[9] = {""};
 
-//void makePostGSM(String body, bool retry) {
-//
-//  String odp1 = "";
-//  sendCommandGSM("AT",3,odp1, rozkazWykonany1)
-//  if( rozkazWykonany1 ) { // todo na koniec sekwencji reset flag
-//    // todo zagniezdzone kolejne kroki
-//  }
-//
-//}
+void makePostGSM() {
+
+  #ifdef DEBUG
+    Serial.println(F("postGSM krok 0"));
+  #endif
+  sendCommandGSM("AT",2,odp_post[0], rozkazWykonany_post[0]);
+  if( rozkazWykonany_post[0] ) {
+    #ifdef DEBUG
+      Serial.println(F("postGSM krok 1"));
+    #endif
+    sendCommandGSM("AT+HTTPINIT",2,odp_post[1], rozkazWykonany_post[1]);
+    if( rozkazWykonany_post[1] ) {
+      if( odp_post[1] != "OK" ) {
+        // błąd, retry
+        #ifdef DEBUG
+          Serial.println(F("postGSM krok 1 - błąd, retry"));
+        #endif
+        // TODO
+      }
+      else {
+        #ifdef DEBUG
+          Serial.println(F("postGSM krok 2"));
+        #endif
+        sendCommandGSM("AT+HTTPPARA=\"URL\",\""+serverAndRes+"\"",2,odp_post[2], rozkazWykonany_post[2]);
+        if( rozkazWykonany_post[2] ) {
+          #ifdef DEBUG
+            Serial.println(F("postGSM krok 3"));
+          #endif
+          sendCommandGSM("AT+HTTPPARA=\"CONTENT\",\"application/json\"",2,odp_post[3], rozkazWykonany_post[3]);
+          if( rozkazWykonany_post[3] ) {
+            #ifdef DEBUG
+              Serial.println(F("postGSM krok 4"));
+            #endif
+            sendCommandGSM("AT+HTTPDATA=" + String(dataToSend.length()) + ",100000",2,odp_post[4], rozkazWykonany_post[4]);
+            if( rozkazWykonany_post[4] ) {
+              #ifdef DEBUG
+                Serial.println(F("postGSM krok 5"));
+              #endif
+              sendCommandGSM(dataToSend,2,odp_post[5], rozkazWykonany_post[5]);
+              if( rozkazWykonany_post[5] ) {
+                #ifdef DEBUG
+                  Serial.println(F("postGSM krok 6"));
+                #endif
+                sendCommandGSM("AT+HTTPACTION=1",2,odp_post[6], rozkazWykonany_post[6]);
+                if( rozkazWykonany_post[6] ) {
+                  // todo akcja na odp_post[6] (wyciecie http status)
+                  // jesli inny niz 200 to retry? albo zarzucenie (reset sima)
+                  #ifdef DEBUG
+                    Serial.println(F("postGSM krok 7"));
+                  #endif
+                  sendCommandGSM("AT+HTTPREAD",2,odp_post[7], rozkazWykonany_post[7]);
+                  if( rozkazWykonany_post[7] ) {
+                    // todo w tym miejcu mamy response w odp_post7
+                    #ifdef DEBUG
+                      Serial.println(F("postGSM krok 8"));
+                    #endif
+                    sendCommandGSM("AT+HTTPTERM",2,odp_post[8], rozkazWykonany_post[8]);
+                    if( rozkazWykonany_post[8] ) {
+                      for(uint8_t i = 0; i < 9; i++) {
+                        rozkazWykonany_post[i] = false;
+                      }
+                      sendingData = false;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
