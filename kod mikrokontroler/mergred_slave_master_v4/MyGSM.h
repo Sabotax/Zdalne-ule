@@ -61,6 +61,8 @@ bool sendCommandGSM(String command, uint8_t responseWaitTime, String &responseMs
   else {
     bool gotResponse = waitResponseAsync(responseWaitTime);
     if(gotResponse) {
+      // TODO MOCK
+      
       responseMsg = response;
       rozkazWykonany = gotResponse;
     }
@@ -75,9 +77,57 @@ bool sendCommandGSM(String command, uint8_t responseWaitTime, String &responseMs
 
 // isConnected
 
-// get Battery
+bool rozkazWykonany_battery = false;
+String odp_battery = "";
+int batteryMeasure = -1;
+bool batteryPobrane = false;
 
-// get Signal
+bool getBattery() { // todo reset flag na koniec sekwencji
+  #ifdef DEBUG
+    Serial.println(F("getBattery krok 0"));
+  #endif
+  
+  if( batteryPobrane ) return true;
+  
+  sendCommandGSM("AT+CBC",2,odp_battery, rozkazWykonany_battery);
+  if( rozkazWykonany_battery ) {
+    int startIndex = odp_battery.indexOf(',') + 1;
+    int endIndex = odp_battery.indexOf(',', startIndex);
+    String secondNumberString = odp_battery.substring(startIndex, endIndex);
+    batteryMeasure = secondNumberString.toInt();
+
+    #ifdef DEBUG
+      Serial.println("Get battery, extracted number " + secondNumberString);
+    #endif
+    batteryPobrane = true;
+    return true;
+  }
+  return false;
+}
+
+bool rozkazWykonany_signal = false;
+String odp_signal = "";
+int signalMeasure = -1;
+bool signalPobrane = false;
+
+bool getSignal() { // todo reset flag na koniec sekwencji
+  #ifdef DEBUG
+    Serial.println(F("getSignal krok 0"));
+  #endif
+  sendCommandGSM("AT+CSQ",2,odp_signal, rozkazWykonany_signal);
+  if( rozkazWykonany_signal ) {
+    int startIndex = input.indexOf(':') + 2;
+    int endIndex = input.indexOf(',', startIndex);
+    
+    String value = input.substring(startIndex, endIndex);
+    signalMeasure = value.toInt();
+    #ifdef DEBUG
+      Serial.println("Get signal, extracted number " + value);
+    #endif
+    return true;
+  }
+  return false;
+}
 
 // get Http status
 
@@ -229,5 +279,12 @@ void makePostGSM() {
       }
     }
   }
+}
 
+void clearAllFlagsPostGsm() {
+  for(uint8_t i = 0; i < 9; i++) {
+    rozkazWykonany_post[i] = false;
+  }
+  batteryPobrane = false;
+  rozkazWykonany_battery = false;
 }

@@ -137,9 +137,9 @@ void loop() {
     #endif
 
     #ifdef mockRTC
-      String nowTimestampEpoch = "1";
+      nowTimestampEpoch = "1";
     #else
-      String nowTimestampEpoch = getEpoch();
+      nowTimestampEpoch = getEpoch();
     #endif
 
 //    #ifdef mockBattery
@@ -152,7 +152,7 @@ void loop() {
       saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
     #endif
 
-    dataToSend = dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent); //todo wtloczyc get battery w sekwencje i dopiero wtedy zrobic json body
+     //todo wtloczyc get battery w sekwencje i dopiero wtedy zrobic json body
     sendingData = true;
 
 //    #ifdef GSM_turn_on
@@ -165,7 +165,13 @@ void loop() {
 
   if(sendingData) {
     #ifdef GSM_turn_on
-      makePostGSM();
+      if ( getBattery() ) {
+        if(!dataToSendCreated) {
+          dataToSend = dataToJson(wagaOdczyt, nowTimestampEpoch,batteryMeasure);
+          dataToSendCreated = true;
+        }
+        makePostGSM();
+      }
     #endif
     #ifdef WIFI_turn_on
       sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
