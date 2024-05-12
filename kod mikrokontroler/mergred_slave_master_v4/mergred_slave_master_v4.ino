@@ -21,7 +21,7 @@
 #define GSM_turn_on
 //#define WIFI_turn_on
 #define BLE_turn_on
-//#define mockRTC
+#define mockRTC
 //#define mockWeight
 //#define mockBattery
 #define turnOnSD
@@ -75,10 +75,9 @@ void setup() {
 //    wakeUpGSM();
 //  #endif
 
-  //todo
-//  #ifdef GSM_turn_on
-//    initMyGSM();
-//  #endif
+  #ifdef GSM_turn_on
+    while(initGSM()) {};
+  #endif
   #ifdef WIFI_turn_on
     initMyWIFI();
   #endif
@@ -123,13 +122,6 @@ void loop() {
     Serial.print(isrTime);
     Serial.println(" ms");
 
-//    #ifdef GSM_turn_on
-//      initMyGSM();
-//    #endif
-//    #ifdef WIFI_turn_on
-//      initMyWIFI();
-//    #endif
-
     #ifdef mockWeight
       wagaOdczyt = random(100);
     #else
@@ -142,32 +134,18 @@ void loop() {
       nowTimestampEpoch = getEpoch();
     #endif
 
-//    #ifdef mockBattery
-//      String batteryPercent = String(random(100));
-//    #else
-//      String batteryPercent = String(getBattery());
-//    #endif
-
     #ifdef turnOnSD
       saveDataToSD(SD, dataToCsvRow(wagaOdczyt, nowTimestampEpoch) );
     #endif
 
-     //todo wtloczyc get battery w sekwencje i dopiero wtedy zrobic json body
     sendingData = true;
-
-//    #ifdef GSM_turn_on
-//      makePostGSM( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent), true );
-//    #endif
-//    #ifdef WIFI_turn_on
-//      sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
-//    #endif
   }
 
   if(sendingData) {
     #ifdef GSM_turn_on
       if ( getBattery() ) {
         if(!dataToSendCreated) {
-          dataToSend = dataToJson(wagaOdczyt, nowTimestampEpoch,batteryMeasure);
+          dataToSend = dataToJson(wagaOdczyt, nowTimestampEpoch,String(batteryMeasure));
           dataToSendCreated = true;
         }
         makePostGSM();
