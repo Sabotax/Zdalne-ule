@@ -1,9 +1,6 @@
 #define RX2 16
 #define TX2 17
 
-#define SerialMon Serial
-#define SerialAT Serial2
-
 // Your GPRS credentials, if any
 const char apn[]      = "internet";
 const char gprsUser[] = "";
@@ -22,13 +19,13 @@ bool waitResponseAsync(uint8_t t = 1) {
     waitResponseTimeStart = millis();
     waitResponseInitialized = true;
     response = "";
-    #ifdef
-      SerialMon.println("Moment rozpoczęcia czekania: " + String(waitResponseTimeStart/1000));
+    #ifdef DEBUG
+      SerialMon.println("Moment rozpoczęcia czekania: " + String(waitResponseTimeStart));
     #endif
   }
-  #ifdef
-    SerialMon.println("Async response, czekam: " + String(millis()) + " | " + waitResponseTimeStart + (1000 * t)); // todo tutaj debug czemu nie odpowiada
-  #endif
+//  #ifdef DEBUG
+//    SerialMon.println("Async response, czekam: " + String(millis()) + " | " + String(waitResponseTimeStart + (1000 * t))); // todo tutaj debug czemu nie odpowiada
+//  #endif
 
   if(millis() >  waitResponseTimeStart + (1000 * t) ) {
     waitResponseInitialized = false;
@@ -38,9 +35,11 @@ bool waitResponseAsync(uint8_t t = 1) {
     }
     response.trim();
 
-    #ifdef DUMP_AT_COMMANDS
-      SerialMon.println("|"+response+"|");
-    #endif
+    #ifdef DUMP_AT_COMMANDS 
+      #ifndef GsmMockOn
+        SerialMon.println("|"+response+"|");
+      #endif
+    #endif 
     
     return true;
   }
@@ -63,13 +62,20 @@ bool sendCommandGSM(String command, uint8_t responseWaitTime, String &responseMs
   if(!czekamNaOdpowiedzGSM) {
     sendAT(command);
     czekamNaOdpowiedzGSM = true;
+    return false;
   }
   else {
     bool gotResponse = waitResponseAsync(responseWaitTime);
     if(gotResponse) {
-      // TODO MOCK
+      #ifdef GsmMockOn
+        if(command == "AT+CREG?") responseMsg = "+CREG: 0,1\r\n\r\nOK";
+        else responseMsg = "default_mock_msg";
+
+        SerialMon.println("Symuluje otrzymanie odpowiedzi: " + responseMsg);
+      #else  
+        responseMsg = response;
+      #endif
       
-      responseMsg = response;
       rozkazWykonany = gotResponse;
     }
     return gotResponse;
@@ -144,20 +150,21 @@ String odp_init[7] = {""};
 
 bool initGSM() { // zwraca bool na potrzeby uruchomienia po restarcie/włączeniu w trybie blocking (w pętli while)
   #ifdef DEBUG
-    Serial.println(F("initGSM krok 0"));
+    Serial.print(F("initGSM "));
+    if(!rozkazWykonany_init[0]) Serial.print(F("0"));
   #endif
-  sendCommandGSM("AT",2,odp_init[0], rozkazWykonany_init[0]);
+  if(!rozkazWykonany_init[0]) sendCommandGSM("AT",2,odp_init[0], rozkazWykonany_init[0]);
   if( rozkazWykonany_init[0] ) {
     #ifdef DEBUG
-      Serial.println(F("initGSM krok 1"));
+      if(!rozkazWykonany_init[1]) Serial.print(F("1"));
     #endif
-    sendCommandGSM("AT+CREG?",1,odp_init[1], rozkazWykonany_init[1]);
+    if(!rozkazWykonany_init[1]) sendCommandGSM("AT+CREG?",1,odp_init[1], rozkazWykonany_init[1]);
     if( rozkazWykonany_init[1] ) {
       #ifdef DEBUG
-        Serial.println(F("initGSM krok 2"));
+        if(!rozkazWykonany_init[2]) Serial.print(F("2"));
       #endif
       if(odp_init[1] == "+CREG: 0,1\r\n\r\nOK") { // isConnected
-        sendCommandGSM("AT+SAPBR=3,1,\"Contype\",\"GPRS\"",1,odp_init[2], rozkazWykonany_init[2]);
+        if(!rozkazWykonany_init[2]) sendCommandGSM("AT+SAPBR=3,1,\"Contype\",\"GPRS\"",1,odp_init[2], rozkazWykonany_init[2]);
         if( rozkazWykonany_init[2] ) {
           if(odp_init[2] == "ERROR") {
              #ifdef DEBUG
@@ -167,27 +174,27 @@ bool initGSM() { // zwraca bool na potrzeby uruchomienia po restarcie/włączeni
           }
           else {
             #ifdef DEBUG
-              Serial.println(F("initGSM krok 3"));
+              if(!rozkazWykonany_init[3]) Serial.print(F("3"));
             #endif
-            sendCommandGSM("AT+SAPBR=3,1,\"APN\",\"internet\"",1,odp_init[3], rozkazWykonany_init[3]);
+            if(!rozkazWykonany_init[3])sendCommandGSM("AT+SAPBR=3,1,\"APN\",\"internet\"",1,odp_init[3], rozkazWykonany_init[3]);
             if( rozkazWykonany_init[3] ) {
               #ifdef DEBUG
-                Serial.println(F("initGSM krok 4"));
+                if(!rozkazWykonany_init[4]) Serial.print(F("4"));
               #endif
-              sendCommandGSM("AT+SAPBR=3,1,\"USER\",\"\"",1,odp_init[4], rozkazWykonany_init[4]);
+              if(!rozkazWykonany_init[4]) sendCommandGSM("AT+SAPBR=3,1,\"USER\",\"\"",1,odp_init[4], rozkazWykonany_init[4]);
               if( rozkazWykonany_init[4] ) {
                 #ifdef DEBUG
-                  Serial.println(F("initGSM krok 5"));
+                  if(!rozkazWykonany_init[5]) Serial.print(F("5"));
                 #endif
-                sendCommandGSM("AT+SAPBR=3,1,\"PWD\",\"\"",1,odp_init[5], rozkazWykonany_init[5]);
+                if(!rozkazWykonany_init[5]) sendCommandGSM("AT+SAPBR=3,1,\"PWD\",\"\"",1,odp_init[5], rozkazWykonany_init[5]);
                 if( rozkazWykonany_init[5] ) {
                   #ifdef DEBUG
-                    Serial.println(F("initGSM krok 6"));
+                    if(!rozkazWykonany_init[6]) Serial.print(F("6"));
                   #endif
-                  sendCommandGSM("AT+SAPBR=1,1",1,odp_init[6], rozkazWykonany_init[6]);
+                  if(!rozkazWykonany_init[6]) sendCommandGSM("AT+SAPBR=1,1",1,odp_init[6], rozkazWykonany_init[6]);
                   if( rozkazWykonany_init[6] ) {
                     #ifdef DEBUG
-                      Serial.println(F("initGSM finish"));
+                      Serial.println(F(" initGSM finish"));
                     #endif
                     // finish
                     for(uint8_t i = 0; i < 7; i++) {
@@ -207,6 +214,9 @@ bool initGSM() { // zwraca bool na potrzeby uruchomienia po restarcie/włączeni
       }
     }
   }
+  #ifdef DEBUG
+    Serial.println();
+  #endif
   return false;
 }
 

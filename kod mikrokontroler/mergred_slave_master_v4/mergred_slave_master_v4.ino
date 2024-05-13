@@ -26,6 +26,7 @@
 //#define mockBattery
 #define turnOnSD
 //#define wakeUpTouch
+#define GsmMockOn
 
 #include "authData.h"
 
@@ -76,7 +77,7 @@ void setup() {
 //  #endif
 
   #ifdef GSM_turn_on
-    while(initGSM()) {};
+    while(!initGSM()) {};
   #endif
   #ifdef WIFI_turn_on
     initMyWIFI();

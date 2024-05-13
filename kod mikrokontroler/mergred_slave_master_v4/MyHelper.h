@@ -1,6 +1,9 @@
 // tutaj zrobić reportowanie buga dobre (z opcją ledową) i helpery jsonowe
 const int espId = 0;
 
+#define SerialMon Serial
+#define SerialAT Serial2
+
 bool bleWakeUp = false;
 long bleWakeUpMoment=0;
 #define Threshold 80
@@ -112,6 +115,9 @@ uint32_t ileSekundPrzerwy = 1800;
 bool czasZapisu = false;
 
 void ARDUINO_ISR_ATTR onTimer(){
+  #ifdef DEBUG
+    SerialMon.println("Timer hit" + String(isrCounter));
+  #endif
   // Increment the counter and set the time of ISR
   portENTER_CRITICAL_ISR(&timerMux);
   isrCounter++;
@@ -124,9 +130,12 @@ void ARDUINO_ISR_ATTR onTimer(){
 }
 
 void initTimer() {
+  #ifdef DEBUG
+    SerialMon.println(F("Timer init"));
+  #endif
   timerSemaphore = xSemaphoreCreateBinary();
-  timer = timerBegin(0, 80000000, true);
+  timer = timerBegin(0, 80, true);
   timerAttachInterrupt(timer, &onTimer, true);
-  timerAlarmWrite(timer, ileSekundPrzerwy, true);
+  timerAlarmWrite(timer, ileSekundPrzerwy * 1000000, true);
   timerAlarmEnable(timer);
 }
