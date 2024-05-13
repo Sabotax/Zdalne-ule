@@ -111,13 +111,11 @@ volatile SemaphoreHandle_t timerSemaphore;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 volatile uint32_t isrCounter = 0;
 volatile uint32_t lastIsrAt = 0;
-uint32_t ileSekundPrzerwy = 1800;
+//uint32_t ileSekundPrzerwy = 1800;
+uint32_t ileSekundPrzerwy = 60;
 bool czasZapisu = false;
 
 void ARDUINO_ISR_ATTR onTimer(){
-  #ifdef DEBUG
-    SerialMon.println("Timer hit" + String(isrCounter));
-  #endif
   // Increment the counter and set the time of ISR
   portENTER_CRITICAL_ISR(&timerMux);
   isrCounter++;

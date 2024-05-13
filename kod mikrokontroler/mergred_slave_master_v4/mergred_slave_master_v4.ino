@@ -22,9 +22,9 @@
 //#define WIFI_turn_on
 #define BLE_turn_on
 #define mockRTC
-//#define mockWeight
-//#define mockBattery
-#define turnOnSD
+#define mockWeight
+#define mockBattery
+//#define turnOnSD
 //#define wakeUpTouch
 #define GsmMockOn
 
@@ -77,11 +77,13 @@ void setup() {
 //  #endif
 
   #ifdef GSM_turn_on
-    while(!initGSM()) {};
+    //while(!initGSM()) {};
   #endif
   #ifdef WIFI_turn_on
     initMyWIFI();
   #endif
+
+  initTimer();
 }
 
 void loop() {
@@ -116,12 +118,14 @@ void loop() {
     isrCount = isrCounter;
     isrTime = lastIsrAt;
     portEXIT_CRITICAL(&timerMux);
-    // Print it
+    
+    #ifdef DEBUG
     Serial.print("onTimer no. ");
     Serial.print(isrCount);
     Serial.print(" at ");
     Serial.print(isrTime);
     Serial.println(" ms");
+    #endif
 
     #ifdef mockWeight
       wagaOdczyt = random(100);

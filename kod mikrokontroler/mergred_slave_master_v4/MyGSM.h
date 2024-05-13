@@ -20,7 +20,7 @@ bool waitResponseAsync(uint8_t t = 1) {
     waitResponseInitialized = true;
     response = "";
     #ifdef DEBUG
-      SerialMon.println("Moment rozpoczęcia czekania: " + String(waitResponseTimeStart));
+      SerialMon.println("Moment rozpoczecia czekania: " + String(waitResponseTimeStart));
     #endif
   }
 //  #ifdef DEBUG
