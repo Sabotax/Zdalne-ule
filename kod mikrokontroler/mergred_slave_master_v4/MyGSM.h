@@ -19,13 +19,7 @@ bool waitResponseAsync(uint8_t t = 1) {
     waitResponseTimeStart = millis();
     waitResponseInitialized = true;
     response = "";
-    #ifdef DEBUG
-      SerialMon.println("Moment rozpoczecia czekania: " + String(waitResponseTimeStart));
-    #endif
   }
-//  #ifdef DEBUG
-//    SerialMon.println("Async response, czekam: " + String(millis()) + " | " + String(waitResponseTimeStart + (1000 * t))); // todo tutaj debug czemu nie odpowiada
-//  #endif
 
   if(millis() >  waitResponseTimeStart + (1000 * t) ) {
     waitResponseInitialized = false;
@@ -69,6 +63,9 @@ bool sendCommandGSM(String command, uint8_t responseWaitTime, String &responseMs
     if(gotResponse) {
       #ifdef GsmMockOn
         if(command == "AT+CREG?") responseMsg = "+CREG: 0,1\r\n\r\nOK";
+        #ifdef GsmPostMockOn
+          else if(command == "AT+HTTPINIT") responseMsg = "OK";
+        #endif
         else responseMsg = "default_mock_msg";
 
         SerialMon.println("Symuluje otrzymanie odpowiedzi: " + responseMsg);
@@ -96,12 +93,12 @@ bool batteryPobrane = false;
 
 bool getBattery() { // todo reset flag na koniec sekwencji
   #ifdef DEBUG
-    Serial.println(F("getBattery krok 0"));
+    if(!rozkazWykonany_battery) Serial.println(F("getBattery krok 0"));
   #endif
   
   if( batteryPobrane ) return true;
   
-  sendCommandGSM("AT+CBC",2,odp_battery, rozkazWykonany_battery);
+  if(!rozkazWykonany_battery) sendCommandGSM("AT+CBC",2,odp_battery, rozkazWykonany_battery);
   if( rozkazWykonany_battery ) {
     int startIndex = odp_battery.indexOf(',') + 1;
     int endIndex = odp_battery.indexOf(',', startIndex);
@@ -124,8 +121,11 @@ bool signalPobrane = false;
 
 bool getSignal() { // todo reset flag na koniec sekwencji
   #ifdef DEBUG
-    Serial.println(F("getSignal krok 0"));
+    if(!rozkazWykonany_signal) Serial.println(F("getSignal krok 0"));
   #endif
+
+  if(signalPobrane) return true;
+  
   sendCommandGSM("AT+CSQ",2,odp_signal, rozkazWykonany_signal);
   if( rozkazWykonany_signal ) {
     int startIndex = odp_signal.indexOf(':') + 2;
@@ -136,6 +136,7 @@ bool getSignal() { // todo reset flag na koniec sekwencji
     #ifdef DEBUG
       Serial.println("Get signal, extracted number " + value);
     #endif
+    signalPobrane = true;
     return true;
   }
   return false;
@@ -230,65 +231,68 @@ void clearAllFlagsPostGsm() {
   batteryPobrane = false;
   rozkazWykonany_battery = false;
   sendingData = false;
+  dataToSendCreated = false;
 }
 
 void makePostGSM() {
 
   #ifdef DEBUG
-    Serial.println(F("postGSM krok 0"));
+    Serial.print(F("postGSM "));
+    if(!rozkazWykonany_post[0]) Serial.print(F("0"));
   #endif
-  sendCommandGSM("AT",2,odp_post[0], rozkazWykonany_post[0]);
+  if(!rozkazWykonany_post[0]) sendCommandGSM("AT",2,odp_post[0], rozkazWykonany_post[0]);
   if( rozkazWykonany_post[0] ) {
     #ifdef DEBUG
-      Serial.println(F("postGSM krok 1"));
+      if(!rozkazWykonany_post[1]) Serial.print(F("1"));
     #endif
-    sendCommandGSM("AT+HTTPINIT",2,odp_post[1], rozkazWykonany_post[1]);
+    if(!rozkazWykonany_post[1]) sendCommandGSM("AT+HTTPINIT",2,odp_post[1], rozkazWykonany_post[1]);
     if( rozkazWykonany_post[1] ) {
       if( odp_post[1] != "OK" ) {
         // błąd, retry
         #ifdef DEBUG
-          Serial.println(F("postGSM krok 1 - błąd, retry"));
+          Serial.println(F("\npostGSM krok 1 - błąd, retry"));
         #endif
         // TODO
+        clearAllFlagsPostGsm();
       }
       else {
         #ifdef DEBUG
-          Serial.println(F("postGSM krok 2"));
+          if(!rozkazWykonany_post[2]) Serial.print(F("2"));
         #endif
-        sendCommandGSM("AT+HTTPPARA=\"URL\",\""+serverAndRes+"\"",2,odp_post[2], rozkazWykonany_post[2]);
+        if(!rozkazWykonany_post[2]) sendCommandGSM("AT+HTTPPARA=\"URL\",\""+serverAndRes+"\"",2,odp_post[2], rozkazWykonany_post[2]);
         if( rozkazWykonany_post[2] ) {
           #ifdef DEBUG
-            Serial.println(F("postGSM krok 3"));
+            if(!rozkazWykonany_post[3]) Serial.print(F("3"));
           #endif
-          sendCommandGSM("AT+HTTPPARA=\"CONTENT\",\"application/json\"",2,odp_post[3], rozkazWykonany_post[3]);
+          if(!rozkazWykonany_post[3]) sendCommandGSM("AT+HTTPPARA=\"CONTENT\",\"application/json\"",2,odp_post[3], rozkazWykonany_post[3]);
           if( rozkazWykonany_post[3] ) {
             #ifdef DEBUG
-              Serial.println(F("postGSM krok 4"));
+              if(!rozkazWykonany_post[4]) Serial.print(F("4"));
             #endif
-            sendCommandGSM("AT+HTTPDATA=" + String(dataToSend.length()) + ",100000",2,odp_post[4], rozkazWykonany_post[4]);
+            if(!rozkazWykonany_post[4]) sendCommandGSM("AT+HTTPDATA=" + String(dataToSend.length()) + ",100000",2,odp_post[4], rozkazWykonany_post[4]);
             if( rozkazWykonany_post[4] ) {
               #ifdef DEBUG
-                Serial.println(F("postGSM krok 5"));
+                if(!rozkazWykonany_post[5]) Serial.print(F("5"));
               #endif
-              sendCommandGSM(dataToSend,2,odp_post[5], rozkazWykonany_post[5]);
+              if(!rozkazWykonany_post[5]) sendCommandGSM(dataToSend,2,odp_post[5], rozkazWykonany_post[5]);
               if( rozkazWykonany_post[5] ) {
                 #ifdef DEBUG
-                  Serial.println(F("postGSM krok 6"));
+                  if(!rozkazWykonany_post[6]) Serial.print(F("6"));
                 #endif
-                sendCommandGSM("AT+HTTPACTION=1",2,odp_post[6], rozkazWykonany_post[6]);
+                if(!rozkazWykonany_post[6]) sendCommandGSM("AT+HTTPACTION=1",15,odp_post[6], rozkazWykonany_post[6]);
                 if( rozkazWykonany_post[6] ) {
                   // todo akcja na odp_post[6] (wyciecie http status)
                   // jesli inny niz 200 to retry? albo zarzucenie (reset sima) i retry
                   #ifdef DEBUG
-                    Serial.println(F("postGSM krok 7"));
+                    if(!rozkazWykonany_post[7]) Serial.print(F("7"));
                   #endif
-                  sendCommandGSM("AT+HTTPREAD",2,odp_post[7], rozkazWykonany_post[7]);
+                  if(!rozkazWykonany_post[7]) sendCommandGSM("AT+HTTPREAD",2,odp_post[7], rozkazWykonany_post[7]);
                   if( rozkazWykonany_post[7] ) {
                     // todo w tym miejcu mamy response w odp_post7
                     #ifdef DEBUG
-                      Serial.println(F("postGSM krok 8"));
+                      if(!rozkazWykonany_post[8]) Serial.print(F("8"));
                     #endif
-                    sendCommandGSM("AT+HTTPTERM",2,odp_post[8], rozkazWykonany_post[8]);
+                    if(!rozkazWykonany_post[8]) sendCommandGSM("AT+HTTPTERM",2,odp_post[8], rozkazWykonany_post[8]);
                     
                     clearAllFlagsPostGsm();
                   }
@@ -300,4 +304,7 @@ void makePostGSM() {
       }
     }
   }
+  #ifdef DEBUG
+    Serial.println();
+  #endif
 }

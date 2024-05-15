@@ -25,10 +25,16 @@ class MyServerCallbacks: public BLEServerCallbacks {
     void onConnect(BLEServer* pServer) {
       deviceConnected = true;
       BLEDevice::startAdvertising();
+      #ifdef DEBUG
+        Serial.println(F("Client connected"));
+      #endif
     };
 
     void onDisconnect(BLEServer* pServer) {
       deviceConnected = false;
+      #ifdef DEBUG
+        Serial.println(F("Client disconnected"));
+      #endif
       //file.close();
     }
 

@@ -112,7 +112,7 @@ portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 volatile uint32_t isrCounter = 0;
 volatile uint32_t lastIsrAt = 0;
 //uint32_t ileSekundPrzerwy = 1800;
-uint32_t ileSekundPrzerwy = 60;
+uint32_t ileSekundPrzerwy = 120;
 bool czasZapisu = false;
 
 void ARDUINO_ISR_ATTR onTimer(){
