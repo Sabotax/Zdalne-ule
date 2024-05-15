@@ -1,0 +1,3 @@
+https://www.richtek.com/assets/product_file/RT9020/DS9020-07.pdf -> stabilizator LDO dobry na każdą baterię
+
+BSS138P + schemat z falstada/dokumentacji -> konwerter logiki pod kanały z danymi z usb
