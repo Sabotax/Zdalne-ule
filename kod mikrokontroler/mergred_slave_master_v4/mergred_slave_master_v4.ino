@@ -21,13 +21,14 @@
 #define GSM_turn_on
 //#define WIFI_turn_on
 #define BLE_turn_on
-#define mockRTC
-#define mockWeight
-#define mockBattery
-//#define turnOnSD
+#define turnOnSD
+
+//#define mockRTC
+//#define mockWeight
+//#define mockBattery
 //#define wakeUpTouch
-#define GsmMockOn
-#define GsmPostMockOn
+//#define GsmMockOn
+//#define GsmPostMockOn
 
 #include "authData.h"
 
@@ -57,6 +58,9 @@ void setup() {
   //print_wakeup_touchpad();
   //esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
 
+  digitalWrite(pinWakeUpLed,LOW);
+  pinMode(pinWakeUpLed,OUTPUT);
+
   #ifdef BLE_turn_on
     initBLE();
   #endif
@@ -79,7 +83,7 @@ void setup() {
 //  #endif
 
   #ifdef GSM_turn_on
-    //while(!initGSM()) {};
+    while(!initGSM()) {};
   #endif
   #ifdef WIFI_turn_on
     initMyWIFI();
@@ -106,9 +110,6 @@ void loop() {
   }
 
   if(czasZapisu) {
-    // todo, na koniec ostatniej operacji z zapisu, zdjecie flagi
-    //czasZapisu = false;
-
     uint32_t isrCount = 0, isrTime = 0;
     // Read the interrupt count and time
     portENTER_CRITICAL(&timerMux);
@@ -145,6 +146,7 @@ void loop() {
   }
 
   if(sendingData && !deviceConnected) {
+    digitalWrite(pinWakeUpLed,HIGH);
     #ifdef GSM_turn_on
       if ( getBattery() ) {
         if(!dataToSendCreated) {
@@ -158,6 +160,9 @@ void loop() {
       sendDataToServer( dataToJson(wagaOdczyt, nowTimestampEpoch,batteryPercent) );
       sendingData = false;
     #endif
+  }
+  else {
+    digitalWrite(pinWakeUpLed,LOW);
   }
 
   //obsluga komunikacji

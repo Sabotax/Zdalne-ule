@@ -3,6 +3,9 @@ bool rozkaz_done = false;
 String data_incoming = "";
 
 void decodeInput() {
+  rozkaz = "";
+  rozkaz_done = false;
+  data_incoming = "";
   for(uint8_t i = 0; i < input_size; i++) {
     if(!rozkaz_done) {
       if(input_data[i] == '|') {
@@ -146,10 +149,10 @@ void rozkaz12() {
 
 void execute_rozkaz12() {
   if ( getSignal() ) {
-    myTXstring(11,String(signalMeasure));
+    myTXstring(12,String(signalMeasure));
     rozkazWykonany_signal = false;
     signalPobrane = false;
-    executing_rozkaz11 = false;
+    executing_rozkaz12 = false;
   }
 }
 
@@ -177,6 +180,7 @@ void executeComms() {
         if(rozkaz == "4") rozkaz4();
         if(rozkaz == "7") rozkaz7();
         if(rozkaz == "8") rozkaz8();
+        if(rozkaz == "9") rozkaz9();
       #endif
 
       if(rozkaz == "10") rozkaz10();

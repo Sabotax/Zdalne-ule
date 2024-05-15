@@ -1,0 +1,3 @@
+https://forum.arduino.cc/t/sim800-get-loc-and-send-sms/437315
+
+AT+CIPGSMLOC=1,1
